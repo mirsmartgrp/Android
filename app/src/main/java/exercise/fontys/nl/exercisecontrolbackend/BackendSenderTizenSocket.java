@@ -1,6 +1,9 @@
 package exercise.fontys.nl.exercisecontrolbackend;
 
 import android.text.format.Time;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.samsung.android.sdk.accessory.SASocket;
 
@@ -37,40 +40,7 @@ public class BackendSenderTizenSocket extends SASocket
     @Override
     public void onReceive(int channelId, byte[] data)
     {
-        Map connectionMap;
-        Time time = new Time();
-        time.set(System.currentTimeMillis());
-        String timeStr = " " + String.valueOf(time.minute) + ":" + String.valueOf(time.second);
-        String strToUpdateUI = new String(data);
-        final String message = strToUpdateUI.concat(timeStr);
-        final BackendSenderTizenSocket uHandler;
-
-        connectionMap = BackendSenderTizen.getConnectionMap();
-        if(connectionMap == null)
-        {
-            return;
-        }
-        else
-        {
-            uHandler = BackendSenderTizen.getConnectionMap().get(Integer.parseInt(String.valueOf(mConnectionId)));
-        }
-        if (uHandler == null)
-        {
-            return;
-        }
-        new Thread(new Runnable()
-        {
-            public void run()
-            {
-                try
-                {
-                    uHandler.send(BackendSenderTizen.HELLOACCESSORY_CHANNEL_ID, message.getBytes());
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        Log.d("BSTSocket", "Recived text: " + new String(data));
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -33,6 +34,12 @@ public class MainActivity extends Activity
                     }
                 }
         );
+    }
+
+    public void updateText(String text)
+    {
+        TextView textView = (TextView)findViewById(R.id.textView);
+        textView.setText(text);
     }
 
 
