@@ -3,7 +3,6 @@
     package="exercise.fontys.nl.exercisecontrolbackend" >
 
     <application
-		android:name="exercise.fontys.nl.exercisecontrolbackend.ExerciseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
