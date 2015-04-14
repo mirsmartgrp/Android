@@ -1,8 +1,88 @@
 package exercise.fontys.nl.exercisecontrolbackend;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.Wearable;
+
 /**
  * Created by root on 08.04.15.
  */
-public class ConnectionListener {
-    //TODO imp
+public class ConnectionListener implements ConnectionCallbacks, MessageApi.MessageListener {
+
+    private static final String WEAR_MESSAGE_PATH = "/message";
+    private static final String TAG = "sensorValues";
+    private GoogleApiClient mApiClient;
+    private ArrayAdapter<String> mAdapter;
+    private ListView mListView;
+    private BackendReceiver receiver;
+
+    public ConnectionListener()
+    {
+        initGoogleApiClient();
+    }
+
+    private void initGoogleApiClient()
+    {
+      /*  mApiClient = new GoogleApiClient.Builder(this)
+                .addApi( Wearable.API )
+                .addConnectionCallbacks( this )
+                .build();
+        if( mApiClient != null && !( mApiClient.isConnected() || mApiClient.isConnecting() ) )
+        {
+            mApiClient.connect();
+        } */
+    }
+
+
+    /**
+     * Is called when the connection is succefully created.
+     * @param bundle
+     */
+    @Override
+    public void onConnected(Bundle bundle)
+    {
+        //mApiClient.connect();
+        Log.i(TAG, "Connected in ConnectionListener");
+    }
+
+    /**
+     * Is called when the connection is suspended.
+     * @param i
+     */
+    @Override
+    public void onConnectionSuspended(int i)
+    {
+        Log.i(TAG, "ConnectionSuspended in ConnectionListener");
+    }
+
+    /**
+     * Is called when a message is received and sends the Message to the parser
+     * @param messageEvent
+     */
+    public void onMessageReceived(MessageEvent messageEvent)
+    {
+        if( messageEvent.getPath().equalsIgnoreCase( WEAR_MESSAGE_PATH ) )
+        {
+            receiver.parseToExerciseData(new String(messageEvent.getData()));
+        }
+    }
+
+    //TODO Find alternative or fix to "this" in builder.
+    //TODO Implement Tizen Reciver.
 }

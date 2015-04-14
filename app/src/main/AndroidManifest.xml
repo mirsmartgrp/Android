@@ -2,16 +2,38 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="exercise.fontys.nl.exercisecontrolbackend" >
 
+	<uses-permission android:name="com.samsung.accessory.permission.ACCESSORY_FRAMEWORK"/>
+	<uses-permission
+		android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+		<service android:name="exercise.fontys.nl.exercisecontrolbackend.BackendSenderTizen"/>
+
+		<receiver android:name ="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver">
+			<intent-filter>
+				<action android:name="android.accessory.service.action.ACCESSORY_SERVICE_CONNECTION_IND"/>
+			</intent-filter>
+		</receiver>
+		<receiver android:name = "com.samsung.android.sdk.accessory.RegisterUponInstallReceiver">
+			<intent-filter>
+				<action android:name="android.accessory.device.action.REGISTER_AFTER_INSTALL"/>
+			</intent-filter>
+		</receiver>
+
+		<meta-data android:name="AccessoryServicesLocation" android:value="/res/xml/tizen.xml"/>
+
         <activity
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+				<meta-data android:name="com.google.android.gms.version"
+						   android:value="@integer/google_play_services_version" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
