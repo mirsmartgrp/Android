@@ -18,12 +18,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
+import com.google.android.gms.wearable.WearableListenerService;
 
 /**
  * Created by root on 08.04.15.
  */
-public class ConnectionListener implements ConnectionCallbacks, MessageApi.MessageListener {
+public class ConnectionListener implements ConnectionCallbacks,MessageApi.MessageListener {
 
     private static final String WEAR_MESSAGE_PATH = "/system/exercise";
     private static final String TAG = "sensorValues";
@@ -42,12 +44,12 @@ public class ConnectionListener implements ConnectionCallbacks, MessageApi.Messa
     private void initGoogleApiClient(Context context)
     {
         mApiClient = new GoogleApiClient.Builder(context)
-                .addApi( Wearable.API )
-                .addConnectionCallbacks( this )
-                .build();
+                .addApi( Wearable.API ).build();
         if( mApiClient != null && !( mApiClient.isConnected() || mApiClient.isConnecting() ) )
         {
             mApiClient.connect();
+            Wearable.MessageApi.addListener(mApiClient,this);
+            Log.d("ConnectionTest",Boolean.toString(mApiClient.isConnectionCallbacksRegistered(this)));
         }
     }
 
@@ -73,17 +75,21 @@ public class ConnectionListener implements ConnectionCallbacks, MessageApi.Messa
         Log.i(TAG, "ConnectionSuspended in ConnectionListener");
     }
 
+
+
     /**
      * Is called when a message is received and sends the Message to the parser
      * @param messageEvent
      */
     public void onMessageReceived(MessageEvent messageEvent)
     {
-        if( messageEvent.getPath().equalsIgnoreCase( WEAR_MESSAGE_PATH ) )
-        {
+       // if( messageEvent.getPath().equalsIgnoreCase( WEAR_MESSAGE_PATH ) )
+       // {
             Log.d("CLTest", "Received Text: " + new String(messageEvent.getData()));
             backendReceiver.parseToExerciseData(new String(messageEvent.getData()));
 
-        }
+    //    }
     }
+
+
 }

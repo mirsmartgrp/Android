@@ -2,8 +2,10 @@ package exercise.fontys.nl.exercisecontrolbackend;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
@@ -34,7 +36,7 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
      */
     private void initGoogleApiClient(Context context) {
         mApiClient = new GoogleApiClient.Builder( context )
-                    .addApi(Wearable.API)
+                    .addApi(Wearable.API).addConnectionCallbacks(this)
                     .build();
          mApiClient.connect();
     }
@@ -44,15 +46,29 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
      * @param exData The data that is send to the smart-watch
      * @return Returns Null, because no data is expected to be gathered.
      */
-    public ExerciseData sendExerciseData(String exData) {
+    public ExerciseData sendExerciseData(final String  exData) {
         if(connectedAndroid)
         {
-            NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(mApiClient).await();
-            for (Node node : nodes.getNodes())
-            {
-                MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(
-                        mApiClient, node.getId(), WEAR_MESSAGE_PATH, exData.getBytes()).await();
-            }
+              if(mApiClient.isConnected()) {
+                  Wearable.NodeApi.getConnectedNodes(mApiClient).setResultCallback(
+                          new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+                              @Override
+                              public void onResult(NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
+                                  for (Node node : getConnectedNodesResult.getNodes()) {
+                                      Wearable.MessageApi.sendMessage(
+                                              mApiClient, node.getId(), WEAR_MESSAGE_PATH, exData.getBytes()).setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
+                                          @Override
+                                          public void onResult(MessageApi.SendMessageResult sendMessageResult) {
+
+                                              Log.d("AndroidSend", sendMessageResult.getStatus().toString());
+                                          }
+                                      });
+                                  }
+                              }
+                          });
+              }else{
+                  Log.e("AndroidSend","Not connected");
+              }
         }
         else
         {
@@ -70,7 +86,7 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
     @Override
     public void onConnected(Bundle bundle)
     {
-
+        Log.d("sensorValues","Sender connected");
     }
 
     @Override

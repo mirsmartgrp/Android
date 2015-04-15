@@ -15,11 +15,12 @@ import java.io.IOException;
 public class MainActivity extends Activity
 {
     private BackendSender sender;
-
+    private ConnectionListener receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sender = new BackendSender(this);
         super.onCreate(savedInstanceState);
+        sender = new BackendSender(this);
+        receiver = new ConnectionListener(new BackendReceiver(),this);
         setContentView(R.layout.activity_main);
 
         Button button = (Button)findViewById(R.id.button);
@@ -27,11 +28,9 @@ public class MainActivity extends Activity
         button.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        try
-                        {
+                        try {
                             BackendSenderTizen.sendString("Hallo Welt!");
-                        } catch (IOException e)
-                        {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
