@@ -25,28 +25,30 @@ import com.google.android.gms.wearable.Wearable;
  */
 public class ConnectionListener implements ConnectionCallbacks, MessageApi.MessageListener {
 
-    private static final String WEAR_MESSAGE_PATH = "/message";
+    private static final String WEAR_MESSAGE_PATH = "/system/exercise";
     private static final String TAG = "sensorValues";
     private GoogleApiClient mApiClient;
     private ArrayAdapter<String> mAdapter;
     private ListView mListView;
-    private BackendReceiver receiver;
+    private BackendReceiver backendReceiver;
 
-    public ConnectionListener()
+    public ConnectionListener(BackendReceiver receiver, Context context)
     {
-        initGoogleApiClient();
+        initGoogleApiClient(context);
+        backendReceiver = receiver;
+
     }
 
-    private void initGoogleApiClient()
+    private void initGoogleApiClient(Context context)
     {
-      /*  mApiClient = new GoogleApiClient.Builder(this)
+        mApiClient = new GoogleApiClient.Builder(context)
                 .addApi( Wearable.API )
                 .addConnectionCallbacks( this )
                 .build();
         if( mApiClient != null && !( mApiClient.isConnected() || mApiClient.isConnecting() ) )
         {
             mApiClient.connect();
-        } */
+        }
     }
 
 
@@ -79,10 +81,7 @@ public class ConnectionListener implements ConnectionCallbacks, MessageApi.Messa
     {
         if( messageEvent.getPath().equalsIgnoreCase( WEAR_MESSAGE_PATH ) )
         {
-            receiver.parseToExerciseData(new String(messageEvent.getData()));
+            backendReceiver.parseToExerciseData(new String(messageEvent.getData()));
         }
     }
-
-    //TODO Find alternative or fix to "this" in builder.
-    //TODO Implement Tizen Reciver.
 }

@@ -16,10 +16,17 @@ import java.util.Map;
 public class BackendSenderTizenSocket extends SASocket
 {
     private int mConnectionId;
+    private BackendReceiver backendReceiver;
 
     public BackendSenderTizenSocket()
     {
         super(BackendSenderTizenSocket.class.getName());
+
+    }
+
+    public void setBackendReceiver(BackendReceiver receiver)
+    {
+        backendReceiver = receiver;
     }
 
     @Override
@@ -41,6 +48,15 @@ public class BackendSenderTizenSocket extends SASocket
     public void onReceive(int channelId, byte[] data)
     {
         Log.d("BSTSocket", "Recived text: " + new String(data));
+        if(backendReceiver != null)
+        {
+            backendReceiver.parseToExerciseData(new String(data));
+        }
+        else
+        {
+            Log.d("BSTSocket", "No Receiver specified, could not proccess data");
+        }
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package exercise.fontys.nl.exercisecontrolbackend;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +12,8 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.IOException;
+
 /**
  * Created by root on 08.04.15.
  */
@@ -19,24 +22,24 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
     private ConnectionListener listener;
     private ExerciseData exerciseData;
     private GoogleApiClient mApiClient;
-    private static final String WEAR_MESSAGE_PATH = "/message";
-    private static final String androidPath = "path";
+    private static final String WEAR_MESSAGE_PATH = "/system/exercise";
     private boolean connectetAndroid;
 
 
-    public BackendSender()
+    public BackendSender(Context context)
+
     {
-        initGoogleApiClient();
+        initGoogleApiClient(context);
     }
 
     /**
      * Initialize the Goold Api Client and connect it, is called in the constructor.
      */
-    private void initGoogleApiClient() {
-       // mApiClient = new GoogleApiClient.Builder( this )
-       //         .addApi( Wearable.API )
-      //          .build();
-      //  mApiClient.connect();
+    private void initGoogleApiClient(Context context) {
+        mApiClient = new GoogleApiClient.Builder( context )
+                    .addApi(Wearable.API)
+                    .build();
+         mApiClient.connect();
     }
 
     /**
@@ -51,12 +54,18 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
             for (Node node : nodes.getNodes())
             {
                 MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(
-                        mApiClient, node.getId(), androidPath, exData.getBytes()).await();
+                        mApiClient, node.getId(), WEAR_MESSAGE_PATH, exData.getBytes()).await();
             }
         }
         else
         {
-            //TODO Implement sending to Tizen.
+            try
+            {
+                BackendSenderTizen.sendString(exData);
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
         return null;
     }
