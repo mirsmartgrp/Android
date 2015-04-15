@@ -11,11 +11,14 @@ import android.widget.TextView;
 import java.io.IOException;
 
 
+
 public class MainActivity extends Activity
 {
+    private BackendSender sender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sender = new BackendSender(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -31,6 +34,17 @@ public class MainActivity extends Activity
                         {
                             e.printStackTrace();
                         }
+                    }
+                }
+        );
+
+        Button button2 = (Button)findViewById(R.id.button2);
+
+        button2.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                            sender.setReceiverAndroid();
+                            sender.sendExerciseData("Android Data Hallo!");
                     }
                 }
         );

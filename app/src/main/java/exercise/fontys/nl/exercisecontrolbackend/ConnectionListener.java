@@ -81,7 +81,9 @@ public class ConnectionListener implements ConnectionCallbacks, MessageApi.Messa
     {
         if( messageEvent.getPath().equalsIgnoreCase( WEAR_MESSAGE_PATH ) )
         {
+            Log.d("CLTest", "Received Text: " + new String(messageEvent.getData()));
             backendReceiver.parseToExerciseData(new String(messageEvent.getData()));
+
         }
     }
 }
