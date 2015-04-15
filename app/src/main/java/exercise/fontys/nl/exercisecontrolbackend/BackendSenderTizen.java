@@ -53,6 +53,9 @@ public class BackendSenderTizen extends SAAgent
         return mConnectionsMap;
     }
 
+    /**
+     * Is called when the BackendSender is Created
+     */
     @Override
     public void onCreate()
     {
@@ -215,6 +218,11 @@ public class BackendSenderTizen extends SAAgent
         return cert;
     }
 
+    /**
+     * Sends the given String to the Smartwatch
+     * @param text The String that will be send
+     * @throws IOException
+     */
     public static void sendString(String text) throws IOException
     {
        BackendSenderTizenSocket cHandler = mConnectionsMap.get(connectionID);

@@ -24,6 +24,10 @@ public class BackendSenderTizenSocket extends SASocket
 
     }
 
+    /**
+     * Set the backend receiver that is called when a message is received
+     * @param receiver the BackendReceiver that is called when a message is received
+     */
     public void setBackendReceiver(BackendReceiver receiver)
     {
         backendReceiver = receiver;
@@ -44,6 +48,12 @@ public class BackendSenderTizenSocket extends SASocket
         mConnectionId = i;
     }
 
+    /**
+     * Is called when a message from the Smartwatch is recived. Should not be called by the Backend
+     * The data is then given to the reciver to transform the data into ExerciseData
+     * @param channelId the Id of the channel
+     * @param data the data that is recived
+     */
     @Override
     public void onReceive(int channelId, byte[] data)
     {
@@ -59,6 +69,10 @@ public class BackendSenderTizenSocket extends SASocket
 
     }
 
+    /**
+     * Is called when the connection is lost
+     * @param errorCode the code of the error
+     */
     @Override
     protected void onServiceConnectionLost(int errorCode)
     {

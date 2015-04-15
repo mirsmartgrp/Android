@@ -53,7 +53,7 @@ public class ConnectionListener implements ConnectionCallbacks, MessageApi.Messa
 
 
     /**
-     * Is called when the connection is succefully created.
+     * Is called when the connection is successfully created.
      * @param bundle
      */
     @Override

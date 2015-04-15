@@ -1,9 +1,6 @@
 package exercise.fontys.nl.exercisecontrolbackend;
 
 import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.os.Bundle;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,7 +20,7 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
     private ExerciseData exerciseData;
     private GoogleApiClient mApiClient;
     private static final String WEAR_MESSAGE_PATH = "/system/exercise";
-    private boolean connectetAndroid;
+    private boolean connectedAndroid;
 
 
     public BackendSender(Context context)
@@ -33,7 +30,7 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
     }
 
     /**
-     * Initialize the Goold Api Client and connect it, is called in the constructor.
+     * Initialize the Google Api Client and connect it, is called in the constructor.
      */
     private void initGoogleApiClient(Context context) {
         mApiClient = new GoogleApiClient.Builder( context )
@@ -43,12 +40,12 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
     }
 
     /**
-     * Send Data to the connected Smartwatch
-     * @param exData The data that is send to the smartwatch
+     * Send Data to the connected Smart-watch
+     * @param exData The data that is send to the smart-watch
      * @return Returns Null, because no data is expected to be gathered.
      */
     public ExerciseData sendExerciseData(String exData) {
-        if(connectetAndroid)
+        if(connectedAndroid)
         {
             NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(mApiClient).await();
             for (Node node : nodes.getNodes())
@@ -82,14 +79,14 @@ public class BackendSender implements GoogleApiClient.ConnectionCallbacks
 
     }
 
-    public void setReciverAndroid()
+    public void setReceiverAndroid()
     {
-        connectetAndroid = true;
+        connectedAndroid = true;
     }
 
-    public void setReciverTizen()
+    public void setReceiverTizen()
     {
-        connectetAndroid = false;
+        connectedAndroid = false;
     }
 
     //TODO Find alternative or fix to "this" in builder.
