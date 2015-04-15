@@ -15,9 +15,8 @@ public class FileStorage {
 
     private Context context;
 
-    public FileStorage() {
-        // load application context into variable
-        context = ExerciseApplication.getContext();
+    public FileStorage(Context context) {
+        this.context = context;
     }
 
     /**
