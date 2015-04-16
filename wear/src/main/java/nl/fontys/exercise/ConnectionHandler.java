@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 /**
@@ -14,6 +17,7 @@ import com.google.android.gms.wearable.Wearable;
  */
 public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
 
+    private static final String WEAR_MESSAGE_PATH = "/system/exercise";
     private GoogleApiClient mApiClient ;
     private Context context;
 
@@ -27,7 +31,7 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
                 .addApi( Wearable.API ).build();
         mApiClient.registerConnectionCallbacks(this);
 
-            mApiClient.connect();
+            connectGogleClient();
             Log.d(this.getClass().getName(), Boolean.toString(mApiClient.isConnectionCallbacksRegistered(this)));
     }
     @Override
@@ -41,8 +45,51 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
         });
     }
 
+
     @Override
     public void onConnectionSuspended(int i) {
         Log.d(this.getClass().getName(), "onConnectionSuspended: " + i);
+    }
+
+    public void disconnectGoogleClient() {
+        mApiClient.disconnect();
+        if(!mApiClient.isConnected()) {
+            Log.d(this.getClass().getName(),"google client disconnected");
+        }
+        else {
+            Log.d(this.getClass().getName(),"error disconnecting google client");
+        }
+    }
+    public void connectGogleClient() {
+        mApiClient.connect();
+        if(mApiClient.isConnected()) {
+            Log.d(this.getClass().getName(),"google client connected");
+        }
+        else {
+            Log.d(this.getClass().getName(),"error connecting google client");
+        }
+    }
+    public void sendMessage(final String message) {
+        if(mApiClient.isConnected()) {
+            Wearable.NodeApi.getConnectedNodes(mApiClient).setResultCallback(
+                    new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+                        @Override
+                        public void onResult(NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
+                            for (Node node : getConnectedNodesResult.getNodes()) {
+                                Wearable.MessageApi.sendMessage(
+                                        mApiClient, node.getId(), WEAR_MESSAGE_PATH, message.getBytes()).setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
+                                    @Override
+                                    public void onResult(MessageApi.SendMessageResult sendMessageResult) {
+
+                                        Log.d(this.getClass().getName(), sendMessageResult.getStatus().toString());
+                                    }
+                                });
+                            }
+                        }
+                    });
+        }
+        else {
+            Log.d(this.getClass().getName(),"can NOT send message. Google client not connected");
+        }
     }
 }
