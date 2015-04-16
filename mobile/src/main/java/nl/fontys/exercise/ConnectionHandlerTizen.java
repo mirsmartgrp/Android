@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Binder;
 import android.os.IBinder;
-import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,10 +17,10 @@ import com.samsung.android.sdk.accessory.SAAuthenticationToken;
 import com.samsung.android.sdk.accessory.SAPeerAgent;
 import com.samsung.android.sdk.accessory.SASocket;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.security.cert.CertificateFactory;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.security.cert.CertificateException;
@@ -30,7 +29,7 @@ import javax.security.cert.X509Certificate;
 /**
  * Created by sascha on 14.04.15.
  */
-public class BackendSenderTizen extends SAAgent
+public class ConnectionHandlerTizen extends SAAgent
 {
     public static final int SERVICE_CONNECTION_RESULT_OK = 0;
     public static final int HELLOACCESSORY_CHANNEL_ID = 104;
@@ -41,18 +40,20 @@ public class BackendSenderTizen extends SAAgent
     //
     private final IBinder mBinder = new LocalBinder();
     private int authCount = 1;
-    private static Map<Integer, BackendSenderTizenSocket> mConnectionsMap = null;
+    private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<>();
 
-    public BackendSenderTizen()
+    public ConnectionHandlerTizen()
     {
-        super(TAG, BackendSenderTizenSocket.class);
+        super(TAG, ConnectionSocketTizen.class);
     }
 
-    public static Map<Integer, BackendSenderTizenSocket> getConnectionMap()
+    public static Map<Integer, ConnectionSocketTizen> getConnectionMap()
     {
         return mConnectionsMap;
     }
-
+    public  boolean isConnected() {
+        return !mConnectionsMap.isEmpty();
+    }
     /**
      * Is called when the BackendSender is Created
      */
@@ -132,12 +133,9 @@ public class BackendSenderTizen extends SAAgent
         {
             if (thisConnection != null)
             {
-                BackendSenderTizenSocket myConnection =
-                        (BackendSenderTizenSocket) thisConnection;
-                if (mConnectionsMap == null)
-                {
-                    mConnectionsMap = new HashMap<Integer, BackendSenderTizenSocket>();
-                }
+                ConnectionSocketTizen myConnection =
+                        (ConnectionSocketTizen) thisConnection;
+
                 myConnection.setMConnectionId((int) (System.currentTimeMillis() & 255));
                 connectionID = myConnection.getMConnectionId();
                 mConnectionsMap.put(myConnection.getMConnectionId(), myConnection);
@@ -225,17 +223,32 @@ public class BackendSenderTizen extends SAAgent
      */
     public static void sendString(String text) throws IOException
     {
-       BackendSenderTizenSocket cHandler = mConnectionsMap.get(connectionID);
+       ConnectionSocketTizen cHandler = mConnectionsMap.get(connectionID);
         cHandler.send(HELLOACCESSORY_CHANNEL_ID, text.getBytes());
         Log.d(TAG, "Send Message "+ text);
     }
 
     public class LocalBinder extends Binder
     {
-        public BackendSenderTizen getService()
+        public ConnectionHandlerTizen getService()
         {
-            return BackendSenderTizen.this;
+            return ConnectionHandlerTizen.this;
         }
+    }
+
+
+    private static List<Listener> listeners = new ArrayList<Listener>();
+
+    public static List<Listener> getListenerList(){
+        return listeners;
+    }
+
+    public void addListener(Listener listener){
+        listeners.add(listener);
+    }
+
+    public void removeListener(Listener listener){
+        listeners.remove(listener);
     }
 
 

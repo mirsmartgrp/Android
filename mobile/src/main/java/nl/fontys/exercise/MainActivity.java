@@ -8,50 +8,40 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 
 
 public class MainActivity extends Activity
 {
-    private BackendSender sender;
-    private ConnectionListener receiver;
+    private ConnectionHandlerBackend connectionHandlerBackend;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sender = new BackendSender(this);
-        receiver = new ConnectionListener(new BackendReceiver(),this);
+        connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
-
+        textView = (TextView)findViewById(R.id.textView);
         Button button = (Button)findViewById(R.id.button);
 
         button.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        try {
-                            BackendSenderTizen.sendString("Hallo Welt!");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+
+                            connectionHandlerBackend.sendExerciseData("Hallo Welt!");
+
                     }
                 }
-        );
 
-        Button button2 = (Button)findViewById(R.id.button2);
-
-        button2.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                            sender.setReceiverAndroid();
-                            sender.sendExerciseData("Android Data Hallo!");
-                    }
-                }
         );
+        connectionHandlerBackend.addListener(new Listener() {
+            @Override
+            public void onNotify(String data) {
+                updateText(data);
+            }
+        });
     }
 
     public void updateText(String text)
     {
-        TextView textView = (TextView)findViewById(R.id.textView);
         textView.setText(text);
     }
 

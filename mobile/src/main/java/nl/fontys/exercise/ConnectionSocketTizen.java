@@ -1,39 +1,23 @@
 package nl.fontys.exercise;
 
-import android.text.format.Time;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.samsung.android.sdk.accessory.SASocket;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created by sascha on 14.04.15.
  */
-public class BackendSenderTizenSocket extends SASocket
+public class ConnectionSocketTizen extends SASocket
 {
     private int mConnectionId;
-    private BackendReceiver backendReceiver;
 
-    public BackendSenderTizenSocket()
+   public ConnectionSocketTizen()
     {
-        super(BackendSenderTizenSocket.class.getName());
-
+        super(ConnectionSocketTizen.class.getName());
     }
 
     /**
      * Set the backend receiver that is called when a message is received
-     * @param receiver the BackendReceiver that is called when a message is received
      */
-    public void setBackendReceiver(BackendReceiver receiver)
-    {
-        backendReceiver = receiver;
-    }
-
-    @Override
+   @Override
     public void onError(int channelId, String errorString, int error)
     {
     }
@@ -57,16 +41,10 @@ public class BackendSenderTizenSocket extends SASocket
     @Override
     public void onReceive(int channelId, byte[] data)
     {
-        Log.d("BSTSocket", "Recived text: " + new String(data));
-        if(backendReceiver != null)
-        {
-            backendReceiver.parseToExerciseData(new String(data));
+        String dataStr = new String (data);
+        for(Listener l: ConnectionHandlerTizen.getListenerList()){
+            l.onNotify(dataStr);
         }
-        else
-        {
-            Log.d("BSTSocket", "No Receiver specified, could not proccess data");
-        }
-
     }
 
     /**
@@ -76,9 +54,9 @@ public class BackendSenderTizenSocket extends SASocket
     @Override
     protected void onServiceConnectionLost(int errorCode)
     {
-        if (BackendSenderTizen.getConnectionMap() != null)
+        if (ConnectionHandlerTizen.getConnectionMap() != null)
         {
-            BackendSenderTizen.getConnectionMap().remove(mConnectionId);
+            ConnectionHandlerTizen.getConnectionMap().remove(mConnectionId);
         }
     }
 }
