@@ -27,12 +27,12 @@
 	]>
 <resources>
 
-	<application name="BackenSenderTizen" >
+	<application name="ConnectionHandlerTizen" >
 		<serviceProfile
 			id="/system/exercise"
 			name="exercisecontrol"
 			role="provider"
-			serviceImpl="exercise.fontys.nl.exercisecontrolbackend.BackendSenderTizen"
+			serviceImpl="nl.fontys.exercise.ConnectionHandlerTizen"
 			version="2.0"
 			serviceLimit="ANY"
 			serviceTimeout="10">

@@ -12,13 +12,13 @@ public class ConnectionHandlerBackend
 {
 
     private ConnectionHandlerAndroid connectionHandlerAndroid;
-    private  ConnectionHandlerTizen connectionHandlerTizen;
+
 
     public ConnectionHandlerBackend(Context context)
 
     {
         connectionHandlerAndroid=new ConnectionHandlerAndroid(context);
-        connectionHandlerTizen = new ConnectionHandlerTizen();
+
     }
 
 
@@ -31,24 +31,27 @@ public class ConnectionHandlerBackend
     if(connectionHandlerAndroid.isConnected()) {
         connectionHandlerAndroid.sendMessage(exData);
     }
-        if (connectionHandlerTizen.isConnected()) {
+        if (ConnectionHandlerTizen.isConnected()) {
+              Log.d("BackendSenderTizen","is connected");
             try {
                 ConnectionHandlerTizen.sendString(exData);
             } catch (IOException e) {
                 Log.e(this.getClass().getName(),"can not send message to tizen",e);
             }
+        }else{
+            Log.d("BackendSenderTizen"," is not connected");
         }
     }
 
 
     public void addListener(Listener listener){
         connectionHandlerAndroid.addListener(listener);
-        connectionHandlerTizen.addListener(listener);
+        ConnectionHandlerTizen.addListener(listener);
     }
 
     public void removeListener(Listener listener){
         connectionHandlerAndroid.removeListener(listener);
-        connectionHandlerTizen.removeListener(listener);
+        ConnectionHandlerTizen.removeListener(listener);
     }
 
 }

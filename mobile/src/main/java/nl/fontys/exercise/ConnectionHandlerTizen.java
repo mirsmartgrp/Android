@@ -36,11 +36,12 @@ public class ConnectionHandlerTizen extends SAAgent
     public static final String TAG = "BackendSenderTizen";
     public Boolean isAuthentication = false;
     public Context mContext = null;
-    private static int connectionID;
+    private static int connectionID = -1;
     //
     private final IBinder mBinder = new LocalBinder();
     private int authCount = 1;
-    private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<>();
+    private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<Integer,ConnectionSocketTizen>();
+    private  static boolean isConnected = false;
 
     public ConnectionHandlerTizen()
     {
@@ -51,7 +52,7 @@ public class ConnectionHandlerTizen extends SAAgent
     {
         return mConnectionsMap;
     }
-    public  boolean isConnected() {
+    public  static boolean isConnected() {
         return !mConnectionsMap.isEmpty();
     }
     /**
@@ -129,6 +130,7 @@ public class ConnectionHandlerTizen extends SAAgent
     @Override
     protected void onServiceConnectionResponse(SAPeerAgent peerAgent, SASocket thisConnection, int result)
     {
+        Log.d(TAG,"onServiceConnectionResponse");
         if (result == CONNECTION_SUCCESS)
         {
             if (thisConnection != null)
@@ -139,7 +141,10 @@ public class ConnectionHandlerTizen extends SAAgent
                 myConnection.setMConnectionId((int) (System.currentTimeMillis() & 255));
                 connectionID = myConnection.getMConnectionId();
                 mConnectionsMap.put(myConnection.getMConnectionId(), myConnection);
+
+                isConnected = true;
                 Log.d(TAG, Integer.toString(connectionID));
+                Log.d(TAG,Boolean.toString(isConnected));
 
             }
         } else if (result == CONNECTION_ALREADY_EXIST)
@@ -243,11 +248,11 @@ public class ConnectionHandlerTizen extends SAAgent
         return listeners;
     }
 
-    public void addListener(Listener listener){
+    public static void addListener(Listener listener){
         listeners.add(listener);
     }
 
-    public void removeListener(Listener listener){
+    public static void removeListener(Listener listener){
         listeners.remove(listener);
     }
 
