@@ -1,12 +1,10 @@
 package nl.fontys.exercise;
 
-import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -23,26 +21,27 @@ import java.util.Map;
  * class to collect sensor data for sensors on watch
  * Created by max on 09.04.15.
  */
-public class SensorDataCollector extends Activity {
+public class SensorDataCollector  {
 
     private String exerciseData;
     private SensorManager sensorManager;
     //inital / reseted value of exercise data
     private static String START_DATA = "";
-    private static int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
+    //miliseconds of when the sensors should return its value
+    //private static int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
+    private static int SENSOR_DELAY = 100;
     //start time of the sensor measurement
     private static long START_TIME;
     private List<Sensor> sensorList;
     private Map<Sensor, SensorEventListener> sensorEvents;
     private Map<Sensor, JSONArray> sensorJsons;
     private JSONObject json;
-    public SensorDataCollector() {
-  ;
-    }
+    private Context context;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public SensorDataCollector(Context context) {
+        this.context=context;
         exerciseData = START_DATA;
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensorList = new ArrayList<>();
         sensorEvents = new HashMap<>();
         initSensorList();
@@ -50,6 +49,7 @@ public class SensorDataCollector extends Activity {
         registerSensors();
         initJsons();
         START_TIME = new Date().getTime();
+
     }
     /**
      * init the json objects
