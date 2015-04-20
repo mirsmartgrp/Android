@@ -3,6 +3,8 @@ package nl.fontys.exercise;
 import android.app.Application;
 import android.content.Context;
 
+import nl.fontys.storage.FileStorage;
+
 public class ExerciseApplication extends Application {
 
     private static Context context;

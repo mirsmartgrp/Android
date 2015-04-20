@@ -12,7 +12,7 @@
 		android:label="@string/app_name"
 		android:theme="@style/AppTheme" >
 
-		<service android:name="nl.fontys.exercise.ConnectionHandlerTizen"/>
+		<service android:name="nl.fontys.connection.ConnectionHandlerTizen"/>
 
 		<receiver android:name ="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver">
 			<intent-filter>
@@ -28,7 +28,7 @@
 		<meta-data android:name="AccessoryServicesLocation" android:value="/res/xml/tizen.xml"/>
 
 		<activity
-			android:name=".MainActivity"
+			android:name="nl.fontys.MainActivity"
 			android:label="@string/app_name" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
