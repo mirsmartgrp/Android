@@ -19,16 +19,18 @@ public class MainActivityWear extends Activity {
     private String messageToSendToPhone="undefined";
     private MeasurementRecorder recorder;
     private MeasurementCollector collector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new ConnectionHandler(this);
+
         int[] sensors = new int[2];
-        SensorManager sensorManager =  (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensors[0]=Sensor.TYPE_GYROSCOPE;
         sensors[1]=Sensor.TYPE_LINEAR_ACCELERATION;
+
         collector = new JsonMeasurementCollector();
-        recorder = new MeasurementRecorder(this,sensors, collector);
+        recorder = new MeasurementRecorder(this,sensors, 10, collector);
         recorder.initialize();
         setContentView(R.layout.activity_main);
 

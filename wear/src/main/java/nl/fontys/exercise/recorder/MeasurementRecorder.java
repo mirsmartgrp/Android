@@ -12,16 +12,30 @@ import android.os.Message;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Measurement recording worker class.
+ * All actions are non-blocking for the most part except initialize() and terminate() which wait
+ * for the start-up and tear-down of the worker thread.
+ */
 public class MeasurementRecorder {
 
     private final int[] sensorTypes;
+    private final int measurementInterval;
     private final SensorManager sensorManager;
     private final List<Sensor> sensors;
     private final SensorMeasurementAdaptor adaptor;
     private final MeasurementListenerThread listenerThread;
 
-    public MeasurementRecorder(Context context, int[] sensorTypes, MeasurementCollector collector) {
+    /**
+     * Instantiate a new measurement recorder.
+     * @param context Android context
+     * @param sensorTypes Array of sensor types recorded
+     * @param measurementInterval Interval of measurement in milliseconds
+     * @param collector Instance of a measurement collector
+     */
+    public MeasurementRecorder(Context context, int[] sensorTypes, int measurementInterval, MeasurementCollector collector) {
         this.sensorTypes = sensorTypes.clone();
+        this.measurementInterval = measurementInterval;
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensors = new ArrayList<Sensor>();
         adaptor = new SensorMeasurementAdaptor(collector);
@@ -156,7 +170,7 @@ public class MeasurementRecorder {
 
                 adaptor.onRecordingStart();
                 for (Sensor sensor : sensors)
-                    sensorManager.registerListener(adaptor, sensor, SensorManager.SENSOR_DELAY_UI, handler);
+                    sensorManager.registerListener(adaptor, sensor, measurementInterval, handler);
                 recording = true;
             }
 
