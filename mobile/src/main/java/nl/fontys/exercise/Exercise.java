@@ -1,5 +1,7 @@
 package nl.fontys.exercise;
 
+import org.json.JSONObject;
+
 /**
  * Created by Ron Gebauer on 20.04.15.
  * <p/>
@@ -15,7 +17,7 @@ public class Exercise
      *
      * @param name the name of the exercise
      */
-    public Exercise(String name)
+    Exercise(String name)
     {
         this.name = name;
         this.exerciseData = new ExerciseData();
@@ -24,12 +26,18 @@ public class Exercise
     /**
      * Constructs an exercise object with given name.
      *
-     * @param name the name of the exercise
+     * @param name         the name of the exercise
      * @param exerciseData the name of the exercise
      */
-    public Exercise(String name, ExerciseData exerciseData)
+    Exercise(String name,
+             ExerciseData exerciseData)
     {
         this.name = name;
         this.exerciseData = exerciseData;
+    }
+
+    public Exercise parseExercise(JSONObject jsonObject)
+    {
+        return new Exercise("null");
     }
 }

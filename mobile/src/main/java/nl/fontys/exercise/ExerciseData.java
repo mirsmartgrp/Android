@@ -21,6 +21,12 @@ public class ExerciseData
         this.lSingleExerciseData = new ArrayList<>();
     }
 
+    /**
+     * add a single exercise to list
+     *
+     * @param timeStamp   the time stamp of exercise
+     * @param coordinates the position at time stamp
+     */
     public void addSingleExerciseData(Date timeStamp,
                                       Double[][] coordinates)
     {
@@ -37,16 +43,29 @@ public class ExerciseData
         this.lSingleExerciseData.add(singleExerciseData);
     }
 
-    public void clearlSingleExerciseDataByIndex(Integer index)
+    /**
+     * clear the list so that the list is empty
+     */
+    public void clearListOfSingleExerciseData()
     {
         this.lSingleExerciseData.clear();
     }
 
+    /**
+     * remove an object from list by index
+     *
+     * @param index position of object inside the list.
+     */
     public void removeSingleExerciseDataByIndex(Integer index)
     {
         this.lSingleExerciseData.remove(index.intValue());
     }
 
+    /**
+     * remove an object from list by timeStamp
+     *
+     * @param timeStamp timeStamp to search in list.
+     */
     public void removeSingleExerciseDataByTimeStamp(Date timeStamp)
     {
         Integer index = null;
