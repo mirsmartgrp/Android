@@ -11,7 +11,7 @@ public class JsonMeasurementCollector implements MeasurementCollector {
 
     @Override
     public void startCollecting() {
-        Log.d(TAG, String.format("[%.3f] Collecting started.", 0));
+        Log.d(TAG, String.format("[%.3f] Collecting started.", 0.0));
     }
 
     @Override
