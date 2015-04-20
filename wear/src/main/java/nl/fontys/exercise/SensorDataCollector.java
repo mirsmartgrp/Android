@@ -111,7 +111,7 @@ public class SensorDataCollector  {
                 @Override
                 public void onSensorChanged(final SensorEvent event) {
                     Log.d(this.getClass().getName(), event.sensor.getName() + " changed: " + event.values);
-                        addNewData(event);
+                    addNewData(event);
                 }
 
                 @Override
