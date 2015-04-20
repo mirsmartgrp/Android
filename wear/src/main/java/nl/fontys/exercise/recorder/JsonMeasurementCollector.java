@@ -11,16 +11,16 @@ public class JsonMeasurementCollector implements MeasurementCollector {
 
     @Override
     public void startCollecting() {
-        Log.d(TAG, "Collecting started.");
+        Log.d(TAG, String.format("[%.3f] Collecting started.", 0));
     }
 
     @Override
-    public void stopCollecting() {
-        Log.d(TAG, "Collecting stopped.");
+    public void stopCollecting(double time) {
+        Log.d(TAG, String.format("[%.3f] Collecting stopped.", time));
     }
 
     @Override
-    public void collectMeasurement(Sensor sensor, long timestamp, float[] values, int accuracy) {
-        Log.d(TAG, String.format("[%s] %s %s (%s)", sensor.getName(), Long.toString(timestamp), Arrays.toString(values), Integer.toString(accuracy)));
+    public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) {
+        Log.d(TAG, String.format("[%.3f] %s: %s (%s)", time, sensor.getName(), Arrays.toString(values), Integer.toString(accuracy)));
     }
 }

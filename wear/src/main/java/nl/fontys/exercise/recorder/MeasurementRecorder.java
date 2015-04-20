@@ -61,22 +61,23 @@ public class MeasurementRecorder {
     private class SensorMeasurementAdaptor implements SensorEventListener {
 
         private final MeasurementCollector collector;
+        private long startTime = 0;
 
         private SensorMeasurementAdaptor(MeasurementCollector collector) {
             this.collector = collector;
         }
 
         public void onRecordingStart() {
+            startTime = System.nanoTime();
             collector.startCollecting();
         }
 
-        public void onRecordingStop() {
-            collector.stopCollecting();
-        }
+        public void onRecordingStop() { collector.stopCollecting(System.nanoTime()); }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            collector.collectMeasurement(event.sensor, event.timestamp, event.values, event.accuracy);
+            double time = (double)(event.timestamp - startTime) / 1000000;
+            collector.collectMeasurement(event.sensor, time, event.values, event.accuracy);
         }
 
         @Override
@@ -92,14 +93,16 @@ public class MeasurementRecorder {
         public void start() {
             super.start();
             try {
-                sync.wait();
+                synchronized (sync) { sync.wait(); }
             } catch (InterruptedException e) { }
         }
 
         public void terminate() {
             sendMessage(MeasurementListenerThreadMessage.QUIT);
             try {
-                sync.wait();
+                synchronized (sync) {
+                    synchronized (sync) { sync.wait(); }
+                }
             } catch (InterruptedException e) { }
         }
 
@@ -112,7 +115,7 @@ public class MeasurementRecorder {
             handler = new MeasurementListenerMessageHandler(this);
 
             // notify that thread has started
-            sync.notifyAll();
+            synchronized (sync) { sync.notifyAll(); }
 
             // start looping
             Looper.loop();
@@ -121,7 +124,7 @@ public class MeasurementRecorder {
             handler = null;
 
             // notify that thread has stopped
-            sync.notifyAll();
+            synchronized (sync) { sync.notifyAll(); }
         }
 
         public void sendMessage(MeasurementListenerThreadMessage msg) {
