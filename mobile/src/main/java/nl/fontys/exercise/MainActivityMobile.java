@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import nl.fontys.connection.ConnectionHandlerBackend;
+import nl.fontys.listener.Listener;
 
 
 public class MainActivityMobile extends Activity
