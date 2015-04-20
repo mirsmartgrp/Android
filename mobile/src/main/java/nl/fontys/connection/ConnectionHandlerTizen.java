@@ -31,32 +31,111 @@ import nl.fontys.listener.Listener;
 /**
  * Created by sascha on 14.04.15.
  */
-public class ConnectionHandlerTizen extends SAAgent
+public class ConnectionHandlerTizen
+        extends SAAgent
 {
-    public static final int SERVICE_CONNECTION_RESULT_OK = 0;
-    public static final int HELLOACCESSORY_CHANNEL_ID = 104;
-    public static final String TAG = "BackendSenderTizen";
-    public Boolean isAuthentication = false;
-    public Context mContext = null;
-    private static int connectionID = -1;
+    public static final int                                 SERVICE_CONNECTION_RESULT_OK = 0;
+    public static final int                                 HELLOACCESSORY_CHANNEL_ID    = 104;
+    public static final String                              TAG                          = "BackendSenderTizen";
+    private static      int                                 connectionID                 = -1;
+    private static      Map<Integer, ConnectionSocketTizen> mConnectionsMap              = new HashMap<Integer, ConnectionSocketTizen>();
+    private static      boolean                             isConnected                  = false;
+    private static List<Listener> listeners = new ArrayList<Listener>();
     //
-    private final IBinder mBinder = new LocalBinder();
-    private int authCount = 1;
-    private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<Integer,ConnectionSocketTizen>();
-    private  static boolean isConnected = false;
+    private final       IBinder                             mBinder                      = new LocalBinder();
+    public              Boolean                             isAuthentication             = false;
+    public              Context                             mContext                     = null;
+    private             int                                 authCount                    = 1;
 
     public ConnectionHandlerTizen()
     {
-        super(TAG, ConnectionSocketTizen.class);
+        super(TAG,
+              ConnectionSocketTizen.class);
     }
 
     public static Map<Integer, ConnectionSocketTizen> getConnectionMap()
     {
         return mConnectionsMap;
     }
-    public  static boolean isConnected() {
+
+    public static boolean isConnected()
+    {
         return !mConnectionsMap.isEmpty();
     }
+
+    private static byte[] getApplicationCertificate(Context context)
+    {
+        if (context == null)
+        {
+            return null;
+        }
+        byte[] cert = null;
+        String packageName = context.getPackageName();
+        if (context != null)
+        {
+            try
+            {
+                PackageInfo pkgInfo =
+                        context.getPackageManager().getPackageInfo(packageName,
+                                                                   PackageManager.GET_SIGNATURES);
+                if (pkgInfo == null)
+                {
+                    return null;
+                }
+                Signature[] sigs = pkgInfo.signatures;
+                if (sigs == null)
+                {
+                }
+                else
+                {
+                    X509Certificate x509cert = X509Certificate.getInstance(sigs[0].toByteArray());
+                    cert = x509cert.getPublicKey().getEncoded();
+                }
+            }
+            catch (PackageManager.NameNotFoundException e)
+            {
+                e.printStackTrace();
+
+            }
+            catch (CertificateException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return cert;
+    }
+
+    /**
+     * Sends the given String to the Smartwatch
+     *
+     * @param text The String that will be send
+     * @throws java.io.IOException
+     */
+    public static void sendString(String text)
+            throws IOException
+    {
+        ConnectionSocketTizen cHandler = mConnectionsMap.get(connectionID);
+        cHandler.send(HELLOACCESSORY_CHANNEL_ID,
+                      text.getBytes());
+        Log.d(TAG,
+              "Send Message " + text);
+    }
+
+    public static List<Listener> getListenerList()
+    {
+        return listeners;
+    }
+
+    public static void addListener(Listener listener)
+    {
+        listeners.add(listener);
+    }
+
+    public static void removeListener(Listener listener)
+    {
+        listeners.remove(listener);
+    }
+
     /**
      * Is called when the BackendSender is Created
      */
@@ -68,10 +147,12 @@ public class ConnectionHandlerTizen extends SAAgent
         try
         {
             mAccessory.initialize(this);
-        } catch (SsdkUnsupportedException e)
+        }
+        catch (SsdkUnsupportedException e)
         {
-// Error Handling
-        } catch (Exception e1)
+            // Error Handling
+        }
+        catch (Exception e1)
         {
             e1.printStackTrace();
 /*
@@ -91,13 +172,15 @@ public class ConnectionHandlerTizen extends SAAgent
     }
 
     @Override
-    protected void onFindPeerAgentResponse(SAPeerAgent arg0, int arg1)
+    protected void onFindPeerAgentResponse(SAPeerAgent arg0,
+                                           int arg1)
     {
-// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     protected void onAuthenticationResponse(SAPeerAgent uPeerAgent,
-                                            SAAuthenticationToken authToken, int error)
+                                            SAAuthenticationToken authToken,
+                                            int error)
     {
         if (authToken.getAuthenticationType() == SAAuthenticationToken.AUTHENTICATION_TYPE_CERTIFICATE_X509)
         {
@@ -110,7 +193,8 @@ public class ConnectionHandlerTizen extends SAAgent
                 if (authToken.getKey().length != myAppKey.length)
                 {
                     matched = false;
-                } else
+                }
+                else
                 {
                     for (int i = 0; i < authToken.getKey().length; i++)
                     {
@@ -125,14 +209,21 @@ public class ConnectionHandlerTizen extends SAAgent
                     acceptServiceConnectionRequest(uPeerAgent);
                 }
             }
-        } else if (authToken.getAuthenticationType() == SAAuthenticationToken.AUTHENTICATION_TYPE_NONE)
-            Log.e(TAG, "onAuthenticationResponse : CERT_TYPE(NONE)");
+        }
+        else if (authToken.getAuthenticationType() == SAAuthenticationToken.AUTHENTICATION_TYPE_NONE)
+        {
+            Log.e(TAG,
+                  "onAuthenticationResponse : CERT_TYPE(NONE)");
+        }
     }
 
     @Override
-    protected void onServiceConnectionResponse(SAPeerAgent peerAgent, SASocket thisConnection, int result)
+    protected void onServiceConnectionResponse(SAPeerAgent peerAgent,
+                                               SASocket thisConnection,
+                                               int result)
     {
-        Log.d(TAG,"onServiceConnectionResponse");
+        Log.d(TAG,
+              "onServiceConnectionResponse");
         if (result == CONNECTION_SUCCESS)
         {
             if (thisConnection != null)
@@ -142,17 +233,22 @@ public class ConnectionHandlerTizen extends SAAgent
 
                 myConnection.setMConnectionId((int) (System.currentTimeMillis() & 255));
                 connectionID = myConnection.getMConnectionId();
-                mConnectionsMap.put(myConnection.getMConnectionId(), myConnection);
+                mConnectionsMap.put(myConnection.getMConnectionId(),
+                                    myConnection);
 
                 isConnected = true;
-                Log.d(TAG, Integer.toString(connectionID));
-                Log.d(TAG,Boolean.toString(isConnected));
+                Log.d(TAG,
+                      Integer.toString(connectionID));
+                Log.d(TAG,
+                      Boolean.toString(isConnected));
 
             }
-        } else if (result == CONNECTION_ALREADY_EXIST)
+        }
+        else if (result == CONNECTION_ALREADY_EXIST)
 
         {
-            Log.e(TAG, "onServiceConnectionResponse, CONNECTION_ALREADY_EXIST");
+            Log.e(TAG,
+                  "onServiceConnectionResponse, CONNECTION_ALREADY_EXIST");
         }
     }
 
@@ -163,99 +259,44 @@ public class ConnectionHandlerTizen extends SAAgent
 * The authenticatePeerAgent(peerAgent) API may not be working properly depending on the firmware
 * version of accessory device. Recommend to upgrade accessory device firmware if possible.
 */
-//
-//
-//
-//
-//
+        //
+        //
+        //
+        //
+        //
         if (authCount % 2 == 1)
+        {
             isAuthentication = false;
+        }
         else
+        {
             isAuthentication = true;
+        }
         authCount++;
         isAuthentication = false;
         if (isAuthentication)
         {
-            Toast.makeText(getBaseContext(), "Authentication On!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),
+                           "Authentication On!",
+                           Toast.LENGTH_SHORT).show();
             authenticatePeerAgent(peerAgent);
-        } else
+        }
+        else
         {
-            Toast.makeText(getBaseContext(), "Authentication Off!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),
+                           "Authentication Off!",
+                           Toast.LENGTH_SHORT).show();
             acceptServiceConnectionRequest(peerAgent);
         }
     }
 
-    private static byte[] getApplicationCertificate(Context context)
-    {
-        if (context == null)
-        {
-            return null;
-        }
-        byte[] cert = null;
-        String packageName = context.getPackageName();
-        if (context != null)
-        {
-            try
-            {
-                PackageInfo pkgInfo =
-                        context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
-                if (pkgInfo == null)
-                {
-                    return null;
-                }
-                Signature[] sigs = pkgInfo.signatures;
-                if (sigs == null)
-                {
-                } else
-                {
-                    X509Certificate x509cert = X509Certificate.getInstance(sigs[0].toByteArray());
-                    cert = x509cert.getPublicKey().getEncoded();
-                }
-            } catch (PackageManager.NameNotFoundException e)
-            {
-                e.printStackTrace();
-
-            } catch (CertificateException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        return cert;
-    }
-
-    /**
-     * Sends the given String to the Smartwatch
-     * @param text The String that will be send
-     * @throws java.io.IOException
-     */
-    public static void sendString(String text) throws IOException
-    {
-       ConnectionSocketTizen cHandler = mConnectionsMap.get(connectionID);
-        cHandler.send(HELLOACCESSORY_CHANNEL_ID, text.getBytes());
-        Log.d(TAG, "Send Message "+ text);
-    }
-
-    public class LocalBinder extends Binder
+    public class LocalBinder
+            extends Binder
     {
         public ConnectionHandlerTizen getService()
         {
             return ConnectionHandlerTizen.this;
         }
-    }
-
-
-    private static List<Listener> listeners = new ArrayList<Listener>();
-
-    public static List<Listener> getListenerList(){
-        return listeners;
-    }
-
-    public static void addListener(Listener listener){
-        listeners.add(listener);
-    }
-
-    public static void removeListener(Listener listener){
-        listeners.remove(listener);
     }
 
 

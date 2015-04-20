@@ -7,10 +7,11 @@ package nl.fontys.exercise;
  */
 public class ExerciseData
 {
-    private String typeOfExercise;
+    private String             typeOfExercise;
     private SingleExerciseData singleExerciseData;
 
-    public ExerciseData(String typeOfExercise, SingleExerciseData singleExerciseData)
+    public ExerciseData(String typeOfExercise,
+                        SingleExerciseData singleExerciseData)
     {
         this.typeOfExercise = typeOfExercise;
         this.singleExerciseData = singleExerciseData;

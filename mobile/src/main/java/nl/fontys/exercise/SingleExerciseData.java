@@ -5,40 +5,43 @@ import java.util.Date;
 /**
  * Created by root on 08.04.15.
  * <p/>
- * stores the data that is collected from the exercises
+ * stores data is collected at a specific timestamp from an exercise
  */
-public class SingleExerciseData {
-    private Date timeStamp;
-    private PartialExerciseData accelData;
-    private PartialExerciseData gyroData;
+public class SingleExerciseData
+{
+    private Date                timeStamp;
+    private PartialExerciseData acceleratorData;
+    private PartialExerciseData gyroscopeData;
 
-    public SingleExerciseData(Date timeStamp, PartialExerciseData accelData, PartialExerciseData gyroData) {
-        this.timeStamp = timeStamp;
-        this.accelData = accelData;
-        this.gyroData = gyroData;
+    public SingleExerciseData(Date timeStamp,
+                              PartialExerciseData acceleratorData,
+                              PartialExerciseData gyroscopeData)
+    {
+        if (timeStamp != null)
+        {
+            this.timeStamp = timeStamp;
+        }
+        else
+        {
+            throw new NullPointerException("timeStamp is null");
+        }
+
+        this.acceleratorData = acceleratorData;
+        this.gyroscopeData = gyroscopeData;
     }
 
-    public Date getTimeStamp() {
-        return timeStamp;
+    public Date getTimeStamp()
+    {
+        return this.timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public PartialExerciseData getAcceleratorData()
+    {
+        return acceleratorData;
     }
 
-    public PartialExerciseData getAccelData() {
-        return accelData;
-    }
-
-    public void setAccelData(PartialExerciseData accelData) {
-        this.accelData = accelData;
-    }
-
-    public PartialExerciseData getGyroData() {
-        return gyroData;
-    }
-
-    public void setGyroData(PartialExerciseData gyroData) {
-        this.gyroData = gyroData;
+    public PartialExerciseData getGyroscopeData()
+    {
+        return gyroscopeData;
     }
 }
