@@ -1,15 +1,18 @@
-package nl.fontys.exercise;
+package nl.fontys.connection;
 
 import com.samsung.android.sdk.accessory.SASocket;
+
+import nl.fontys.listener.Listener;
 
 /**
  * Created by sascha on 14.04.15.
  */
-public class ConnectionSocketTizen extends SASocket
+public class ConnectionSocketTizen
+        extends SASocket
 {
     private int mConnectionId;
 
-   public ConnectionSocketTizen()
+    public ConnectionSocketTizen()
     {
         super(ConnectionSocketTizen.class.getName());
     }
@@ -17,8 +20,10 @@ public class ConnectionSocketTizen extends SASocket
     /**
      * Set the backend receiver that is called when a message is received
      */
-   @Override
-    public void onError(int channelId, String errorString, int error)
+    @Override
+    public void onError(int channelId,
+                        String errorString,
+                        int error)
     {
     }
 
@@ -35,20 +40,24 @@ public class ConnectionSocketTizen extends SASocket
     /**
      * Is called when a message from the Smartwatch is recived. Should not be called by the Backend
      * The data is then given to the reciver to transform the data into ExerciseData
+     *
      * @param channelId the Id of the channel
-     * @param data the data that is recived
+     * @param data      the data that is recived
      */
     @Override
-    public void onReceive(int channelId, byte[] data)
+    public void onReceive(int channelId,
+                          byte[] data)
     {
-        String dataStr = new String (data);
-        for(Listener l: ConnectionHandlerTizen.getListenerList()){
+        String dataStr = new String(data);
+        for (Listener l : ConnectionHandlerTizen.getListenerList())
+        {
             l.onNotify(dataStr);
         }
     }
 
     /**
      * Is called when the connection is lost
+     *
      * @param errorCode the code of the error
      */
     @Override

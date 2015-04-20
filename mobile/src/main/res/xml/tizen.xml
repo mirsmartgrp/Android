@@ -27,24 +27,24 @@
 	]>
 <resources>
 
-	<application name="BackenSenderTizen" >
+	<application name="ConnectionHandlerTizen">
 		<serviceProfile
-			id="/system/exercise"
 			name="exercisecontrol"
+			id="/system/exercise"
 			role="provider"
-			serviceImpl="exercise.fontys.nl.exercisecontrolbackend.BackendSenderTizen"
-			version="2.0"
+			serviceImpl="nl.fontys.connection.ConnectionHandlerTizen"
 			serviceLimit="ANY"
-			serviceTimeout="10">
+			serviceTimeout="10"
+			version="2.0">
 			<supportedTransports>
-				<transport type="TRANSPORT_BT" />
+				<transport type="TRANSPORT_BT"/>
 			</supportedTransports>
 
 			<serviceChannel
-				id="104"
 				dataRate="low"
+				id="104"
 				priority="low"
-				reliability= "enable"/>
+				reliability="enable"/>
 		</serviceProfile>
 	</application>
 
