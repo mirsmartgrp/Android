@@ -25,10 +25,11 @@ public class MainActivityWear extends Activity {
         handler = new ConnectionHandler(this);
         int[] sensors = new int[2];
         SensorManager sensorManager =  (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensors[0]=sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE).getType();
-        sensors[1]=sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION).getType();
+        sensors[0]=Sensor.TYPE_GYROSCOPE;
+        sensors[1]=Sensor.TYPE_LINEAR_ACCELERATION;
         collector = new JsonMeasurementCollector();
         recorder = new MeasurementRecorder(this,sensors, collector);
+        recorder.initialize();
         setContentView(R.layout.activity_main);
 
     }
@@ -36,14 +37,14 @@ public class MainActivityWear extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        //recorder.start();
+      //  recorder.start();
     }
     @Override
     public void onDestroy() {
     super.onDestroy();
     handler.disconnectGoogleClient();
-    //TODO stop recorder
-    //recorder.stop();
+    recorder.stop();
+       recorder.terminate();
     }
 
     /**
@@ -51,7 +52,7 @@ public class MainActivityWear extends Activity {
      * @param view
      */
     public void start(View view) {
-     recorder.initialize();
+
     recorder.start();
 
     }
