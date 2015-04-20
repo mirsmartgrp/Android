@@ -1,39 +1,84 @@
 package nl.fontys.exercise;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
- * Created by root on 08.04.15.
+ * Created by Ron Gebauer on 08.04.15.
  * <p/>
- * stores the data that is collected from the exercises
+ * stores whole data that is collected from the exercise
  */
 public class ExerciseData
 {
-    private String             typeOfExercise;
-    private SingleExerciseData singleExerciseData;
+    private List<SingleExerciseData> lSingleExerciseData;
 
-    public ExerciseData(String typeOfExercise,
-                        SingleExerciseData singleExerciseData)
+    /**
+     * Constructs a empty ExerciseData object.
+     */
+    ExerciseData()
     {
-        this.typeOfExercise = typeOfExercise;
-        this.singleExerciseData = singleExerciseData;
+        this.lSingleExerciseData = new ArrayList<>();
     }
 
-    public String getTypeOfExercise()
+    public void addSingleExerciseData(Date timeStamp,
+                                      Double[][] coordinates)
     {
-        return typeOfExercise;
+        PartialExerciseData acceleratorData = new PartialExerciseData(coordinates[0][0],
+                                                                      coordinates[0][1],
+                                                                      coordinates[0][2]);
+        PartialExerciseData gyroscopeData = new PartialExerciseData(coordinates[1][0],
+                                                                    coordinates[1][1],
+                                                                    coordinates[1][2]);
+        SingleExerciseData singleExerciseData = new SingleExerciseData(timeStamp,
+                                                                       acceleratorData,
+                                                                       gyroscopeData);
+
+        this.lSingleExerciseData.add(singleExerciseData);
     }
 
-    public void setTypeOfExercise(String typeOfExercise)
+    public void clearlSingleExerciseDataByIndex(Integer index)
     {
-        this.typeOfExercise = typeOfExercise;
+        this.lSingleExerciseData.clear();
     }
 
-    public SingleExerciseData singleExerciseData()
+    public void removeSingleExerciseDataByIndex(Integer index)
     {
-        return singleExerciseData;
+        this.lSingleExerciseData.remove(index.intValue());
     }
 
-    public void setGyroData(SingleExerciseData singleExerciseData)
+    public void removeSingleExerciseDataByTimeStamp(Date timeStamp)
     {
-        this.singleExerciseData = singleExerciseData;
+        Integer index = null;
+        for (int i = 0; i < lSingleExerciseData.size(); i++)
+        {
+            if (timeStamp.equals(lSingleExerciseData.get(i).getTimeStamp()))
+            {
+                index = i;
+            }
+        }
+
+        if (index == null)
+        {
+            return;
+        }
+
+        this.lSingleExerciseData.remove(index.intValue());
+    }
+
+    /**
+     * @return a SingleExerciseData from index position.
+     */
+    public SingleExerciseData getSingleExerciseData(Integer index)
+    {
+        return lSingleExerciseData.get(index.intValue());
+    }
+
+    /**
+     * @return all SingleExerciseData are collect until now as List object.
+     */
+    public List<SingleExerciseData> getListOfSingleExerciseData()
+    {
+        return lSingleExerciseData;
     }
 }
