@@ -29,7 +29,7 @@ public class SensorDataCollector  {
     private static String START_DATA = "";
     //miliseconds of when the sensors should return its value
     //private static int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
-    private static int SENSOR_DELAY = 100;
+    private static int SENSOR_DELAY = 10000;
     //start time of the sensor measurement
     private static long START_TIME;
     private List<Sensor> sensorList;
@@ -46,10 +46,27 @@ public class SensorDataCollector  {
         sensorEvents = new HashMap<>();
         initSensorList();
         initSensorListeners();
-        registerSensors();
+       // registerSensors();
         initJsons();
         START_TIME = new Date().getTime();
 
+    }
+
+    /**
+     * use this a start method in your actitivity
+     */
+    public void start() {
+
+            registerSensors();
+
+    }
+
+    /**
+     * use this as stop method in your actitivity
+     */
+    public void stop() {
+        unRegisterSensors();
+        resetData();
     }
     /**
      * init the json objects
@@ -86,17 +103,15 @@ public class SensorDataCollector  {
     }
 
     /**
-     * add a sensorListener for every
+     * add a sensorListener for every listener in list
      */
     private void initSensorListeners() {
         for (Sensor currentSensor : sensorList) {
             SensorEventListener currentListener = new SensorEventListener() {
                 @Override
-                public void onSensorChanged(SensorEvent event) {
+                public void onSensorChanged(final SensorEvent event) {
                     Log.d(this.getClass().getName(), event.sensor.getName() + " changed: " + event.values);
-
-                    addNewData(event);
-
+                        addNewData(event);
                 }
 
                 @Override
@@ -130,6 +145,8 @@ public class SensorDataCollector  {
         for (SensorEventListener currentListener : sensorEvents.values()) {
             sensorManager.unregisterListener(currentListener);
         }
+        Log.d(this.getClass().getName(), "unregistered sensors");
+
     }
 
     public String getExerciseData() {
@@ -144,10 +161,10 @@ public class SensorDataCollector  {
     /**
      * adding the exercise data from the change event
      *
-     * @param exerciseDataEvent
+     * @param exerciseDataEvent event that changed
      */
     private void addNewData(SensorEvent exerciseDataEvent) {
-        Log.d(this.getClass().getName(), "adding new data");
+      //  Log.d(this.getClass().getName(), "adding new data");
 
         Long timeStamp = new Long((new Date().getTime() - START_TIME));
         double timeStampLong = timeStamp * 0.001;
@@ -169,7 +186,7 @@ public class SensorDataCollector  {
             }
 
             exerciseData = json.toString();
-            Log.d(this.getClass().getName(), "exercise data: " + exerciseData);
+        //    Log.d(this.getClass().getName(), "exercise data: " + exerciseData);
         }
     }
 

@@ -4,6 +4,12 @@
     android:layout_height="match_parent" android:orientation="vertical"
     tools:context=".MainActivity" tools:deviceIds="wear_square">
 
+    <Button android:id="@+id/startBtn" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="@string/start"
+        android:onClick="start"/>
+    <Button android:id="@+id/stopBtn" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="@string/stop"
+        android:onClick="stop"/>
     <Button android:id="@+id/text" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:text="@string/send"
         android:onClick="sendMessage"/>

@@ -28,6 +28,7 @@ public class ConnectionHandlerAndroid implements ConnectionCallbacks,MessageApi.
     private GoogleApiClient mApiClient;
     private ArrayAdapter<String> mAdapter;
     private ListView mListView;
+    private List<Listener> listeners = new ArrayList<Listener>();
 
     public ConnectionHandlerAndroid( Context context)
     {
@@ -95,7 +96,6 @@ public class ConnectionHandlerAndroid implements ConnectionCallbacks,MessageApi.
     }
 
 
-    private List<Listener> listeners = new ArrayList<Listener>();
 
     public void addListener(Listener listener){
         listeners.add(listener);

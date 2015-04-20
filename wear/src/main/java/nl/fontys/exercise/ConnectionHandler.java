@@ -13,10 +13,13 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 /**
- * Created by root on 16.04.15.
+ * Created by max on 16.04.15.
+ *
+ * class to read from and send to phone
  */
 public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
 
+    //to identify phone-watch pair
     private static final String WEAR_MESSAGE_PATH = "/system/exercise";
     private GoogleApiClient mApiClient ;
     private Context context;
@@ -60,6 +63,7 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
             Log.d(this.getClass().getName(),"error disconnecting google client");
         }
     }
+
     public void connectGogleClient() {
         mApiClient.connect();
         if(mApiClient.isConnected()) {
@@ -69,6 +73,11 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
             Log.d(this.getClass().getName(),"error connecting google client");
         }
     }
+
+    /**
+     * sending a string to the phone
+     * @param message to be send to phone
+     */
     public void sendMessage(final String message) {
         if(mApiClient.isConnected()) {
             Wearable.NodeApi.getConnectedNodes(mApiClient).setResultCallback(

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 
-public class MainActivity extends Activity
+public class MainActivityMobile extends Activity
 {
     private ConnectionHandlerBackend connectionHandlerBackend;
     private TextView textView;
@@ -67,4 +67,5 @@ public class MainActivity extends Activity
 
         return super.onOptionsItemSelected(item);
     }
+
 }

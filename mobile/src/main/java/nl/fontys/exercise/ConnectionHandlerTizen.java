@@ -41,7 +41,7 @@ public class ConnectionHandlerTizen extends SAAgent
     private final IBinder mBinder = new LocalBinder();
     private int authCount = 1;
     private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<>();
-
+    private static List<Listener> listeners = new ArrayList<Listener>();
     public ConnectionHandlerTizen()
     {
         super(TAG, ConnectionSocketTizen.class);
@@ -237,7 +237,7 @@ public class ConnectionHandlerTizen extends SAAgent
     }
 
 
-    private static List<Listener> listeners = new ArrayList<Listener>();
+
 
     public static List<Listener> getListenerList(){
         return listeners;

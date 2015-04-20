@@ -3,4 +3,6 @@
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="send">send</string>
+    <string name="start">start</string>
+    <string name="stop">stop</string>
 </resources>
