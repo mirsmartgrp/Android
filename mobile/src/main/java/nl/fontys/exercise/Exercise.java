@@ -1,5 +1,6 @@
 package nl.fontys.exercise;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -23,21 +24,19 @@ public class Exercise
         this.exerciseData = new ExerciseData();
     }
 
-    /**
-     * Constructs an exercise object with given name.
-     *
-     * @param name         the name of the exercise
-     * @param exerciseData the name of the exercise
-     */
-    Exercise(String name,
-             ExerciseData exerciseData)
+    public static Exercise parseExercise(JSONObject jsonObject)
     {
-        this.name = name;
-        this.exerciseData = exerciseData;
-    }
+        Exercise exercise = null;
 
-    public Exercise parseExercise(JSONObject jsonObject)
-    {
-        return new Exercise("null");
+        try
+        {
+            exercise = new Exercise(jsonObject.getString("name"));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return exercise;
     }
 }
