@@ -110,6 +110,7 @@ public class SensorDataCollector  {
             SensorEventListener currentListener = new SensorEventListener() {
                 @Override
                 public void onSensorChanged(final SensorEvent event) {
+                    
                     Log.d(this.getClass().getName(), event.sensor.getName() + " changed: " + event.values);
                     addNewData(event);
                 }

@@ -13,33 +13,50 @@ public class SingleExerciseData
     private PartialExerciseData acceleratorData;
     private PartialExerciseData gyroscopeData;
 
-    public SingleExerciseData(Date timeStamp,
-                              PartialExerciseData acceleratorData,
-                              PartialExerciseData gyroscopeData)
+    /**
+     * Constructs a new object from SingleExerciseData with a specific timeStamp.
+     *
+     * @param timeStamp
+     * @param acceleratorData
+     * @param gyroscopeData
+     */
+    SingleExerciseData(Date timeStamp,
+                       PartialExerciseData acceleratorData,
+                       PartialExerciseData gyroscopeData)
     {
+        // timeStamp may not be null
         if (timeStamp != null)
         {
             this.timeStamp = timeStamp;
         }
         else
         {
-            throw new NullPointerException("timeStamp is null");
+            throw new NullPointerException("timeStamp may not be null");
         }
 
         this.acceleratorData = acceleratorData;
         this.gyroscopeData = gyroscopeData;
     }
 
+    /**
+     * @return the timeStamp as Date object.
+     */
     public Date getTimeStamp()
     {
         return this.timeStamp;
     }
 
+    /**
+     * @return the accelerator data as PartialExerciseData object.
+     */
     public PartialExerciseData getAcceleratorData()
     {
         return acceleratorData;
     }
 
+    /**
+     * @return the gyroscope data as PartialExerciseData object.
+     */
     public PartialExerciseData getGyroscopeData()
     {
         return gyroscopeData;

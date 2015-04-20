@@ -1,50 +1,51 @@
 package nl.fontys.exercise;
 
 /**
- * Created by root on 08.04.15.
+ * Created by Ron Gebauer on 08.04.15.
+ * <p/>
+ * stores movement data with x,y,z
  */
 public class PartialExerciseData
 {
-    private double x;
-    private double y;
-    private double z;
+    private Double x;
+    private Double y;
+    private Double z;
 
-    public PartialExerciseData(double x,
-                               double y,
-                               double z)
+    /**
+     * @param x x coordinate as Double object
+     * @param y y coordinate as Double object
+     * @param z z coordinate as Double object
+     */
+    PartialExerciseData(Double x,
+                        Double y,
+                        Double z)
     {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public double getX()
+    /**
+     * @return x coordinate as Double object.
+     */
+    public Double getX()
     {
         return x;
     }
 
-    public void setX(double x)
-    {
-        this.x = x;
-    }
-
-    public double getY()
+    /**
+     * @return y coordinate as Double object.
+     */
+    public Double getY()
     {
         return y;
     }
 
-    public void setY(double y)
-    {
-        this.y = y;
-    }
-
-    public double getZ()
+    /**
+     * @return z coordinate as Double object.
+     */
+    public Double getZ()
     {
         return z;
-    }
-
-    public void setZ(double z)
-    {
-        this.z = z;
     }
 }

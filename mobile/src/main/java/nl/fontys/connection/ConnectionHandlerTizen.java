@@ -38,22 +38,16 @@ public class ConnectionHandlerTizen
     public static final int                                 HELLOACCESSORY_CHANNEL_ID    = 104;
     public static final String                              TAG                          = "BackendSenderTizen";
     private static      int                                 connectionID                 = -1;
-    private static      Map<Integer, ConnectionSocketTizen> mConnectionsMap              = new HashMap<Integer, ConnectionSocketTizen>();
     private static      boolean                             isConnected                  = false;
-    private static List<Listener> listeners = new ArrayList<Listener>();
     //
-<<<<<<< HEAD:mobile/src/main/java/nl/fontys/exercise/ConnectionHandlerTizen.java
-    private final IBinder mBinder = new LocalBinder();
-    private int authCount = 1;
+
     private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<>();
     private static List<Listener> listeners = new ArrayList<Listener>();
-=======
     private final       IBinder                             mBinder                      = new LocalBinder();
     public              Boolean                             isAuthentication             = false;
     public              Context                             mContext                     = null;
     private             int                                 authCount                    = 1;
 
->>>>>>> 65bcb7061b38b12aaa8912561ba21f558e3d3f07:mobile/src/main/java/nl/fontys/connection/ConnectionHandlerTizen.java
     public ConnectionHandlerTizen()
     {
         super(TAG,
@@ -128,20 +122,6 @@ public class ConnectionHandlerTizen
               "Send Message " + text);
     }
 
-    public static List<Listener> getListenerList()
-    {
-        return listeners;
-    }
-
-    public static void addListener(Listener listener)
-    {
-        listeners.add(listener);
-    }
-
-    public static void removeListener(Listener listener)
-    {
-        listeners.remove(listener);
-    }
 
     /**
      * Is called when the BackendSender is Created
@@ -307,22 +287,16 @@ public class ConnectionHandlerTizen
     }
 
 
-<<<<<<< HEAD:mobile/src/main/java/nl/fontys/exercise/ConnectionHandlerTizen.java
-
 
     public static List<Listener> getListenerList(){
         return listeners;
     }
 
-    public void addListener(Listener listener){
+    public static void addListener(Listener listener){
         listeners.add(listener);
     }
 
-    public void removeListener(Listener listener){
+    public static void removeListener(Listener listener){
         listeners.remove(listener);
     }
-
-
-=======
->>>>>>> 65bcb7061b38b12aaa8912561ba21f558e3d3f07:mobile/src/main/java/nl/fontys/connection/ConnectionHandlerTizen.java
 }

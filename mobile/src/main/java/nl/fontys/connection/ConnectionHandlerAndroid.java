@@ -32,12 +32,8 @@ public class ConnectionHandlerAndroid
     private static final String TAG               = "sensorValues";
     private GoogleApiClient      mApiClient;
     private ArrayAdapter<String> mAdapter;
-<<<<<<< HEAD:mobile/src/main/java/nl/fontys/exercise/ConnectionHandlerAndroid.java
     private ListView mListView;
-=======
-    private ListView             mListView;
->>>>>>> 65bcb7061b38b12aaa8912561ba21f558e3d3f07:mobile/src/main/java/nl/fontys/connection/ConnectionHandlerAndroid.java
-    private List<Listener> listeners = new ArrayList<Listener>();
+ private List<Listener> listeners = new ArrayList<Listener>();
 
     public ConnectionHandlerAndroid(Context context)
     {
@@ -126,14 +122,8 @@ public class ConnectionHandlerAndroid
               "ConnectionSuspended in ConnectionListener");
     }
 
-<<<<<<< HEAD:mobile/src/main/java/nl/fontys/exercise/ConnectionHandlerAndroid.java
-
-
-    public void addListener(Listener listener){
-=======
     public void addListener(Listener listener)
     {
->>>>>>> 65bcb7061b38b12aaa8912561ba21f558e3d3f07:mobile/src/main/java/nl/fontys/connection/ConnectionHandlerAndroid.java
         listeners.add(listener);
     }
 

@@ -58,6 +58,7 @@ public class ConnectionHandlerBackend
     }
 
 
+
     public void addListener(Listener listener)
     {
         connectionHandlerAndroid.addListener(listener);
@@ -69,5 +70,4 @@ public class ConnectionHandlerBackend
         connectionHandlerAndroid.removeListener(listener);
         ConnectionHandlerTizen.removeListener(listener);
     }
-
 }
