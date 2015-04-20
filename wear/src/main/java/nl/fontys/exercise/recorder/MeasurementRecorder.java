@@ -72,16 +72,21 @@ public class MeasurementRecorder {
             collector.startCollecting();
         }
 
-        public void onRecordingStop() { collector.stopCollecting(System.nanoTime()); }
+        public void onRecordingStop() {
+            collector.stopCollecting(reltime(System.nanoTime()));
+        }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            double time = (double)(event.timestamp - startTime) / 1000000;
-            collector.collectMeasurement(event.sensor, time, event.values, event.accuracy);
+            collector.collectMeasurement(event.sensor, reltime(event.timestamp), event.values, event.accuracy);
         }
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+
+        private double reltime(long timestamp) {
+            return (double)(timestamp - startTime) / 1000000000;
+        }
     }
 
     private class MeasurementListenerThread extends Thread {
@@ -149,6 +154,7 @@ public class MeasurementRecorder {
                 if (recording)
                     throw new RuntimeException("Already recording!");
 
+                adaptor.onRecordingStart();
                 for (Sensor sensor : sensors)
                     sensorManager.registerListener(adaptor, sensor, SensorManager.SENSOR_DELAY_UI, handler);
                 recording = true;
@@ -159,6 +165,7 @@ public class MeasurementRecorder {
                     throw new RuntimeException("Not recording!");
 
                 sensorManager.unregisterListener(adaptor);
+                adaptor.onRecordingStop();
                 recording = false;
             }
 
