@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context=".MainActivityWear" tools:deviceIds="wear_round">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exerciseName"
+        android:id="@+id/headerLbl"
 
-    <Button android:id="@+id/startBtn" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/start"
-        android:onClick="start"/>
-    <Button android:id="@+id/stopBtn" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/stop"
-        android:onClick="stop"/>
-    <Button android:id="@+id/text" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/send"
-        android:onClick="sendMessage"/>
-</RelativeLayout>
+        style="@style/TextView.Large" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TimeLbl"
+        android:id="@+id/timeLbl"
+        style="@style/TextView.Medium" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button android:id="@+id/startBtn" android:layout_width="95dp"
+            android:layout_height="150dp" android:text="@string/start"
+            android:onClick="start"
+            />
+        <Button android:id="@+id/stopBtn" android:layout_width="95dp"
+            android:layout_height="150dp" android:text="@string/stop"
+            android:onClick="stop"
+            />
+    </LinearLayout>
+</LinearLayout>
+
