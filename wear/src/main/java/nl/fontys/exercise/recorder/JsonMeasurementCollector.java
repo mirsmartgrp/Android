@@ -45,8 +45,10 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         JSONArray dataArray;
 
         // obtain right array to store data in
-        if ((dataArray = dataMap.get(sensor.getName())) == null)
-            dataArray = dataMap.put(sensor.getName(), new JSONArray());
+        if ((dataArray = dataMap.get(sensor.getName())) == null) {
+            dataArray = new JSONArray();
+            dataMap.put(sensor.getName(), dataArray);
+        }
 
         try {
             JSONObject value = new JSONObject();
