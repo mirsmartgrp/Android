@@ -89,6 +89,12 @@ public class MainActivityWear extends Activity {
     private class JsonMeasurementCollectorImpl extends JsonMeasurementCollector {
 
         @Override
+        public void startCollecting() throws MeasurementException {
+            super.startCollecting();
+            Log.d("WEAR", "Started collecting measurements.");
+        }
+
+        @Override
         public void collectionComplete(JSONObject data) {
             Log.d("WEAR", "Measurement complete: " + data.toString());
         }

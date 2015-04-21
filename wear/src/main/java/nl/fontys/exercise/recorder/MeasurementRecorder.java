@@ -76,6 +76,7 @@ public class MeasurementRecorder {
 
         private final MeasurementCollector collector;
         private long startTime = 0;
+        private boolean blockMeasurements;
 
         private SensorMeasurementAdaptor(MeasurementCollector collector) {
             this.collector = collector;
@@ -83,18 +84,25 @@ public class MeasurementRecorder {
 
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
+            blockMeasurements = true;
             collector.startCollecting();
+            blockMeasurements = false;
         }
 
         public void onRecordingStop() throws MeasurementException {
+            blockMeasurements = true;
             collector.stopCollecting(reltime(System.nanoTime()));
         }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
+            if (blockMeasurements)
+                return;
+
             try {
                 collector.collectMeasurement(event.sensor, reltime(event.timestamp), event.values, event.accuracy);
             } catch (MeasurementException ex) {
+                blockMeasurements = true;
                 listenerThread.sendMessage(ex);
             }
         }
