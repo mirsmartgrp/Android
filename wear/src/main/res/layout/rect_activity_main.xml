@@ -7,25 +7,26 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="@string/exerciseName"
         android:id="@+id/headerLbl"
-        />
+
+        style="@style/TextView.Large" />
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/TimeLbl"
     android:id="@+id/timeLbl"
-    />
+    style="@style/TextView.Medium" />
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="100px"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <Button android:id="@+id/startBtn" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/start"
+    <Button android:id="@+id/startBtn" android:layout_width="95dp"
+        android:layout_height="150dp" android:text="@string/start"
         android:onClick="start"
         />
-    <Button android:id="@+id/stopBtn" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/stop"
+    <Button android:id="@+id/stopBtn" android:layout_width="95dp"
+        android:layout_height="150dp" android:text="@string/stop"
         android:onClick="stop"
        />
 </LinearLayout>

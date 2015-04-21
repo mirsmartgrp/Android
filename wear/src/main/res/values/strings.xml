@@ -6,4 +6,5 @@
     <string name="start">start</string>
     <string name="stop">stop</string>
     <string name="TimeLbl">Time:</string>
+    <string name="exerciseName">swimming</string>
 </resources>
