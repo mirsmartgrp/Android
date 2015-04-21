@@ -20,7 +20,7 @@ import java.util.List;
 public class MeasurementRecorder {
 
     private final int[] sensorTypes;
-    private final int measurementInterval;
+    private final int samplingRate;
     private final SensorManager sensorManager;
     private final List<Sensor> sensors;
     private final SensorMeasurementAdaptor adaptor;
@@ -30,12 +30,12 @@ public class MeasurementRecorder {
      * Instantiate a new measurement recorder.
      * @param context Android context
      * @param sensorTypes Array of sensor types recorded
-     * @param measurementInterval Interval of measurement in milliseconds
+     * @param samplingRate Desired measurements per second
      * @param collector Instance of a measurement collector
      */
-    public MeasurementRecorder(Context context, int[] sensorTypes, int measurementInterval, MeasurementCollector collector) {
+    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector) {
         this.sensorTypes = sensorTypes.clone();
-        this.measurementInterval = measurementInterval;
+        this.samplingRate = samplingRate;
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensors = new ArrayList<Sensor>();
         adaptor = new SensorMeasurementAdaptor(collector);
@@ -188,7 +188,7 @@ public class MeasurementRecorder {
                     adaptor.onRecordingStart();
 
                     for (Sensor sensor : sensors)
-                        sensorManager.registerListener(adaptor, sensor, measurementInterval, handler);
+                        sensorManager.registerListener(adaptor, sensor, 1000000 / samplingRate, handler);
                     recording = true;
                 } catch (MeasurementException ex) {
                     adaptor.onRecordingFailed(ex);

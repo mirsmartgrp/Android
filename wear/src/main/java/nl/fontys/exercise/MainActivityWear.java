@@ -33,7 +33,7 @@ public class MainActivityWear extends Activity {
         sensors[1]=Sensor.TYPE_LINEAR_ACCELERATION;
 
         collector = new JsonMeasurementCollectorImpl();
-        recorder = new MeasurementRecorder(this,sensors, 10, collector);
+        recorder = new MeasurementRecorder(this,sensors, 100, collector);
         recorder.initialize();
         setContentView(R.layout.activity_main);
 
