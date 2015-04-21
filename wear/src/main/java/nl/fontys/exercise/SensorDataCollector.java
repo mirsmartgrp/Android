@@ -24,6 +24,7 @@ import java.util.Map;
 public class SensorDataCollector  {
 
     private String exerciseData;
+
     private SensorManager sensorManager;
     //inital / reseted value of exercise data
     private static String START_DATA = "";
