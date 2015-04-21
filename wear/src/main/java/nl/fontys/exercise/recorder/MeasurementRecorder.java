@@ -81,18 +81,26 @@ public class MeasurementRecorder {
             this.collector = collector;
         }
 
-        public void onRecordingStart() {
+        public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
             collector.startCollecting();
         }
 
-        public void onRecordingStop() {
+        public void onRecordingStop() throws MeasurementException {
             collector.stopCollecting(reltime(System.nanoTime()));
         }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            collector.collectMeasurement(event.sensor, reltime(event.timestamp), event.values, event.accuracy);
+            try {
+                collector.collectMeasurement(event.sensor, reltime(event.timestamp), event.values, event.accuracy);
+            } catch (MeasurementException ex) {
+                listenerThread.sendMessage(ex);
+            }
+        }
+
+        public void onRecordingFailed(MeasurementException ex) {
+            collector.collectionFailed(ex);
         }
 
         @Override
@@ -146,7 +154,7 @@ public class MeasurementRecorder {
             synchronized (sync) { sync.notifyAll(); }
         }
 
-        public void sendMessage(MeasurementListenerThreadMessage msg) {
+        public void sendMessage(Object msg) {
             if (handler == null)
                 throw new RuntimeException("Can not send message.");
 
@@ -166,20 +174,39 @@ public class MeasurementRecorder {
 
             public void start() {
                 if (recording)
-                    throw new RuntimeException("Already recording!");
+                    return;
 
-                adaptor.onRecordingStart();
-                for (Sensor sensor : sensors)
-                    sensorManager.registerListener(adaptor, sensor, measurementInterval, handler);
-                recording = true;
+                try {
+                    adaptor.onRecordingStart();
+
+                    for (Sensor sensor : sensors)
+                        sensorManager.registerListener(adaptor, sensor, measurementInterval, handler);
+                    recording = true;
+                } catch (MeasurementException ex) {
+                    adaptor.onRecordingFailed(ex);
+                }
             }
 
             public void stop() {
                 if (!recording)
-                    throw new RuntimeException("Not recording!");
+                    return;
 
                 sensorManager.unregisterListener(adaptor);
-                adaptor.onRecordingStop();
+                try {
+                    adaptor.onRecordingStop();
+                } catch (MeasurementException ex) {
+                    adaptor.onRecordingFailed(ex);
+                } finally {
+                    recording = false;
+                }
+            }
+
+            public void fail(MeasurementException ex) {
+                if (!recording)
+                    return;
+
+                sensorManager.unregisterListener(adaptor);
+                adaptor.onRecordingFailed(ex);
                 recording = false;
             }
 
@@ -196,17 +223,19 @@ public class MeasurementRecorder {
                             stop();
                             break;
                         case QUIT:
-                            if (recording)
-                                stop();
+                            stop();
                             getLooper().quit();
                             break;
                     }
+                } else if (message.obj instanceof MeasurementException) {
+                    MeasurementException ex = (MeasurementException)message.obj;
+                    fail(ex);
                 }
             }
         }
     }
 
     private static enum MeasurementListenerThreadMessage {
-        START, STOP, QUIT
+        START, STOP, FAIL, QUIT
     }
 }

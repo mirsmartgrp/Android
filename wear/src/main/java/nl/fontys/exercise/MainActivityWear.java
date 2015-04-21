@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import nl.fontys.exercise.recorder.JsonMeasurementCollector;
 import nl.fontys.exercise.recorder.MeasurementCollector;
+import nl.fontys.exercise.recorder.MeasurementException;
 import nl.fontys.exercise.recorder.MeasurementRecorder;
 
 public class MainActivityWear extends Activity {
@@ -29,7 +32,7 @@ public class MainActivityWear extends Activity {
         sensors[0]=Sensor.TYPE_GYROSCOPE;
         sensors[1]=Sensor.TYPE_LINEAR_ACCELERATION;
 
-        collector = new JsonMeasurementCollector();
+        collector = new JsonMeasurementCollectorImpl();
         recorder = new MeasurementRecorder(this,sensors, 10, collector);
         recorder.initialize();
         setContentView(R.layout.activity_main);
@@ -81,5 +84,18 @@ public class MainActivityWear extends Activity {
             Log.d(this.getClass().getName(), resultText);
             Toast toast = Toast.makeText(this, resultText, Toast.LENGTH_SHORT);
             toast.show();
+    }
+
+    private class JsonMeasurementCollectorImpl extends JsonMeasurementCollector {
+
+        @Override
+        public void collectionComplete(JSONObject data) {
+            Log.d("WEAR", "Measurement complete: " + data.toString());
+        }
+
+        @Override
+        public void collectionFailed(MeasurementException ex) {
+            Log.d("WEAR", "Measurement failed: " + ex.getMessage());
+        }
     }
 }
