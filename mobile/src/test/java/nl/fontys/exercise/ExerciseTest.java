@@ -26,7 +26,7 @@ public class ExerciseTest extends TestCase {
     int i = 1;
     int j = 1;
 
-     assertEquals(i+j,2);
+     assertEquals(i+j,3);
 
 
     }
