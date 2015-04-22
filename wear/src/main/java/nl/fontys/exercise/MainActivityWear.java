@@ -1,9 +1,7 @@
 package nl.fontys.exercise;
 
 import android.app.Activity;
-import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,11 +31,12 @@ public class MainActivityWear extends Activity {
         sensors[1]=Sensor.TYPE_LINEAR_ACCELERATION;
 
         collector = new JsonMeasurementCollectorImpl();
-        recorder = new MeasurementRecorder(this,sensors, 10, collector);
+        recorder = new MeasurementRecorder(this,sensors, 1, collector);
         recorder.initialize();
         setContentView(R.layout.activity_main);
 
     }
+
 
     @Override
     protected void onResume(){
@@ -68,7 +67,6 @@ public class MainActivityWear extends Activity {
      */
     public void stop(View view) {
     recorder.stop();
-        recorder.terminate();
     }
 
 
@@ -103,5 +101,10 @@ public class MainActivityWear extends Activity {
         public void collectionFailed(MeasurementException ex) {
             Log.d("WEAR", "Measurement failed: " + ex.getMessage());
         }
-    }
+        @Override
+        public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy)  {
+
+        }
+
+        }
 }
