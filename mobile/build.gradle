@@ -5,7 +5,7 @@ android {
 	buildToolsVersion "21.1.2"
 
 	defaultConfig {
-		applicationId "nl.fontys.exercise"
+		applicationId "nl.fontys.exercisecontrol.exercise"
 		minSdkVersion 19
 		targetSdkVersion 21
 		versionCode 1

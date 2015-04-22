@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.fontys.exercise" >
+    package="nl.fontys.exercisecontrol.exercise" >
 
     <uses-feature android:name="android.hardware.type.watch" />
 

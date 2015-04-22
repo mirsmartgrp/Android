@@ -32,7 +32,7 @@
 			name="exercisecontrol"
 			id="/system/exercise"
 			role="provider"
-			serviceImpl="nl.fontys.connection.ConnectionHandlerTizen"
+			serviceImpl="nl.fontys.exercisecontrol.connection.ConnectionHandlerTizen"
 			serviceLimit="ANY"
 			serviceTimeout="10"
 			version="2.0">
