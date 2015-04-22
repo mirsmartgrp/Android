@@ -1,4 +1,4 @@
-package nl.fontys.exercise.recorder;
+package nl.fontys.exercise.collector;
 
 import android.hardware.Sensor;
 import android.util.Log;
@@ -10,6 +10,9 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import nl.fontys.exercise.recorder.MeasurementCollector;
+import nl.fontys.exercise.recorder.MeasurementException;
 
 public abstract class JsonMeasurementCollector implements MeasurementCollector {
 

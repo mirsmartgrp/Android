@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import nl.fontys.exercise.recorder.JsonMeasurementCollector;
+import nl.fontys.exercise.collector.JsonMeasurementCollector;
 import nl.fontys.exercise.recorder.MeasurementCollector;
 import nl.fontys.exercise.recorder.MeasurementException;
 import nl.fontys.exercise.recorder.MeasurementRecorder;
