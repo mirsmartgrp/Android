@@ -10,7 +10,9 @@ import android.os.Looper;
 import android.os.Message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Measurement recording worker class.
@@ -19,10 +21,10 @@ import java.util.List;
  */
 public class MeasurementRecorder {
 
-    private final int[] sensorTypes;
-    private final int samplingRate;
+    private final Context context;
     private final SensorManager sensorManager;
-    private final List<Sensor> sensors;
+    private final MeasurementCollector collector;
+    private final List<MeasurementSensorData> sensorData;
     private final SensorMeasurementAdaptor adaptor;
     private final MeasurementListenerThread listenerThread;
 
@@ -34,21 +36,27 @@ public class MeasurementRecorder {
      * @param collector Instance of a measurement collector
      */
     public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector) {
-        this.sensorTypes = sensorTypes.clone();
-        this.samplingRate = samplingRate;
+        this.context = context;
+        this.collector = collector;
+
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-        sensors = new ArrayList<Sensor>();
-        adaptor = new SensorMeasurementAdaptor(collector);
+        sensorData = new ArrayList<MeasurementSensorData>();
+        adaptor = new SensorMeasurementAdaptor();
         listenerThread = new MeasurementListenerThread();
+
+        for (int sensorType : sensorTypes) {
+            MeasurementSensorData data = new MeasurementSensorData(sensorType, samplingRate);
+            sensorData.add(data);
+        }
     }
 
     /**
      * Initializes the measurement recorder.
      */
     public void initialize() {
-        for (int sensorType : sensorTypes)
-            sensors.add(sensorManager.getDefaultSensor(sensorType));
-        listenerThread.start();
+        // attach default sensors to data holders
+        for (MeasurementSensorData data : sensorData)
+            data.setDefaultSensor(sensorManager);
     }
 
     /**
@@ -74,49 +82,44 @@ public class MeasurementRecorder {
 
     private class SensorMeasurementAdaptor implements SensorEventListener {
 
-        private final MeasurementCollector collector;
-        private long startTime = 0;
-        private boolean blockMeasurements;
-
-        private SensorMeasurementAdaptor(MeasurementCollector collector) {
-            this.collector = collector;
-        }
+        private final Map<Sensor, MeasurementAdaptor> adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
+        private long startTime;
 
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
-            blockMeasurements = true;
             collector.startCollecting();
-            blockMeasurements = false;
+
+            for (MeasurementSensorData data : sensorData)
+                adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));
         }
 
         public void onRecordingStop() throws MeasurementException {
-            blockMeasurements = true;
-            collector.stopCollecting(reltime(System.nanoTime()));
+            adaptorMap.clear();
+            collector.stopCollecting((double)(System.nanoTime() - startTime) / 1000000000);
         }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            if (blockMeasurements)
+            MeasurementAdaptor adaptor;
+
+            if ((adaptor = adaptorMap.get(event.sensor)) == null)
                 return;
 
             try {
-                collector.collectMeasurement(event.sensor, reltime(event.timestamp), event.values, event.accuracy);
+                adaptor.sensorEvent(event);
             } catch (MeasurementException ex) {
-                blockMeasurements = true;
                 listenerThread.sendMessage(ex);
+                adaptorMap.clear();
             }
         }
 
         public void onRecordingFailed(MeasurementException ex) {
+            adaptorMap.clear();
             collector.collectionFailed(ex);
         }
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) { }
-
-        private double reltime(long timestamp) {
-            return (double)(timestamp - startTime) / 1000000000;
-        }
     }
 
     private class MeasurementListenerThread extends Thread {
@@ -173,7 +176,7 @@ public class MeasurementRecorder {
 
         private class MeasurementListenerMessageHandler extends Handler {
 
-            private MeasurementListenerThread parentThread;
+            private final MeasurementListenerThread parentThread;
             boolean recording = false;
 
             public MeasurementListenerMessageHandler(MeasurementListenerThread parentThread) {
@@ -186,9 +189,7 @@ public class MeasurementRecorder {
 
                 try {
                     adaptor.onRecordingStart();
-
-                    for (Sensor sensor : sensors)
-                        sensorManager.registerListener(adaptor, sensor, 1000000 / samplingRate, handler);
+                    register();
                     recording = true;
                 } catch (MeasurementException ex) {
                     adaptor.onRecordingFailed(ex);
@@ -199,7 +200,7 @@ public class MeasurementRecorder {
                 if (!recording)
                     return;
 
-                sensorManager.unregisterListener(adaptor);
+                unregister();
                 try {
                     adaptor.onRecordingStop();
                 } catch (MeasurementException ex) {
@@ -213,9 +214,18 @@ public class MeasurementRecorder {
                 if (!recording)
                     return;
 
-                sensorManager.unregisterListener(adaptor);
+                unregister();
                 adaptor.onRecordingFailed(ex);
                 recording = false;
+            }
+
+            public void register() {
+                for (MeasurementSensorData data : sensorData)
+                    sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), handler);
+            }
+
+            public void unregister() {
+                sensorManager.unregisterListener(adaptor);
             }
 
             @Override
@@ -224,16 +234,9 @@ public class MeasurementRecorder {
                     MeasurementListenerThreadMessage msg = (MeasurementListenerThreadMessage)message.obj;
 
                     switch (msg) {
-                        case START:
-                            start();
-                            break;
-                        case STOP:
-                            stop();
-                            break;
-                        case QUIT:
-                            stop();
-                            getLooper().quit();
-                            break;
+                        case START: start();                    break;
+                        case STOP:  stop();                     break;
+                        case QUIT:  stop(); getLooper().quit();
                     }
                 } else if (message.obj instanceof MeasurementException) {
                     MeasurementException ex = (MeasurementException)message.obj;
@@ -244,6 +247,6 @@ public class MeasurementRecorder {
     }
 
     private static enum MeasurementListenerThreadMessage {
-        START, STOP, FAIL, QUIT
+        START, STOP, QUIT
     }
 }
