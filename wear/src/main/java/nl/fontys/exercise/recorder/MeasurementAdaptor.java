@@ -28,6 +28,7 @@ public class MeasurementAdaptor {
         }
 
         collector.collectMeasurement(event.sensor, relativeToStart(event.timestamp), event.values, event.accuracy);
+        lastFired = event.timestamp;
     }
 
     private double relativeToStart(long timestamp) {
