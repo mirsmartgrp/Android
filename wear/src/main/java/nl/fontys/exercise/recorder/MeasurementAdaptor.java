@@ -21,11 +21,9 @@ public class MeasurementAdaptor {
     }
 
     public void sensorEvent(SensorEvent event) throws MeasurementException {
-        //TODO: For now, just limit samples. Later, interpolate measurements maybe?
         if (lastFired >= 0) {
             long passed = event.timestamp - lastFired;
-
-            if (passed >= samplingDelayUs) return;
+            if (passed < samplingDelayUs) return;
         }
 
         collector.collectMeasurement(event.sensor, relativeToStart(event.timestamp), event.values, event.accuracy);
