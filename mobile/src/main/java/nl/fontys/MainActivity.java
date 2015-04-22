@@ -1,7 +1,9 @@
 package nl.fontys;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,19 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.textView);
         Button button = (Button) findViewById(R.id.button);
+        Button btn =(Button) findViewById(R.id.exerciseButton);
+        Log.d("BUTTONTEST" , "Blah");
+
+        btn.setOnClickListener(
+                new Button.OnClickListener()
+                {
+                    public void onClick(View v)
+                    {
+                        Log.d("BUTTONTEST" , "Button clicked");
+                        Intent i= new Intent("SelectExerciseActivity");
+                        startActivity(i);
+                    }
+                });
 
         button.setOnClickListener(
                 new Button.OnClickListener()
