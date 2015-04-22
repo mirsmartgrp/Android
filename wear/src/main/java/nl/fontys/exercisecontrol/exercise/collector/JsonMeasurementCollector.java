@@ -29,16 +29,12 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
     @Override
     public void stopCollecting(double time) throws MeasurementException {
-        JSONObject obj = new JSONObject();
-
-        try {
-            for (Map.Entry<String, JSONArray> dataEntry : dataMap.entrySet()) {
-                obj.put(dataEntry.getKey(), dataEntry.getValue());
-            }
-            collectionComplete(obj);
-        } catch (JSONException ex) {
-            throw new MeasurementException(ex);
-        }
+        ExerciseData data = new ExerciseData("Test exercise");
+        DataEntry entry = new DataEntry(1.22);
+        entry.setAccelerometer(new DataEntry.Vector(1, 2, 3));
+        entry.setGyroscope(new DataEntry.Vector(4, 5, 6));
+        data.getData().add(entry);
+        collectionComplete(data);
     }
 
     @Override
@@ -73,5 +69,5 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         }
     }
 
-    public abstract void collectionComplete(JSONObject data);
+    public abstract void collectionComplete(ExerciseData data);
 }
