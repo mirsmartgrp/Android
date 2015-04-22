@@ -1,4 +1,4 @@
-package nl.fontys.exercisecontrol.exercise;
+package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
+import nl.fontys.exercisecontrol.exercise.R;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
