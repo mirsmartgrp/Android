@@ -24,6 +24,16 @@ public class Exercise
         this.EXERCISE_DATA = new ExerciseData();
     }
 
+    public String getNAME()
+    {
+        return NAME;
+    }
+
+    public ExerciseData getEXERCISE_DATA()
+    {
+        return EXERCISE_DATA;
+    }
+
     public static Exercise parseExercise(JSONObject jsonObject)
     {
         Exercise exercise = null;
