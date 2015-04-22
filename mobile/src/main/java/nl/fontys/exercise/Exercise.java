@@ -10,18 +10,18 @@ import org.json.JSONObject;
  */
 public class Exercise
 {
-    private final String       name;
-    private final ExerciseData exerciseData;
+    private final String       NAME;
+    private final ExerciseData EXERCISE_DATA;
 
     /**
-     * Constructs an exercise object with given name.
+     * Constructs an exercise object with given NAME.
      *
-     * @param name the name of the exercise
+     * @param name the NAME of the exercise
      */
     Exercise(String name)
     {
-        this.name = name;
-        this.exerciseData = new ExerciseData();
+        this.NAME = name;
+        this.EXERCISE_DATA = new ExerciseData();
     }
 
     public static Exercise parseExercise(JSONObject jsonObject)
