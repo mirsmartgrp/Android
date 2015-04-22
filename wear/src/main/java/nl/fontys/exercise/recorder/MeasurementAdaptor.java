@@ -10,7 +10,7 @@ public class MeasurementAdaptor {
     private final MeasurementSensorData sensorData;
     private final MeasurementCollector collector;
     private final long startTime;
-    private long lastFired;
+    private long lastFired = -1;
 
     public MeasurementAdaptor(MeasurementSensorData sensorData, MeasurementCollector collector, long startTime) {
         this.sensorData = sensorData;
