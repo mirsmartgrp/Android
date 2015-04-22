@@ -57,6 +57,8 @@ public class MeasurementRecorder {
         // attach default sensors to data holders
         for (MeasurementSensorData data : sensorData)
             data.setDefaultSensor(sensorManager);
+
+        listenerThread.start();
     }
 
     /**
