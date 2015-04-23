@@ -16,56 +16,37 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
     private static final String LOG_TAG = "JSON_COLLECTOR";
 
-    private final Map<String, JSONArray> dataMap;
-
-    public JsonMeasurementCollector() {
-        dataMap = new HashMap<String, JSONArray>();
-    }
+    private ExerciseData exerciseData = null;
 
     @Override
     public void startCollecting() throws MeasurementException {
-        dataMap.clear();
+        exerciseData = new ExerciseData("Exercise Data");
     }
 
     @Override
     public void stopCollecting(double time) throws MeasurementException {
-        ExerciseData data = new ExerciseData("Test exercise");
-        DataEntry entry = new DataEntry(1.22);
-        entry.setAccelerometer(new DataEntry.Vector(1, 2, 3));
-        entry.setGyroscope(new DataEntry.Vector(4, 5, 6));
-        data.getData().add(entry);
-        collectionComplete(data);
+        if (exerciseData == null)
+            throw new MeasurementException("No exercise data available!");
+
+        collectionComplete(exerciseData);
     }
 
     @Override
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) throws MeasurementException {
-        JSONArray dataArray;
+        //TODO actually find data entry with same time
+        DataEntry dataEntry = new DataEntry(time);
+        exerciseData.getData().add(dataEntry);
 
-        // obtain right array to store data in
-        if ((dataArray = dataMap.get(sensor.getStringType())) == null) {
-            dataArray = new JSONArray();
-            dataMap.put(sensor.getStringType(), dataArray);
-        }
-
-        try {
-            JSONObject value = new JSONObject();
-            switch (sensor.getType()) {
-                case Sensor.TYPE_LINEAR_ACCELERATION:
-                case Sensor.TYPE_GYROSCOPE:
-                    value.put("x", values[0]);
-                    value.put("y", values[1]);
-                    value.put("z", values[2]);
-                    break;
-                default:
-                    throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
-            }
-
-            JSONObject measurement = new JSONObject();
-            measurement.put("time", time);
-            measurement.put("value", value);
-            dataArray.put(measurement);
-        } catch (JSONException ex) {
-            throw new MeasurementException(ex);
+        // assign data to entry object
+        switch (sensor.getType()) {
+            case Sensor.TYPE_LINEAR_ACCELERATION:
+                dataEntry.setAccelerometer(new DataEntry.Vector(values[0], values[1], values[2]));
+                break;
+            case Sensor.TYPE_GYROSCOPE:
+                dataEntry.setGyroscope(new DataEntry.Vector(values[0], values[1], values[2]));
+                break;
+            default:
+                throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
     }
 
