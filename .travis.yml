@@ -1,20 +1,15 @@
 language: android
 env:
   matrix:
-
-    - ANDROID_TARGET=android-21 ANDROID_ABI=armeabi-v7a
-
-
+  - ANDROID_TARGET=android-21 ANDROID_ABI=armeabi-v7a
+  global:
+    secure: FQBJ6M8wkdkT7T9bg0ZzGzp0eEBuuhhEuSAcB1n7Gbwr7mq8QTaGlpb9qkWqbqkkJFaauMFSam4XlLnDQ4kjKNrTw6aW2sEZ+sDykp+hVfipsLjg7mrlln9aKAdykyLKVO3Mqnlp2NIpGfAQyZSi/NIJr/Qx+/VQj2gfZvt+Jes=
 android:
   components:
-    - build-tools-21.1.1
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-
+  - build-tools-21.1.1
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
 before_script:
- - chmod +x build.sh
-
+- chmod +x build.sh
 script: "./build.sh"
-
-
