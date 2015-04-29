@@ -40,10 +40,10 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         // assign data to entry object
         switch (sensor.getType()) {
             case Sensor.TYPE_LINEAR_ACCELERATION:
-                dataEntry.setAccelerometer(new DataEntry.Vector(values[0], values[1], values[2]));
+                dataEntry.setAccelerometer(new DataEntry.Vector(values));
                 break;
             case Sensor.TYPE_GYROSCOPE:
-                dataEntry.setGyroscope(new DataEntry.Vector(values[0], values[1], values[2]));
+                dataEntry.setGyroscope(new DataEntry.Vector(values));
                 break;
             default:
                 throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));

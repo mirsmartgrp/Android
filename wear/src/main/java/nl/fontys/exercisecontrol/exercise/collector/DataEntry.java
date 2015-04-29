@@ -35,6 +35,14 @@ public class DataEntry {
     public static class Vector {
         private final double x, y, z;
 
+        public Vector(float[] v) {
+            this(v[0], v[1], v[2]);
+        }
+
+        public Vector(double[] v) {
+            this(v[0], v[1], v[2]);
+        }
+
         public Vector(double x, double y, double z) {
             this.x = x;
             this.y = y;
