@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class SingleExerciseData
 {
-    private Date                timeStamp;
+    private Double                timeStamp;
     private PartialExerciseData acceleratorData;
     private PartialExerciseData gyroscopeData;
 
@@ -20,7 +20,7 @@ public class SingleExerciseData
      * @param acceleratorData
      * @param gyroscopeData
      */
-    SingleExerciseData(Date timeStamp,
+    SingleExerciseData(Double timeStamp,
                        PartialExerciseData acceleratorData,
                        PartialExerciseData gyroscopeData)
     {
@@ -41,7 +41,7 @@ public class SingleExerciseData
     /**
      * @return the timeStamp as Date object.
      */
-    public Date getTimeStamp()
+    public Double getTimeStamp()
     {
         return this.timeStamp;
     }

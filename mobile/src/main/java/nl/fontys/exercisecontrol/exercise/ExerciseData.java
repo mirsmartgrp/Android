@@ -27,7 +27,7 @@ public class ExerciseData
      * @param timeStamp   the time stamp of exercise
      * @param coordinates the position at time stamp
      */
-    public void addSingleExerciseData(Date timeStamp,
+    public void addSingleExerciseData(Double timeStamp,
                                       Double[][] coordinates)
     {
         PartialExerciseData acceleratorData = new PartialExerciseData(coordinates[0][0],

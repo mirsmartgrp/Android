@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,50 +11,60 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
+import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.R;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
-public class MainActivityMobile extends Activity
+public class MainActivityMobile
+        extends Activity
 {
-    private ConnectionHandlerBackend connectionHandlerBackend;
-    private TextView                 textView;
+    public static Context                  context;
+    private       ConnectionHandlerBackend connectionHandlerBackend;
+    private       TextView                 helloWorldTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        context = getBaseContext();
+
         super.onCreate(savedInstanceState);
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.textView);
-        Button button = (Button) findViewById(R.id.button);
-        Button btn =(Button) findViewById(R.id.exerciseButton);
-        Log.d("BUTTONTEST", "Blah");
+        helloWorldTextView = (TextView) findViewById(R.id.helloWorldTextView);
+        Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
+        Button historyButton = (Button) findViewById(R.id.historyButton);
+        Button androidButton = (Button) findViewById(R.id.androidButton);
+        Button tizenButton = (Button) findViewById(R.id.tizenButton);
+        Button parseExerciseButton = (Button) findViewById(R.id.parseExerciseButton);
+        Log.d("BUTTONTEST",
+              "Blah");
 
-        btn.setOnClickListener(
+        exerciseButton.setOnClickListener(
                 new Button.OnClickListener()
                 {
                     public void onClick(View v)
                     {
-                        Log.d("BUTTONTEST" , "Button clicked");
-                        Intent i= new Intent("SelectExerciseActivity");
+                        Log.d("BUTTONTEST",
+                              "Button clicked");
+                        Intent i = new Intent("SelectExerciseActivity");
                         startActivity(i);
                     }
                 });
 
-        button.setOnClickListener(
+        androidButton.setOnClickListener(
                 new Button.OnClickListener()
                 {
                     public void onClick(View v)
                     {
 
                         connectionHandlerBackend.sendExerciseData("Hallo Welt!");
-
                     }
-                }
+                });
 
-        );
         connectionHandlerBackend.addListener(new Listener()
         {
             @Override
@@ -66,7 +77,7 @@ public class MainActivityMobile extends Activity
 
     public void updateText(String text)
     {
-        textView.setText(text);
+        helloWorldTextView.setText(text);
     }
 
 
@@ -75,7 +86,7 @@ public class MainActivityMobile extends Activity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main,
-                menu);
+                                  menu);
         return true;
     }
 

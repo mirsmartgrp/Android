@@ -9,77 +9,80 @@
 				tools:context=".MainActivity">
 
 	<TextView
-		android:id="@+id/textView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/hello_world"
-		android:layout_alignParentBottom="true"
-		android:layout_toEndOf="@+id/button"/>
-
-	<Button
-		android:id="@+id/button"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Tizen"
-		android:layout_alignParentBottom="true"
-		android:layout_toEndOf="@+id/button2"/>
-
-	<Button
-		android:id="@+id/button2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Android"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentStart="true"/>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:text="Welcome to the Exercise Controll"
 		android:id="@+id/introText1"
-		android:layout_alignParentTop="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
-		android:layout_alignParentStart="true"/>
+		android:layout_alignParentStart="true"
+		android:layout_alignParentTop="true"
+		android:text="Welcome to the ExerciseControlApp"
+		android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:text="Please select your action"
 		android:id="@+id/introText2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignEnd="@+id/historyButton"
+		android:layout_alignParentStart="true"
 		android:layout_below="@+id/introText1"
-		android:layout_alignParentStart="true"
-		android:layout_alignEnd="@+id/historyButton"/>
+		android:layout_marginBottom="10dp"
+		android:layout_marginTop="50dp"
+		android:text="Please select your action"
+		android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Select Exercise"
 		android:id="@+id/exerciseButton"
-		android:layout_below="@+id/introText2"
-		android:layout_alignParentStart="true"
-		android:layout_alignEnd="@+id/button"
-		android:layout_above="@+id/textView2"/>
-
-	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="View History"
+		android:layout_above="@+id/debugTextView"
+		android:layout_alignEnd="@+id/androidButton"
+		android:layout_alignParentStart="true"
+		android:layout_below="@+id/introText2"
+		android:text="Select Exercise"/>
+
+	<Button
 		android:id="@+id/historyButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:layout_alignBottom="@+id/exerciseButton"
 		android:layout_alignParentEnd="true"
+		android:layout_below="@+id/introText2"
 		android:layout_toEndOf="@+id/exerciseButton"
-		android:layout_below="@+id/introText2"/>
+		android:text="View History"/>
+
 
 	<TextView
+		android:id="@+id/debugTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Debug Options"
-		android:id="@+id/textView2"
-		android:layout_above="@+id/button"
+		android:layout_above="@+id/helloWorldTextView"
+		android:layout_alignParentEnd="true"
 		android:layout_alignParentStart="true"
-		android:layout_marginBottom="47dp"
-		android:layout_alignParentEnd="true"/>
+		android:layout_marginBottom="10dp"
+		android:layout_marginTop="50dp"
+		android:text="Debug Options"/>
+
+	<TextView
+		android:id="@+id/helloWorldTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/androidButton"
+		android:text="@string/hello_world"/>
+
+	<Button
+		android:id="@+id/androidButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentStart="true"
+		android:text="Android"/>
+
+	<Button
+		android:id="@+id/tizenButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_toEndOf="@+id/androidButton"
+		android:text="Tizen"/>
 
 </RelativeLayout>
