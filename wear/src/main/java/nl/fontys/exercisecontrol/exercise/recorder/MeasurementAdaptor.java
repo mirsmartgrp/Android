@@ -11,6 +11,7 @@ public class MeasurementAdaptor {
     private final MeasurementCollector collector;
     private final long startTime;
     private final int samplingDelayUs;
+    private final double samplingInterval;
     private long lastFired = -1;
 
     public MeasurementAdaptor(MeasurementSensorData sensorData, MeasurementCollector collector, long startTime) {
@@ -18,6 +19,7 @@ public class MeasurementAdaptor {
         this.collector = collector;
         this.startTime = startTime;
         samplingDelayUs = 1000000 / sensorData.getSamplingRate();
+        samplingInterval = 1.0 / (double)sensorData.getSamplingRate();
     }
 
     public void sensorEvent(SensorEvent event) throws MeasurementException {
@@ -26,7 +28,7 @@ public class MeasurementAdaptor {
             if (passed < samplingDelayUs) return;
         }
 
-        collector.collectMeasurement(event.sensor, relativeToStart(event.timestamp), event.values, event.accuracy);
+        collector.collectMeasurement(event.sensor, relativeToStart(event.timestamp), event.values, event.accuracy, samplingInterval);
         lastFired = event.timestamp;
     }
 

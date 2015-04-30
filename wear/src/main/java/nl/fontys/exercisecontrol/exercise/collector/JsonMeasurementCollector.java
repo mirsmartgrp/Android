@@ -2,12 +2,7 @@ package nl.fontys.exercisecontrol.exercise.collector;
 
 import android.hardware.Sensor;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ListIterator;
 
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementCollector;
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementException;
@@ -34,12 +29,20 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     }
 
     @Override
-    public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) throws MeasurementException {
+    public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
         DataEntry dataEntry = null;
         boolean isFirst = false;
 
-        //TODO reverse scan (n) for time larger then current time
-        dataEntry = new DataEntry(time);
+        ListIterator<DataEntry> iter = exerciseData.getData().listIterator(exerciseData.getData().size());
+        while (iter.hasPrevious()) {
+            DataEntry entry = iter.previous();
+            if (entry.getTime() >= time - interval) {
+                dataEntry = entry;
+                break;
+            }
+        }
+        if (dataEntry == null)
+            dataEntry = new DataEntry(time);
 
         // assign data to entry object
         switch (sensor.getType()) {

@@ -24,7 +24,7 @@ public interface MeasurementCollector {
      * @param accuracy Accuracy reading
      * @throws MeasurementException when an error occurred
      */
-    void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) throws MeasurementException;
+    void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException;
 
     /**
      * Fails the measurement collection. This completely invalidates the current measurement collection.
