@@ -226,7 +226,7 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         quickfix="adt">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_select_exercise.xml"
-            line="30"
+            line="14"
             column="3"/>
     </issue>
 
@@ -249,7 +249,7 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         quickfix="adt">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_select_exercise.xml"
-            line="39"
+            line="23"
             column="3"/>
     </issue>
 
