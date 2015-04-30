@@ -69,17 +69,22 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
             if (entry.getTime() >= time)
                 dataEntry = entry;
 
-            if (entry.getAccelerometer() == null)
+            if ((accelerometer != null) && (entry.getAccelerometer() == null))
                 entry.setAccelerometer(accelerometer);
-            if (entry.getGyroscope() == null)
+            if ((gyroscope != null) && (entry.getGyroscope() == null))
                 entry.setGyroscope(gyroscope);
+
+            if (i == 0)
+                i = buffer.length;
         }
 
         // add new data entry
         if (dataEntry == null) {
             dataEntry = new DataEntry(time);
-            dataEntry.setGyroscope(gyroscope);
-            dataEntry.setAccelerometer(accelerometer);
+            if (gyroscope != null)
+                dataEntry.setGyroscope(gyroscope);
+            if (accelerometer != null)
+                dataEntry.setAccelerometer(accelerometer);
 
             if (buffer[index] != null)
                 exerciseData.getData().add(buffer[index]);
