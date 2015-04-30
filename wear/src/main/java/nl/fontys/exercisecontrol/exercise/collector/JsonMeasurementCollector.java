@@ -47,8 +47,25 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
     @Override
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) throws MeasurementException {
-        //TODO actually find data entry with same time
-        DataEntry dataEntry = new DataEntry(time);
+        DataEntry dataEntry = null;
+
+        // find data entry
+        for (int i = index; buffer[i] != null; --i) {
+            if (buffer[i].getTime() >= time)
+                dataEntry = buffer[i];
+            if (i == 0)
+                i = buffer.length;
+        }
+
+        // add new data entry
+        if (dataEntry == null) {
+            dataEntry = new DataEntry(time);
+            if (buffer[index] != null)
+                exerciseData.getData().add(buffer[index]);
+            buffer[index] = dataEntry;
+            if (index == buffer.length)
+                index = 0;
+        }
 
         // assign data to entry object
         switch (sensor.getType()) {
@@ -61,12 +78,6 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
             default:
                 throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
-
-        if (buffer[index] != null)
-            exerciseData.getData().add(buffer[index]);
-        buffer[index] = dataEntry;
-        if (index == buffer.length)
-            index = 0;
     }
 
     public abstract void collectionComplete(ExerciseData data);
