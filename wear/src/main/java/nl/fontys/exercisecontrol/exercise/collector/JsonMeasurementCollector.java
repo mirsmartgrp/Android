@@ -47,36 +47,45 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
     @Override
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) throws MeasurementException {
+        DataEntry.Vector accelerometer = null, gyroscope = null;
         DataEntry dataEntry = null;
+
+        // assign data to entry object
+        switch (sensor.getType()) {
+            case Sensor.TYPE_LINEAR_ACCELERATION:
+                accelerometer = new DataEntry.Vector(values);
+                break;
+            case Sensor.TYPE_GYROSCOPE:
+                gyroscope = new DataEntry.Vector(values);
+                break;
+            default:
+                throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
+        }
 
         // find data entry
         for (int i = index; buffer[i] != null; --i) {
-            if (buffer[i].getTime() >= time)
-                dataEntry = buffer[i];
-            if (i == 0)
-                i = buffer.length;
+            DataEntry entry = buffer[i];
+
+            if (entry.getTime() >= time)
+                dataEntry = entry;
+
+            if (entry.getAccelerometer() == null)
+                entry.setAccelerometer(accelerometer);
+            if (entry.getGyroscope() == null)
+                entry.setGyroscope(gyroscope);
         }
 
         // add new data entry
         if (dataEntry == null) {
             dataEntry = new DataEntry(time);
+            dataEntry.setGyroscope(gyroscope);
+            dataEntry.setAccelerometer(accelerometer);
+
             if (buffer[index] != null)
                 exerciseData.getData().add(buffer[index]);
             buffer[index] = dataEntry;
             if (index == buffer.length)
                 index = 0;
-        }
-
-        // assign data to entry object
-        switch (sensor.getType()) {
-            case Sensor.TYPE_LINEAR_ACCELERATION:
-                dataEntry.setAccelerometer(new DataEntry.Vector(values));
-                break;
-            case Sensor.TYPE_GYROSCOPE:
-                dataEntry.setGyroscope(new DataEntry.Vector(values));
-                break;
-            default:
-                throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
     }
 
