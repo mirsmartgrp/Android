@@ -1,5 +1,6 @@
-package nl.fontys.exercisecontrol.exercise;
+package nl.fontys.exercisecontrol;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,13 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+
+import nl.fontys.exercisecontrol.exercise.R;
 
 
 public class SelectExerciseActivity extends ListActivity
 {
 
     ListView listView;
+    private int RETURNRESULTLESS = -2;
+    private int RETURNERROR = -1
 
     String[] testExercises = new String[]
             {
@@ -29,27 +36,32 @@ public class SelectExerciseActivity extends ListActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        listView = (ListView) findViewById(R.id.exerListView);
+
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1,testExercises);
         setContentView(R.layout.activity_select_exercise);
+        setListAdapter(listAdapter);
+        //listView.setAdapter(listAdapter);
+        listView = getListView();
 
-        listView.setAdapter(listAdapter);
-
-
-        AdapterView.OnItemClickListener
-                mMessageClickedHandler =
-                new AdapterView.OnItemClickListener()
-                {
-                    public void onItemClick(AdapterView parent,
-                                            View v,
-                                            int position,
-                                            long id)
-
-                    {
-                        Log.d("ExerciseActivity" , "Clicked item: " + id);
-                    }
-                };
+        listView.setOnItemClickListener( new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                FinishActivityWithClick(parent, view, position, id);
+            }
+        });
+        Button returnButton =(Button) findViewById(R.id.returnButton);
+        View.OnClickListener listnr=new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                setResult(RETURNRESULTLESS);
+                finish();
+            }
+        };
+        returnButton.setOnClickListener(listnr);
     }
 
 
@@ -77,5 +89,11 @@ public class SelectExerciseActivity extends ListActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void FinishActivityWithClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        setResult(position);
+        finish();
     }
 }

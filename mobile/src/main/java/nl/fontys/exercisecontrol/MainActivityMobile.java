@@ -18,7 +18,9 @@ import nl.fontys.exercisecontrol.listener.Listener;
 public class MainActivityMobile extends Activity
 {
     private ConnectionHandlerBackend connectionHandlerBackend;
-    private TextView                 textView;
+    private TextView textView;
+    private static int exercsieRequestCode = 1001;
+    private static int historyRequestCode = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,19 +31,16 @@ public class MainActivityMobile extends Activity
         textView = (TextView) findViewById(R.id.textView);
         Button button = (Button) findViewById(R.id.button);
         Button btn =(Button) findViewById(R.id.exerciseButton);
-        Log.d("BUTTONTEST", "Blah");
+        Intent intent = new Intent(this, SelectExerciseActivity.class);
+        View.OnClickListener listnr=new View.OnClickListener() {
 
-        btn.setOnClickListener(
-                new Button.OnClickListener()
-                {
-                    public void onClick(View v)
-                    {
-                        Log.d("BUTTONTEST" , "Button clicked");
-                        Intent i= new Intent("SelectExerciseActivity");
-                        startActivity(i);
-                    }
-                });
-
+            @Override
+            public void onClick(View v)
+            {
+                StartExerciseActivity();
+            }
+        };
+        btn.setOnClickListener(listnr);
         button.setOnClickListener(
                 new Button.OnClickListener()
                 {
@@ -94,5 +93,23 @@ public class MainActivityMobile extends Activity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void StartExerciseActivity()
+    {
+        Intent intent = new Intent(this, SelectExerciseActivity.class);
+        intent.setAction(Intent.ACTION_VIEW);
+        startActivityForResult(intent, exercsieRequestCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        Log.d("RESULTREST", "RequestCode: " +requestCode);
+        Log.d("RESULTREST", "ResultCode: " +resultCode);
+       // Log.d("RESULTREST", "Data: " + data.toString());
     }
 }
