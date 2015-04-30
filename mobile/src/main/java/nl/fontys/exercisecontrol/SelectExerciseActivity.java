@@ -21,7 +21,7 @@ public class SelectExerciseActivity extends ListActivity
 
     ListView listView;
     private int RETURNRESULTLESS = -2;
-    private int RETURNERROR = -1
+    private int RETURNERROR = -1;
 
     String[] testExercises = new String[]
             {
