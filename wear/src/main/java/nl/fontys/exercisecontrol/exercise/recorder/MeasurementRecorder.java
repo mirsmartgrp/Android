@@ -85,10 +85,10 @@ public class MeasurementRecorder {
     private class SensorMeasurementAdaptor implements SensorEventListener {
 
         private final Map<Sensor, MeasurementAdaptor> adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
-        private long startTime;
+        private long startTime = -1;
 
         public void onRecordingStart() throws MeasurementException {
-            startTime = System.nanoTime();
+            startTime = -1;
             collector.startCollecting();
 
             for (MeasurementSensorData data : sensorData)
@@ -106,6 +106,9 @@ public class MeasurementRecorder {
 
             if ((adaptor = adaptorMap.get(event.sensor)) == null)
                 return;
+
+            if (startTime < 0)
+                startTime = event.timestamp;
 
             try {
                 adaptor.sensorEvent(event);
