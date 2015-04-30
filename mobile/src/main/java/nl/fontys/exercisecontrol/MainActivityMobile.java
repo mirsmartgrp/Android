@@ -42,7 +42,6 @@ public class MainActivityMobile
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button androidButton = (Button) findViewById(R.id.androidButton);
         Button tizenButton = (Button) findViewById(R.id.tizenButton);
-        Button parseExerciseButton = (Button) findViewById(R.id.parseExerciseButton);
 
         Intent intent = new Intent(this, SelectExerciseActivity.class);
         View.OnClickListener listnr=new View.OnClickListener() {
