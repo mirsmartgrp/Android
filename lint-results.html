@@ -18,7 +18,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Thu Apr 30 10:27:02 UTC 2015.<br/>
+Check performed at Thu Apr 30 10:37:20 UTC 2015.<br/>
 0 errors and 12 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
@@ -50,13 +50,13 @@ Check performed at Thu Apr 30 10:27:02 UTC 2015.<br/>
 <div class="id"><a href="#" title="Return to top">GradleDependency: Obsolete Gradle Dependency</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle">../../build.gradle</a>:30</span>: <span class="message">A newer version of com.google.android.gms:play-services than 7.0.0 is available: 7.3.0</span><br /><pre class="errorlines">
-<span class="lineno">  27</span> 	wearApp project(':wear')
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:31</span>: <span class="message">A newer version of com.google.android.gms:play-services than 7.0.0 is available: 7.3.0</span><br /><pre class="errorlines">
 <span class="lineno">  28</span> 	compile files('libs/accessory-v2.2.2.jar')
-<span class="lineno">  29</span> 	compile files('libs/sdk-v1.0.0.jar')
-<span class="lineno">  30</span> 	<span class="errorspan">compile 'com.google.android.gms:play-services:7.0.0'</span>
-<span class="lineno">  31</span> 	testCompile 'junit:junit:4.12'
-<span class="lineno">  32</span> }
+<span class="lineno">  29</span> 	compile files('libs/jahmm-0.6.1.jar')
+<span class="lineno">  30</span> 	compile files('libs/sdk-v1.0.0.jar')
+<span class="lineno">  31</span> 	<span class="errorspan">compile 'com.google.android.gms:play-services:7.0.0'</span>
+<span class="lineno">  32</span> 	testCompile 'junit:junit:4.12'
+<span class="lineno">  33</span> }
 </pre>
 </div>
 <div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
@@ -107,11 +107,11 @@ Unused resources make applications larger and slow down builds.
 <div class="id"><a href="#" title="Return to top">HardcodedText: Hardcoded text</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:23</span>: <span class="message">[I18N] Hardcoded string "Tizen", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:23</span>: <span class="message">[I18N] Hardcoded string "HMM", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  20</span> 		android:id="@+id/button"
 <span class="lineno">  21</span> 		android:layout_width="wrap_content"
 <span class="lineno">  22</span> 		android:layout_height="wrap_content"
-<span class="lineno">  23</span> 		<span class="errorspan">android:text="Tizen"</span>
+<span class="lineno">  23</span> 		<span class="errorspan">android:text="HMM"</span>
 <span class="lineno">  24</span> 		android:layout_alignParentBottom="true"
 <span class="lineno">  25</span> 		android:layout_toEndOf="@+id/button2"/>
 </pre>
@@ -165,21 +165,21 @@ Unused resources make applications larger and slow down builds.
 <span class="lineno">  79</span> 		android:id="@+id/textView2"
 <span class="lineno">  80</span> 		android:layout_above="@+id/button"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:14</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  11</span> 	&lt;Button
-<span class="lineno">  12</span> 		android:layout_width="wrap_content"
-<span class="lineno">  13</span> 		android:layout_height="wrap_content"
-<span class="lineno">  14</span> 		<span class="errorspan">android:text="Return"</span>
-<span class="lineno">  15</span> 		android:id="@+id/returnButton"
-<span class="lineno">  16</span> 		android:layout_alignParentBottom="true"
+<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:30</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  27</span> 	&lt;Button
+<span class="lineno">  28</span> 		android:layout_width="wrap_content"
+<span class="lineno">  29</span> 		android:layout_height="wrap_content"
+<span class="lineno">  30</span> 		<span class="errorspan">android:text="Return"</span>
+<span class="lineno">  31</span> 		android:id="@+id/returnButton"
+<span class="lineno">  32</span> 		android:layout_alignParentBottom="true"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:23</span>: <span class="message">[I18N] Hardcoded string "Use Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  20</span> 	&lt;Button
-<span class="lineno">  21</span> 		android:layout_width="wrap_content"
-<span class="lineno">  22</span> 		android:layout_height="wrap_content"
-<span class="lineno">  23</span> 		<span class="errorspan">android:text="Use Exercise"</span>
-<span class="lineno">  24</span> 		android:id="@+id/okayButtonExer"
-<span class="lineno">  25</span> 		android:layout_alignTop="@+id/returnButton"
+<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:39</span>: <span class="message">[I18N] Hardcoded string "Use Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  36</span> 	&lt;Button
+<span class="lineno">  37</span> 		android:layout_width="wrap_content"
+<span class="lineno">  38</span> 		android:layout_height="wrap_content"
+<span class="lineno">  39</span> 		<span class="errorspan">android:text="Use Exercise"</span>
+<span class="lineno">  40</span> 		android:id="@+id/okayButtonExer"
+<span class="lineno">  41</span> 		android:layout_alignTop="@+id/returnButton"
 </pre>
 </div>
 </div>
