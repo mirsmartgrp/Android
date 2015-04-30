@@ -1,5 +1,6 @@
 package nl.fontys.exercisecontrol.exercise;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +25,35 @@ public class Exercise
         this.EXERCISE_DATA = new ExerciseData();
     }
 
+    public static Exercise parseExercise(JSONObject jsonObject)
+    {
+        try
+        {
+            jsonObject = new JSONObject("{'name': 'test exercise'}");
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        if (jsonObject.length() <= 0)
+        {
+            throw new RuntimeException("The jsonObject is empty.");
+        }
+
+        Exercise exercise = null;
+
+        try
+        {
+                exercise = new Exercise(jsonObject.getString("name"));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return exercise;
+    }
+
     public String getNAME()
     {
         return NAME;
@@ -32,21 +62,5 @@ public class Exercise
     public ExerciseData getEXERCISE_DATA()
     {
         return EXERCISE_DATA;
-    }
-
-    public static Exercise parseExercise(JSONObject jsonObject)
-    {
-        Exercise exercise = null;
-
-        try
-        {
-            exercise = new Exercise(jsonObject.getString("name"));
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-
-        return exercise;
     }
 }

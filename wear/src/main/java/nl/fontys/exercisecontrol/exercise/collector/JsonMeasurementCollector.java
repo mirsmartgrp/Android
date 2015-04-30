@@ -14,64 +14,71 @@ import nl.fontys.exercisecontrol.exercise.recorder.MeasurementException;
 
 public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
-    private static final String LOG_TAG = "JSON_COLLECTOR";
-
-    private final Map<String, JSONArray> dataMap;
+    private ExerciseData exerciseData = null;
+    private final DataEntry[] buffer;
+    private int index = 0;
 
     public JsonMeasurementCollector() {
-        dataMap = new HashMap<String, JSONArray>();
+        buffer = new DataEntry[32];
     }
 
     @Override
     public void startCollecting() throws MeasurementException {
-        dataMap.clear();
+        index = 0;
+        for (int i = 0, n = buffer.length; i < n; i++)
+            buffer[i] = null;
+
+        exerciseData = new ExerciseData("Exercise Data");
     }
 
     @Override
     public void stopCollecting(double time) throws MeasurementException {
-        JSONObject obj = new JSONObject();
+        if (exerciseData == null)
+            throw new MeasurementException("No exercise data available!");
 
-        try {
-            for (Map.Entry<String, JSONArray> dataEntry : dataMap.entrySet()) {
-                obj.put(dataEntry.getKey(), dataEntry.getValue());
-            }
-            collectionComplete(obj);
-        } catch (JSONException ex) {
-            throw new MeasurementException(ex);
+        while (buffer[index] != null) {
+            exerciseData.getData().add(buffer[index++]);
+            if (index == buffer.length)
+                index = 0;
         }
+
+        collectionComplete(exerciseData);
     }
 
     @Override
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy) throws MeasurementException {
-        JSONArray dataArray;
+        DataEntry dataEntry = null;
 
-        // obtain right array to store data in
-        if ((dataArray = dataMap.get(sensor.getStringType())) == null) {
-            dataArray = new JSONArray();
-            dataMap.put(sensor.getStringType(), dataArray);
+        // find data entry
+        for (int i = index; buffer[i] != null; --i) {
+            if (buffer[i].getTime() >= time)
+                dataEntry = buffer[i];
+            if (i == 0)
+                i = buffer.length;
         }
 
-        try {
-            JSONObject value = new JSONObject();
-            switch (sensor.getType()) {
-                case Sensor.TYPE_LINEAR_ACCELERATION:
-                case Sensor.TYPE_GYROSCOPE:
-                    value.put("x", values[0]);
-                    value.put("y", values[1]);
-                    value.put("z", values[2]);
-                    break;
-                default:
-                    throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
-            }
+        // add new data entry
+        if (dataEntry == null) {
+            dataEntry = new DataEntry(time);
+            if (buffer[index] != null)
+                exerciseData.getData().add(buffer[index]);
+            buffer[index] = dataEntry;
+            if (index == buffer.length)
+                index = 0;
+        }
 
-            JSONObject measurement = new JSONObject();
-            measurement.put("time", time);
-            measurement.put("value", value);
-            dataArray.put(measurement);
-        } catch (JSONException ex) {
-            throw new MeasurementException(ex);
+        // assign data to entry object
+        switch (sensor.getType()) {
+            case Sensor.TYPE_LINEAR_ACCELERATION:
+                dataEntry.setAccelerometer(new DataEntry.Vector(values));
+                break;
+            case Sensor.TYPE_GYROSCOPE:
+                dataEntry.setGyroscope(new DataEntry.Vector(values));
+                break;
+            default:
+                throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
     }
 
-    public abstract void collectionComplete(JSONObject data);
+    public abstract void collectionComplete(ExerciseData data);
 }

@@ -7,8 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
+import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementCollector;
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementException;
@@ -93,18 +96,14 @@ public class MainActivityWear extends Activity {
         }
 
         @Override
-        public void collectionComplete(JSONObject data) {
-            Log.d("WEAR", "Measurement complete: " + data.toString());
+        public void collectionComplete(ExerciseData data) {
+            Gson gson = new Gson();
+            Log.d("WEAR", "Measurement complete: " + gson.toJson(data));
         }
 
         @Override
         public void collectionFailed(MeasurementException ex) {
             Log.d("WEAR", "Measurement failed: " + ex.getMessage());
         }
-        @Override
-        public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy)  {
-
-        }
-
-        }
+    }
 }

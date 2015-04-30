@@ -2,6 +2,7 @@ package nl.fontys.exercisecontrol.exercise;
 
 import junit.framework.TestCase;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -51,7 +52,7 @@ public class ExerciseTest
 
             while ((receiveString = bufferedReader.readLine()) != null)
             {
-                stringBuilder.append(receiveString);
+                    stringBuilder.append(receiveString.trim());
             }
 
             inputStream.close();
@@ -77,9 +78,9 @@ public class ExerciseTest
     public void testParseExercise()
             throws Exception
     {
-        //        Exercise exercise = Exercise.parseExercise(jsonObject);
-        //
-        //        assertEquals(exerciseName,
-        //                     exercise.getNAME());
+//        Exercise exercise = Exercise.parseExercise(jsonObject);
+//
+//        assertEquals(exerciseName,
+//                     exercise.getNAME());
     }
 }
