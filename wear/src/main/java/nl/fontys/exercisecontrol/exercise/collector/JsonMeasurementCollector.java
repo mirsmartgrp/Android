@@ -66,13 +66,12 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         for (int i = index; buffer[i] != null; --i) {
             DataEntry entry = buffer[i];
 
+            if ((entry.getAccelerometer() != null) && (entry.getGyroscope() != null))
+                break;
+
+            setUndefined(entry, accelerometer, gyroscope);
             if (entry.getTime() >= time)
                 dataEntry = entry;
-
-            if ((accelerometer != null) && (entry.getAccelerometer() == null))
-                entry.setAccelerometer(accelerometer);
-            if ((gyroscope != null) && (entry.getGyroscope() == null))
-                entry.setGyroscope(gyroscope);
 
             if (i == 0)
                 i = buffer.length;
@@ -81,18 +80,22 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         // add new data entry
         if (dataEntry == null) {
             dataEntry = new DataEntry(time);
-            if (gyroscope != null)
-                dataEntry.setGyroscope(gyroscope);
-            if (accelerometer != null)
-                dataEntry.setAccelerometer(accelerometer);
-
             if (buffer[index] != null)
                 exerciseData.getData().add(buffer[index]);
             buffer[index] = dataEntry;
             if (index == buffer.length)
                 index = 0;
         }
+
+        setUndefined(dataEntry, accelerometer, gyroscope);
     }
 
     public abstract void collectionComplete(ExerciseData data);
+
+    private void setUndefined(DataEntry entry, DataEntry.Vector accelerometer, DataEntry.Vector gyroscope) {
+        if ((accelerometer != null) && (entry.getAccelerometer() == null))
+            entry.setAccelerometer(accelerometer);
+        if ((gyroscope != null) && (entry.getGyroscope() == null))
+            entry.setGyroscope(gyroscope);
+    }
 }
