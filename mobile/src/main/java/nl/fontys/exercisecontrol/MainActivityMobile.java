@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
+import nl.fontys.exercisecontrol.exercise.HMM;
 import nl.fontys.exercisecontrol.exercise.R;
 import nl.fontys.exercisecontrol.listener.Listener;
 
@@ -19,6 +20,7 @@ public class MainActivityMobile extends Activity
 {
     private ConnectionHandlerBackend connectionHandlerBackend;
     private TextView                 textView;
+    private HMM hmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,7 +32,7 @@ public class MainActivityMobile extends Activity
         Button button = (Button) findViewById(R.id.button);
         Button btn =(Button) findViewById(R.id.exerciseButton);
         Log.d("BUTTONTEST", "Blah");
-
+        hmm = new HMM();
         btn.setOnClickListener(
                 new Button.OnClickListener()
                 {
@@ -48,7 +50,7 @@ public class MainActivityMobile extends Activity
                     public void onClick(View v)
                     {
 
-                        connectionHandlerBackend.sendExerciseData("Hallo Welt!");
+                hmm.printHMM();
 
                     }
                 }
