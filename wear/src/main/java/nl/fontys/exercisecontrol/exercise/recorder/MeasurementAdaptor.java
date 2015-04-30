@@ -35,6 +35,6 @@ public class MeasurementAdaptor {
     private double relativeToStart(long timestamp) {
         long diff = timestamp - startTime;
 
-        return Math.floor((double)diff / (double)samplingDelayUs) * (double)samplingDelayUs / 1000000000.0;
+        return (double)diff / 1000000000.0;
     }
 }

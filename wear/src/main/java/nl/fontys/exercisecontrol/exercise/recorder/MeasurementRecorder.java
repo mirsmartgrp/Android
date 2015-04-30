@@ -99,7 +99,7 @@ public class MeasurementRecorder {
 
         public void onRecordingStop() throws MeasurementException {
             adaptorMap.clear();
-            collector.stopCollecting((double)(System.nanoTime() - startTime - delay) / 1000000000);
+            collector.stopCollecting((delay < 0) ? 0.0 : (double)(System.nanoTime() - startTime - delay) / 1000000000);
         }
 
         @Override
@@ -111,6 +111,7 @@ public class MeasurementRecorder {
 
             if (delay < 0)
                 delay = event.timestamp - startTime;
+
             event.timestamp -= delay;
 
             try {
