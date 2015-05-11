@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,47 +26,65 @@ import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
-public class MainActivityMobile extends Activity
+public class MainActivityMobile
+        extends Activity
 {
-    private ConnectionHandlerBackend connectionHandlerBackend;
     private TextView                 textView;
     private HMM hmm;
+    public static Context                  context;
+    private       ConnectionHandlerBackend connectionHandlerBackend;
+    private       TextView                 helloWorldTextView;
+    private static int exerciseRequestCode = 1001;
+    private static int historyRequestCode = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        context = getBaseContext();
+
         super.onCreate(savedInstanceState);
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.textView);
-        Button button = (Button) findViewById(R.id.button);
-        Button btn =(Button) findViewById(R.id.exerciseButton);
-        Log.d("BUTTONTEST", "Blah");
-        hmm = new HMM();
-        btn.setOnClickListener(
+        helloWorldTextView = (TextView) findViewById(R.id.helloWorldTextView);
+        Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
+        Button historyButton = (Button) findViewById(R.id.historyButton);
+        Button androidButton = (Button) findViewById(R.id.androidButton);
+        Button tizenButton = (Button) findViewById(R.id.tizenButton);
+
+        Intent intent = new Intent(this, SelectExerciseActivity.class);
+        View.OnClickListener listnr=new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                StartExerciseActivity();
+            }
+        };
+
+        exerciseButton.setOnClickListener(listnr);
+
+        exerciseButton.setOnClickListener(
                 new Button.OnClickListener()
                 {
                     public void onClick(View v)
                     {
-                        Log.d("BUTTONTEST" , "Button clicked");
-                        Intent i= new Intent("SelectExerciseActivity");
+                        Intent i = new Intent("SelectExerciseActivity");
                         startActivity(i);
                     }
                 });
 
-        button.setOnClickListener(
-                new Button.OnClickListener()
-                {
-                    public void onClick(View v)
-                    {
-
-                hmm.printHMM();
-
+        tizenButton.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        connectionHandlerBackend.sendExerciseData("Hallo Welt!");
                     }
                 }
 
         );
      /*   connectionHandlerBackend.addListener(new Listener()
+=======
+        connectionHandlerBackend.addListener(new Listener()
+>>>>>>> development
         {
             @Override
             public void onNotify(String data)
@@ -101,7 +119,7 @@ public class MainActivityMobile extends Activity
 
     public void updateText(String text)
     {
-        textView.setText(text);
+        helloWorldTextView.setText(text);
     }
 
 
@@ -110,7 +128,7 @@ public class MainActivityMobile extends Activity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main,
-                menu);
+                                  menu);
         return true;
     }
 
@@ -129,5 +147,23 @@ public class MainActivityMobile extends Activity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void StartExerciseActivity()
+    {
+        Intent intent = new Intent(this, SelectExerciseActivity.class);
+        intent.setAction(Intent.ACTION_VIEW);
+        startActivityForResult(intent, exerciseRequestCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        Log.d("RESULTREST", "RequestCode: " +requestCode);
+        Log.d("RESULTREST", "ResultCode: " +resultCode);
+       // Log.d("RESULTREST", "Data: " + data.toString());
     }
 }

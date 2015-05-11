@@ -85,10 +85,12 @@ public class MeasurementRecorder {
     private class SensorMeasurementAdaptor implements SensorEventListener {
 
         private final Map<Sensor, MeasurementAdaptor> adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
-        private long startTime;
+        private long startTime = 0;
+        private long delay = -1;
 
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
+            delay = -1;
             collector.startCollecting();
 
             for (MeasurementSensorData data : sensorData)
@@ -97,7 +99,7 @@ public class MeasurementRecorder {
 
         public void onRecordingStop() throws MeasurementException {
             adaptorMap.clear();
-            collector.stopCollecting((double)(System.nanoTime() - startTime) / 1000000000);
+            collector.stopCollecting((delay < 0) ? 0.0 : (double)(System.nanoTime() - startTime - delay) / 1000000000);
         }
 
         @Override
@@ -106,6 +108,11 @@ public class MeasurementRecorder {
 
             if ((adaptor = adaptorMap.get(event.sensor)) == null)
                 return;
+
+            if (delay < 0)
+                delay = event.timestamp - startTime;
+
+            event.timestamp -= delay;
 
             try {
                 adaptor.sensorEvent(event);
