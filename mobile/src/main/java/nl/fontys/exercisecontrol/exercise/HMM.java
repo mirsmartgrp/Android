@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol.exercise;
 
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import be.ac.ulg.montefiore.run.jahmm.Opdf;
 import be.ac.ulg.montefiore.run.jahmm.OpdfFactory;
 import be.ac.ulg.montefiore.run.jahmm.OpdfGaussian;
 import be.ac.ulg.montefiore.run.jahmm.OpdfGaussianFactory;
+import be.ac.ulg.montefiore.run.jahmm.OpdfMultiGaussianFactory;
 import be.ac.ulg.montefiore.run.jahmm.draw.GenericHmmDrawerDot;
 import be.ac.ulg.montefiore.run.jahmm.learn.BaumWelchLearner;
 
@@ -27,7 +29,7 @@ public class HMM {
 
     public  HMM(){
 
-        OpdfFactory factory = new OpdfGaussianFactory();
+        OpdfFactory factory = new OpdfMultiGaussianFactory(3);
         hmm = new Hmm<ObservationVector>(2,factory);
         bwl = new BaumWelchLearner();
 
@@ -50,8 +52,18 @@ public class HMM {
 
     public void printHMM(){
         try {
-           File path =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                    (new GenericHmmDrawerDot()).write(hmm, path.getAbsolutePath()+"/hmm" + (new Date()).getTime() + ".dot");
+          File path;
+           String state =  Environment.getExternalStorageState();
+             if (Environment.MEDIA_MOUNTED.equals(state)) {
+                 path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            }else{
+                 path = Environment.getDataDirectory();
+            }
+
+            String filepath = path.getAbsolutePath()+"/hmm/" + (new Date()).getTime() + ".dot";
+            (new GenericHmmDrawerDot()).write(hmm,filepath);
+
+            Log.d("HMM","Printed HMM "+ filepath);
         } catch (IOException e) {
             e.printStackTrace();
         }

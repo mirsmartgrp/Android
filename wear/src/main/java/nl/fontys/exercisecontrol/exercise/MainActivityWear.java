@@ -76,12 +76,13 @@ public class MainActivityWear extends Activity {
     /**
      * send collected data to phone
      * and inform user
-     * @param view
+     *
      */
-    public void sendMessage(View view) {
+    public void sendMessage(String text) {
 
             String resultText="data send to phone";
-            handler.sendMessage(messageToSendToPhone);
+            handler.connectGogleClient();
+            handler.sendMessage(text);
             Log.d(this.getClass().getName(), resultText);
             Toast toast = Toast.makeText(this, resultText, Toast.LENGTH_SHORT);
             toast.show();
@@ -98,7 +99,9 @@ public class MainActivityWear extends Activity {
         @Override
         public void collectionComplete(ExerciseData data) {
             Gson gson = new Gson();
+            sendMessage(gson.toJson(data).toString());
             Log.d("WEAR", "Measurement complete: " + gson.toJson(data));
+
         }
 
         @Override

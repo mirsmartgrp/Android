@@ -94,9 +94,6 @@ public class MainActivityMobile
 
         );
      /*   connectionHandlerBackend.addListener(new Listener()
-=======
-        connectionHandlerBackend.addListener(new Listener()
->>>>>>> development
         {
             @Override
             public void onNotify(String data)
@@ -114,11 +111,12 @@ public class MainActivityMobile
 
                     if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
                         List<PartialExerciseData> accelData = new ArrayList<PartialExerciseData>();
-                        for(SingleExerciseData s : ex.getEXERCISE_DATA().getListOfSingleExerciseData()){
+                        List<SingleExerciseData> l = ex.getEXERCISE_DATA().getListOfSingleExerciseData();
+                        for(SingleExerciseData s :l ){
                             accelData.add(s.getAcceleratorData());
                         }
-                        Log.d("LEARN","Learn HMM");
                         hmm.learnExercise(accelData);
+                        Log.d("LEARN","Learn HMM");
                     }
 
                 } catch (JSONException e) {
