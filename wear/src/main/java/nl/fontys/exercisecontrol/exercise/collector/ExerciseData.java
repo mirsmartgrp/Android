@@ -13,6 +13,14 @@ public class ExerciseData {
         data = new ArrayList<DataEntry>();
     }
 
+    @Override
+    public String toString() {
+        return "ExerciseData{" +
+                "name='" + name + '\'' +
+                ", data=" + data.toString() +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

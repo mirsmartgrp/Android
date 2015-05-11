@@ -70,6 +70,8 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         dataEntry.setAccelerometer(accelerometer);
         dataEntry.setGyroscope(gyroscope);
         exerciseData.getData().add(dataEntry);
+
+
     }
 
     public abstract void collectionComplete(ExerciseData data);
