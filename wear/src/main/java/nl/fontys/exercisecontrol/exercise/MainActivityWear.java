@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementCollector;
@@ -23,7 +24,7 @@ public class MainActivityWear extends Activity {
     private MeasurementRecorder recorder;
     private MeasurementCollector collector;
     private Chronometer chronometer;
-    private TextView headerView;
+    private TextView headerLbl;
     private String exerciseName="cycling";
     private final static String TAG="LOG";
 
@@ -38,7 +39,7 @@ public class MainActivityWear extends Activity {
 
         recorder = new MeasurementRecorder(this,initSensors(), 1, collector, exerciseName);
         recorder.initialize();
-
+       // initView();
     }
 
 
@@ -46,8 +47,8 @@ public class MainActivityWear extends Activity {
      * setup the view
      */
     private void initView() {
-        headerView = (TextView ) findViewById(R.id.headerLbl);
-        headerView.setText(exerciseName);
+        headerLbl = (TextView ) findViewById(R.id.headerLbl);
+        headerLbl.setText(exerciseName);
     }
     /**
      * create sensor data
@@ -77,6 +78,7 @@ public class MainActivityWear extends Activity {
      * @param view
      */
     public void start(View view) {
+        initView();
         if(!handler.isConnected()) {
             handler.connectGogleClient();
         }
@@ -129,6 +131,10 @@ public class MainActivityWear extends Activity {
         public void collectionComplete(ExerciseData data) {
 
             Gson gson = new Gson();
+                Log.d(TAG,"name: "+data.getName());
+                for(DataEntry d:data.getData()) {
+                    Log.d(TAG,"dataEntry: "+d);
+                }
             Log.d(TAG, "collecting measurements complete: "+gson.toString());
             sendMessage(gson.toString());
         }
