@@ -30,12 +30,14 @@ public class MainActivityMobile
         extends Activity
 {
     private TextView                 textView;
-    private HMM hmm;
     public static Context                  context;
     private       ConnectionHandlerBackend connectionHandlerBackend;
     private       TextView                 helloWorldTextView;
     private static int exerciseRequestCode = 1001;
     private static int historyRequestCode = 1002;
+
+
+    private HMM hmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,6 +45,7 @@ public class MainActivityMobile
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
+        hmm = new HMM();
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
         helloWorldTextView = (TextView) findViewById(R.id.helloWorldTextView);
@@ -50,6 +53,15 @@ public class MainActivityMobile
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button androidButton = (Button) findViewById(R.id.androidButton);
         Button tizenButton = (Button) findViewById(R.id.tizenButton);
+
+
+        androidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmm.printHMM();
+            }
+        });
+
 
         Intent intent = new Intent(this, SelectExerciseActivity.class);
         View.OnClickListener listnr=new View.OnClickListener() {
