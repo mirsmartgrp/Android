@@ -18,7 +18,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Thu Apr 30 11:47:47 UTC 2015.<br/>
+Check performed at Mon May 11 07:32:17 UTC 2015.<br/>
 0 errors and 12 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
@@ -50,13 +50,13 @@ Check performed at Thu Apr 30 11:47:47 UTC 2015.<br/>
 <div class="id"><a href="#" title="Return to top">GradleDependency: Obsolete Gradle Dependency</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle">../../build.gradle</a>:30</span>: <span class="message">A newer version of com.google.android.gms:play-services than 7.0.0 is available: 7.3.0</span><br /><pre class="errorlines">
-<span class="lineno">  27</span> 	wearApp project(':wear')
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:31</span>: <span class="message">A newer version of com.google.android.gms:play-services than 7.0.0 is available: 7.3.0</span><br /><pre class="errorlines">
 <span class="lineno">  28</span> 	compile files('libs/accessory-v2.2.2.jar')
-<span class="lineno">  29</span> 	compile files('libs/sdk-v1.0.0.jar')
-<span class="lineno">  30</span> 	<span class="errorspan">compile 'com.google.android.gms:play-services:7.0.0'</span>
-<span class="lineno">  31</span> 	testCompile 'junit:junit:4.12'
-<span class="lineno">  32</span> }
+<span class="lineno">  29</span> 	compile files('libs/jahmm-0.6.1.jar')
+<span class="lineno">  30</span> 	compile files('libs/sdk-v1.0.0.jar')
+<span class="lineno">  31</span> 	<span class="errorspan">compile 'com.google.android.gms:play-services:7.0.0'</span>
+<span class="lineno">  32</span> 	testCompile 'junit:junit:4.12'
+<span class="lineno">  33</span> }
 </pre>
 </div>
 <div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
@@ -107,79 +107,79 @@ Unused resources make applications larger and slow down builds.
 <div class="id"><a href="#" title="Return to top">HardcodedText: Hardcoded text</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:18</span>: <span class="message">[I18N] Hardcoded string "Welcome to the ExerciseControlApp", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  15</span> 		android:layout_alignParentEnd="true"
-<span class="lineno">  16</span> 		android:layout_alignParentStart="true"
-<span class="lineno">  17</span> 		android:layout_alignParentTop="true"
-<span class="lineno">  18</span> 		<span class="errorspan">android:text="Welcome to the ExerciseControlApp"</span>
-<span class="lineno">  19</span> 		android:textAppearance="?android:attr/textAppearanceLarge"/>
-<span class="lineno">  20</span> 
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:23</span>: <span class="message">[I18N] Hardcoded string "HMM", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  20</span> 		android:id="@+id/button"
+<span class="lineno">  21</span> 		android:layout_width="wrap_content"
+<span class="lineno">  22</span> 		android:layout_height="wrap_content"
+<span class="lineno">  23</span> 		<span class="errorspan">android:text="HMM"</span>
+<span class="lineno">  24</span> 		android:layout_alignParentBottom="true"
+<span class="lineno">  25</span> 		android:layout_toEndOf="@+id/button2"/>
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:30</span>: <span class="message">[I18N] Hardcoded string "Please select your action", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  27</span> 		android:layout_below="@+id/introText1"
-<span class="lineno">  28</span> 		android:layout_marginBottom="10dp"
-<span class="lineno">  29</span> 		android:layout_marginTop="50dp"
-<span class="lineno">  30</span> 		<span class="errorspan">android:text="Please select your action"</span>
-<span class="lineno">  31</span> 		android:textAppearance="?android:attr/textAppearanceLarge"/>
-<span class="lineno">  32</span> 
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:31</span>: <span class="message">[I18N] Hardcoded string "Android", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  28</span> 		android:id="@+id/button2"
+<span class="lineno">  29</span> 		android:layout_width="wrap_content"
+<span class="lineno">  30</span> 		android:layout_height="wrap_content"
+<span class="lineno">  31</span> 		<span class="errorspan">android:text="Android"</span>
+<span class="lineno">  32</span> 		android:layout_alignParentBottom="true"
+<span class="lineno">  33</span> 		android:layout_alignParentStart="true"/>
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:41</span>: <span class="message">[I18N] Hardcoded string "Select Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  38</span> 		android:layout_alignEnd="@+id/androidButton"
-<span class="lineno">  39</span> 		android:layout_alignParentStart="true"
-<span class="lineno">  40</span> 		android:layout_below="@+id/introText2"
-<span class="lineno">  41</span> 		<span class="errorspan">android:text="Select Exercise"/></span>
-<span class="lineno">  42</span> 
-<span class="lineno">  43</span> 	&lt;Button
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:39</span>: <span class="message">[I18N] Hardcoded string "Welcome to the Exercise Controll", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  36</span> 		android:layout_width="wrap_content"
+<span class="lineno">  37</span> 		android:layout_height="wrap_content"
+<span class="lineno">  38</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
+<span class="lineno">  39</span> 		<span class="errorspan">android:text="Welcome to the Exercise Controll"</span>
+<span class="lineno">  40</span> 		android:id="@+id/introText1"
+<span class="lineno">  41</span> 		android:layout_alignParentTop="true"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:51</span>: <span class="message">[I18N] Hardcoded string "View History", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  48</span> 		android:layout_alignParentEnd="true"
-<span class="lineno">  49</span> 		android:layout_below="@+id/introText2"
-<span class="lineno">  50</span> 		android:layout_toEndOf="@+id/exerciseButton"
-<span class="lineno">  51</span> 		<span class="errorspan">android:text="View History"/></span>
-<span class="lineno">  52</span> 
-<span class="lineno">  53</span> 
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:49</span>: <span class="message">[I18N] Hardcoded string "Please select your action", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  46</span> 		android:layout_width="wrap_content"
+<span class="lineno">  47</span> 		android:layout_height="wrap_content"
+<span class="lineno">  48</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
+<span class="lineno">  49</span> 		<span class="errorspan">android:text="Please select your action"</span>
+<span class="lineno">  50</span> 		android:id="@+id/introText2"
+<span class="lineno">  51</span> 		android:layout_below="@+id/introText1"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:63</span>: <span class="message">[I18N] Hardcoded string "Debug Options", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  60</span> 		android:layout_alignParentStart="true"
-<span class="lineno">  61</span> 		android:layout_marginBottom="10dp"
-<span class="lineno">  62</span> 		android:layout_marginTop="50dp"
-<span class="lineno">  63</span> 		<span class="errorspan">android:text="Debug Options"/></span>
-<span class="lineno">  64</span> 
-<span class="lineno">  65</span> 	&lt;TextView
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:58</span>: <span class="message">[I18N] Hardcoded string "Select Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  55</span> 	&lt;Button
+<span class="lineno">  56</span> 		android:layout_width="wrap_content"
+<span class="lineno">  57</span> 		android:layout_height="wrap_content"
+<span class="lineno">  58</span> 		<span class="errorspan">android:text="Select Exercise"</span>
+<span class="lineno">  59</span> 		android:id="@+id/exerciseButton"
+<span class="lineno">  60</span> 		android:layout_below="@+id/introText2"
 </pre>
 <button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 4 More Occurrences...</button>
 <div id="HardcodedTextDiv" style="display: none">
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:78</span>: <span class="message">[I18N] Hardcoded string "Android", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  75</span> 		android:layout_height="wrap_content"
-<span class="lineno">  76</span> 		android:layout_alignParentBottom="true"
-<span class="lineno">  77</span> 		android:layout_alignParentStart="true"
-<span class="lineno">  78</span> 		<span class="errorspan">android:text="Android"/></span>
-<span class="lineno">  79</span> 
-<span class="lineno">  80</span> 	&lt;Button
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:68</span>: <span class="message">[I18N] Hardcoded string "View History", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  65</span> 	&lt;Button
+<span class="lineno">  66</span> 		android:layout_width="wrap_content"
+<span class="lineno">  67</span> 		android:layout_height="wrap_content"
+<span class="lineno">  68</span> 		<span class="errorspan">android:text="View History"</span>
+<span class="lineno">  69</span> 		android:id="@+id/historyButton"
+<span class="lineno">  70</span> 		android:layout_alignBottom="@+id/exerciseButton"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:86</span>: <span class="message">[I18N] Hardcoded string "Tizen", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  83</span> 		android:layout_height="wrap_content"
-<span class="lineno">  84</span> 		android:layout_alignParentBottom="true"
-<span class="lineno">  85</span> 		android:layout_toEndOf="@+id/androidButton"
-<span class="lineno">  86</span> 		<span class="errorspan">android:text="Tizen"/></span>
-<span class="lineno">  87</span> 
-<span class="lineno">  88</span> &lt;/RelativeLayout>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:78</span>: <span class="message">[I18N] Hardcoded string "Debug Options", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  75</span> 	&lt;TextView
+<span class="lineno">  76</span> 		android:layout_width="wrap_content"
+<span class="lineno">  77</span> 		android:layout_height="wrap_content"
+<span class="lineno">  78</span> 		<span class="errorspan">android:text="Debug Options"</span>
+<span class="lineno">  79</span> 		android:id="@+id/textView2"
+<span class="lineno">  80</span> 		android:layout_above="@+id/button"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:14</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  11</span> 	&lt;Button
-<span class="lineno">  12</span> 		android:layout_width="wrap_content"
-<span class="lineno">  13</span> 		android:layout_height="wrap_content"
-<span class="lineno">  14</span> 		<span class="errorspan">android:text="Return"</span>
-<span class="lineno">  15</span> 		android:id="@+id/returnButton"
-<span class="lineno">  16</span> 		android:layout_alignParentBottom="true"
+<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:30</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  27</span> 	&lt;Button
+<span class="lineno">  28</span> 		android:layout_width="wrap_content"
+<span class="lineno">  29</span> 		android:layout_height="wrap_content"
+<span class="lineno">  30</span> 		<span class="errorspan">android:text="Return"</span>
+<span class="lineno">  31</span> 		android:id="@+id/returnButton"
+<span class="lineno">  32</span> 		android:layout_alignParentBottom="true"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:23</span>: <span class="message">[I18N] Hardcoded string "Use Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  20</span> 	&lt;Button
-<span class="lineno">  21</span> 		android:layout_width="wrap_content"
-<span class="lineno">  22</span> 		android:layout_height="wrap_content"
-<span class="lineno">  23</span> 		<span class="errorspan">android:text="Use Exercise"</span>
-<span class="lineno">  24</span> 		android:id="@+id/okayButtonExer"
-<span class="lineno">  25</span> 		android:layout_alignTop="@+id/returnButton"
+<span class="location"><a href="../../src/main/res/layout/activity_select_exercise.xml">../../src/main/res/layout/activity_select_exercise.xml</a>:39</span>: <span class="message">[I18N] Hardcoded string "Use Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  36</span> 	&lt;Button
+<span class="lineno">  37</span> 		android:layout_width="wrap_content"
+<span class="lineno">  38</span> 		android:layout_height="wrap_content"
+<span class="lineno">  39</span> 		<span class="errorspan">android:text="Use Exercise"</span>
+<span class="lineno">  40</span> 		android:id="@+id/okayButtonExer"
+<span class="lineno">  41</span> 		android:layout_alignTop="@+id/returnButton"
 </pre>
 </div>
 </div>
