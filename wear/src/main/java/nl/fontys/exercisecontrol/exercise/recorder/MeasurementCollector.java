@@ -5,9 +5,10 @@ import android.hardware.Sensor;
 public interface MeasurementCollector {
     /**
      * Starts the collecting process. Time is zero.
+     * @param exerciseName name of the exercise
      * @throws MeasurementException when an error occurred
      */
-    void startCollecting() throws MeasurementException;
+    void startCollecting(String exerciseName) throws MeasurementException;
 
     /**
      * Stops the collecting process

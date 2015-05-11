@@ -27,18 +27,19 @@ public class MeasurementRecorder {
     private final List<MeasurementSensorData> sensorData;
     private final SensorMeasurementAdaptor adaptor;
     private final MeasurementListenerThread listenerThread;
-
+    private  String exerciseName="";
     /**
      * Instantiate a new measurement recorder.
      * @param context Android context
      * @param sensorTypes Array of sensor types recorded
      * @param samplingRate Desired measurements per second
      * @param collector Instance of a measurement collector
+     * @param exerciseName name of exercise
      */
-    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector) {
+    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector, String exerciseName) {
         this.context = context;
         this.collector = collector;
-
+        this.exerciseName=exerciseName;
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensorData = new ArrayList<MeasurementSensorData>();
         adaptor = new SensorMeasurementAdaptor();
@@ -91,7 +92,7 @@ public class MeasurementRecorder {
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
             delay = -1;
-            collector.startCollecting();
+            collector.startCollecting(exerciseName);
 
             for (MeasurementSensorData data : sensorData)
                 adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));

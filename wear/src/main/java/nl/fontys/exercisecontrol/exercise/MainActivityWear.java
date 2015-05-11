@@ -24,7 +24,7 @@ public class MainActivityWear extends Activity {
     private MeasurementCollector collector;
     private Chronometer chronometer;
     private TextView headerView;
-    private String exerciseName="this is exercisename";
+    private String exerciseName="cycling";
     private final static String TAG="LOG";
 
 
@@ -36,7 +36,7 @@ public class MainActivityWear extends Activity {
 
         collector = new JsonMeasurementCollectorImpl();
 
-        recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
+        recorder = new MeasurementRecorder(this,initSensors(), 1, collector, exerciseName);
         recorder.initialize();
 
     }
@@ -77,9 +77,17 @@ public class MainActivityWear extends Activity {
      * @param view
      */
     public void start(View view) {
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.start();
-    recorder.start();
+        if(!handler.isConnected()) {
+            handler.connectGogleClient();
+        }
+        if(handler.isConnected()) {
+            chronometer = (Chronometer) findViewById(R.id.chronometer);
+            chronometer.start();
+            recorder.start();
+        }
+        else {
+            showToast("could not establish connection to phone", Toast.LENGTH_LONG);
+        }
 
     }
 
@@ -106,14 +114,14 @@ public class MainActivityWear extends Activity {
     private class JsonMeasurementCollectorImpl extends JsonMeasurementCollector {
 
         @Override
-        public void startCollecting() throws MeasurementException {
-            super.startCollecting();
+        public void startCollecting(String exerciseName) throws MeasurementException {
+            super.startCollecting(exerciseName);
             Log.d(TAG, "Started collecting measurements.");
         }
 
         @Override
         public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
-            super.collectMeasurement(sensor,time,values,accuracy,interval);
+            super.collectMeasurement(sensor, time, values, accuracy, interval);
         }
 
 
@@ -121,7 +129,7 @@ public class MainActivityWear extends Activity {
         public void collectionComplete(ExerciseData data) {
 
             Gson gson = new Gson();
-            Log.d(TAG, "collecting measurements complete."+gson.toString());
+            Log.d(TAG, "collecting measurements complete: "+gson.toString());
             sendMessage(gson.toString());
         }
 
@@ -131,8 +139,13 @@ public class MainActivityWear extends Activity {
          **/
         private void sendMessage(String text) {
             handler.connectGogleClient();
-            handler.sendMessage(text);
-            showToast("data send to phone", Toast.LENGTH_LONG);
+            if(handler.isConnected()) {
+                handler.sendMessage(text);
+                showToast("data send to phone", Toast.LENGTH_LONG);
+            }
+            else {
+                showToast("no connection to phone.", Toast.LENGTH_LONG);
+            }
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
