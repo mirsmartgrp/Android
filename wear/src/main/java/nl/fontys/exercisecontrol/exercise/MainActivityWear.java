@@ -88,9 +88,9 @@ public class MainActivityWear extends Activity {
     recorder.stop();
     }
     private void updateTimeLabel(double time) {
-        timeLbl = (TextView ) findViewById(R.id.timeLbl);
-        timeLbl.setText("Time: "+time);
-        Log.d(TAG, "time updated");
+    //    timeLbl = (TextView ) findViewById(R.id.timeLbl);
+    //    timeLbl.setText("Time: "+time);
+    //    Log.d(TAG, "time updated");
     }
     /**
      * display a toast message
