@@ -18,7 +18,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Mon May 11 07:46:34 UTC 2015.<br/>
+Check performed at Mon May 11 08:40:02 UTC 2015.<br/>
 0 errors and 12 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
@@ -50,13 +50,13 @@ Check performed at Mon May 11 07:46:34 UTC 2015.<br/>
 <div class="id"><a href="#" title="Return to top">GradleDependency: Obsolete Gradle Dependency</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle">../../build.gradle</a>:31</span>: <span class="message">A newer version of com.google.android.gms:play-services than 7.0.0 is available: 7.3.0</span><br /><pre class="errorlines">
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:30</span>: <span class="message">A newer version of com.google.android.gms:play-services than 7.0.0 is available: 7.3.0</span><br /><pre class="errorlines">
+<span class="lineno">  27</span> 	wearApp project(':wear')
 <span class="lineno">  28</span> 	compile files('libs/accessory-v2.2.2.jar')
-<span class="lineno">  29</span> 	compile files('libs/jahmm-0.6.1.jar')
-<span class="lineno">  30</span> 	compile files('libs/sdk-v1.0.0.jar')
-<span class="lineno">  31</span> 	<span class="errorspan">compile 'com.google.android.gms:play-services:7.0.0'</span>
-<span class="lineno">  32</span> 	testCompile 'junit:junit:4.12'
-<span class="lineno">  33</span> }
+<span class="lineno">  29</span> 	compile files('libs/sdk-v1.0.0.jar')
+<span class="lineno">  30</span> 	<span class="errorspan">compile 'com.google.android.gms:play-services:7.0.0'</span>
+<span class="lineno">  31</span> 	testCompile 'junit:junit:4.12'
+<span class="lineno">  32</span> }
 </pre>
 </div>
 <div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
