@@ -10,9 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
+import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.HMM;
+import nl.fontys.exercisecontrol.exercise.PartialExerciseData;
 import nl.fontys.exercisecontrol.exercise.R;
+import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
@@ -56,12 +66,35 @@ public class MainActivityMobile extends Activity
                 }
 
         );
-        connectionHandlerBackend.addListener(new Listener()
+     /*   connectionHandlerBackend.addListener(new Listener()
         {
             @Override
             public void onNotify(String data)
             {
                 updateText(data);
+            }
+        });*/
+        connectionHandlerBackend.addListener(new Listener() {
+            @Override
+            public void onNotify(String data) {
+
+                try {
+                    JSONObject json = new JSONObject(data);
+                    Exercise ex = Exercise.parseExercise(json);
+
+                    if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
+                        List<PartialExerciseData> accelData = new ArrayList<PartialExerciseData>();
+                        for(SingleExerciseData s : ex.getEXERCISE_DATA().getListOfSingleExerciseData()){
+                            accelData.add(s.getAcceleratorData());
+                        }
+                        Log.d("LEARN","Learn HMM");
+                        hmm.learnExercise(accelData);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

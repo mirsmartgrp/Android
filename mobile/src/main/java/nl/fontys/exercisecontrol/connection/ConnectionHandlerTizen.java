@@ -213,17 +213,23 @@ public class ConnectionHandlerTizen
               "onServiceConnectionResponse");
         if (result == CONNECTION_SUCCESS)
         {
+            if(thisConnection instanceof ConnectionSocketTizen) {
+                Log.d("TEST","is Type of ConnectionSocketTizen");
+            }else{
+                Log.d("TEST", "isn't Type of ConnectionSocketTizen");
+
+            }
             if (thisConnection != null)
             {
+
                 ConnectionSocketTizen myConnection =
                         (ConnectionSocketTizen) thisConnection;
-
                 myConnection.setMConnectionId((int) (System.currentTimeMillis() & 255));
                 connectionID = myConnection.getMConnectionId();
                 mConnectionsMap.put(myConnection.getMConnectionId(),
                                     myConnection);
-
                 isConnected = true;
+
                 Log.d(TAG,
                       Integer.toString(connectionID));
                 Log.d(TAG,

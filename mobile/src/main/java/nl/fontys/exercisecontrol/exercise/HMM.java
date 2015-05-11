@@ -23,20 +23,20 @@ import be.ac.ulg.montefiore.run.jahmm.learn.BaumWelchLearner;
 public class HMM {
 
     private Hmm<ObservationVector> hmm;
+    private BaumWelchLearner bwl;
 
     public  HMM(){
 
         OpdfFactory factory = new OpdfGaussianFactory();
         hmm = new Hmm<ObservationVector>(2,factory);
+        bwl = new BaumWelchLearner();
 
     }
 
 
     public void learnExercise(List<PartialExerciseData> data){
 
-        BaumWelchLearner bwl = new BaumWelchLearner();
         List<List<ObservationVector>> sequences = new ArrayList<List<ObservationVector>>();
-
         List<ObservationVector> seq = new ArrayList<ObservationVector>();
         for(PartialExerciseData single : data){
             double[] values = {single.getX(),single.getY(),single
