@@ -21,6 +21,10 @@ uses-permission#com.samsung.android.providers.context.permission.WRITE_USE_APP_F
 ADDED from AndroidManifest.xml:6:5
 	android:name
 		ADDED from AndroidManifest.xml:6:22
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:7:2
+	android:name
+		ADDED from AndroidManifest.xml:7:19
 application
 ADDED from AndroidManifest.xml:8:5
 MERGED from com.google.android.gms:play-services:7.0.0:19:5

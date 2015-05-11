@@ -14,7 +14,7 @@
         quickfix="studio">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/build.gradle"
-            line="30"
+            line="31"
             column="2"/>
     </issue>
 
