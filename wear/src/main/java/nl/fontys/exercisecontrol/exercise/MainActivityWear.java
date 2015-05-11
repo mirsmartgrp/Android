@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ public class MainActivityWear extends Activity {
     private ConnectionHandler handler;
     private MeasurementRecorder recorder;
     private MeasurementCollector collector;
-    private TextView timeLbl;
+    private Chronometer chronometer;
     private TextView headerView;
     private String exerciseName="this is exercisename";
     private final static String TAG="LOG";
@@ -30,13 +31,13 @@ public class MainActivityWear extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         handler = new ConnectionHandler(this);
 
         collector = new JsonMeasurementCollectorImpl();
 
         recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
         recorder.initialize();
-        setContentView(R.layout.activity_main);
 
     }
 
@@ -72,26 +73,27 @@ public class MainActivityWear extends Activity {
 
     /**
      * start the measurement
+     * start chronometer
      * @param view
      */
     public void start(View view) {
-
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.start();
     recorder.start();
 
     }
 
     /**
      * stop the measurement
+     * stop chronometer
      * @param view
      */
     public void stop(View view) {
-    recorder.stop();
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.stop();
+        recorder.stop();
     }
-    private void updateTimeLabel(double time) {
-    //    timeLbl = (TextView ) findViewById(R.id.timeLbl);
-    //    timeLbl.setText("Time: "+time);
-    //    Log.d(TAG, "time updated");
-    }
+
     /**
      * display a toast message
      * @param message text to display
@@ -112,7 +114,6 @@ public class MainActivityWear extends Activity {
         @Override
         public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
             super.collectMeasurement(sensor,time,values,accuracy,interval);
-           updateTimeLabel(time);
         }
 
 
