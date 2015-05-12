@@ -107,6 +107,7 @@ public class MainActivityMobile
 
                 try {
                     JSONObject json = new JSONObject(data);
+                    Log.d("JSON",json.toString());
                     Exercise ex = Exercise.parseExercise(json);
 
                     if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
@@ -116,7 +117,7 @@ public class MainActivityMobile
                             accelData.add(s.getAcceleratorData());
                         }
                         hmm.learnExercise(accelData);
-                        Log.d("LEARN","Learn HMM");
+
                     }
 
                 } catch (JSONException e) {

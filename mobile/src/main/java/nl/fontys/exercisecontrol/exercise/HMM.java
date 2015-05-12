@@ -63,7 +63,7 @@ public class HMM {
             String filepath = path.getAbsolutePath()+"/hmm/" + (new Date()).getTime() + ".dot";
             (new GenericHmmDrawerDot()).write(hmm,filepath);
 
-            Log.d("HMM","Printed HMM "+ filepath);
+            Log.d("HMM","Printed HMM ");
         } catch (IOException e) {
             e.printStackTrace();
         }
