@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol.exercise;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.os.Bundle;
 import android.util.Log;
@@ -135,8 +136,9 @@ public class MainActivityWear extends Activity {
                 for(DataEntry d:data.getData()) {
                     Log.d(TAG,"dataEntry: "+d);
                 }
-            Log.d(TAG, "collecting measurements complete: "+gson.toString());
+            Log.d(TAG, "collecting measurements complete: " + gson.toString());
             sendMessage(gson.toString());
+
         }
 
         /**
@@ -152,6 +154,8 @@ public class MainActivityWear extends Activity {
             else {
                     showToast("no connection to phone.", Toast.LENGTH_LONG);
             }
+            Intent i = new Intent(getApplicationContext(), SelectExerciseActivityWear.class);
+            startActivity(i);
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
