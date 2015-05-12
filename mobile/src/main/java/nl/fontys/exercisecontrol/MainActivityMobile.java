@@ -60,8 +60,8 @@ public class MainActivityMobile
                 {
                     public void onClick(View v)
                     {
-                        Intent i = new Intent("SelectExerciseActivity");
-                        startActivity(i);
+                        Intent exerciseIntent = new Intent(MainActivityMobile.this, SelectExerciseActivity.class);
+                        startActivityForResult(exerciseIntent, exerciseRequestCode);
                     }
                 });
 
