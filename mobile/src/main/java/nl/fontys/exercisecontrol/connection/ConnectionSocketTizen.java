@@ -1,5 +1,7 @@
 package nl.fontys.exercisecontrol.connection;
 
+import android.util.Log;
+
 import com.samsung.android.sdk.accessory.SASocket;
 
 import nl.fontys.exercisecontrol.listener.Listener;
@@ -49,6 +51,7 @@ public class ConnectionSocketTizen
                           byte[] data)
     {
         String dataStr = new String(data);
+        Log.d("TEST", "TEST");
         for (Listener l : ConnectionHandlerTizen.getListenerList())
         {
             l.onNotify(dataStr);

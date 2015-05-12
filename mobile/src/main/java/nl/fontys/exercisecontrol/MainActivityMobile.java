@@ -11,22 +11,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.HMM;
+import nl.fontys.exercisecontrol.exercise.PartialExerciseData;
 import nl.fontys.exercisecontrol.exercise.R;
+import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
 public class MainActivityMobile
         extends Activity
 {
+    private TextView                 textView;
     public static Context                  context;
     private       ConnectionHandlerBackend connectionHandlerBackend;
     private       TextView                 helloWorldTextView;
     private static int exerciseRequestCode = 1001;
     private static int historyRequestCode = 1002;
+
+
+    private HMM hmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,14 +45,23 @@ public class MainActivityMobile
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
+        hmm = new HMM();
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
-
         helloWorldTextView = (TextView) findViewById(R.id.helloWorldTextView);
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button androidButton = (Button) findViewById(R.id.androidButton);
         Button tizenButton = (Button) findViewById(R.id.tizenButton);
+
+
+        androidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmm.printHMM();
+            }
+        });
+
 
         Intent intent = new Intent(this, SelectExerciseActivity.class);
         View.OnClickListener listnr=new View.OnClickListener() {
@@ -66,21 +86,44 @@ public class MainActivityMobile
                 });
 
         tizenButton.setOnClickListener(
-                new Button.OnClickListener()
-                {
-                    public void onClick(View v)
-                    {
-
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
                         connectionHandlerBackend.sendExerciseData("Hallo Welt!");
                     }
-                });
+                }
 
-        connectionHandlerBackend.addListener(new Listener()
+        );
+     /*   connectionHandlerBackend.addListener(new Listener()
         {
             @Override
             public void onNotify(String data)
             {
                 updateText(data);
+            }
+        });*/
+        connectionHandlerBackend.addListener(new Listener() {
+            @Override
+            public void onNotify(String data) {
+
+                try {
+                    JSONObject json = new JSONObject(data);
+                    Log.d("JSON",json.toString());
+                    Exercise ex = Exercise.parseExercise(json);
+
+                    if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
+                        List<PartialExerciseData> accelData = new ArrayList<PartialExerciseData>();
+                        List<SingleExerciseData> l = ex.getEXERCISE_DATA().getListOfSingleExerciseData();
+                        for(SingleExerciseData s :l ){
+                            accelData.add(s.getAcceleratorData());
+                        }
+                        hmm.learnExercise(accelData);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

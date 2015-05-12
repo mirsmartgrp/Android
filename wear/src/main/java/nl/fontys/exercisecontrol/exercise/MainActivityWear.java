@@ -150,7 +150,7 @@ public class MainActivityWear extends Activity {
                 showToast("data send to phone", Toast.LENGTH_LONG);
             }
             else {
-                showToast("no connection to phone.", Toast.LENGTH_LONG);
+                    showToast("no connection to phone.", Toast.LENGTH_LONG);
             }
         }
         @Override

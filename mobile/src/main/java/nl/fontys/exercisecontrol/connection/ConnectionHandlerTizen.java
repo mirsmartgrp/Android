@@ -162,7 +162,7 @@ public class ConnectionHandlerTizen
     protected void onFindPeerAgentResponse(SAPeerAgent arg0,
                                            int arg1)
     {
-        // TODO Auto-generated method stub
+
     }
 
     protected void onAuthenticationResponse(SAPeerAgent uPeerAgent,
@@ -209,25 +209,18 @@ public class ConnectionHandlerTizen
                                                SASocket thisConnection,
                                                int result)
     {
-        Log.d(TAG,
-              "onServiceConnectionResponse");
         if (result == CONNECTION_SUCCESS)
         {
             if (thisConnection != null)
             {
+
                 ConnectionSocketTizen myConnection =
                         (ConnectionSocketTizen) thisConnection;
-
                 myConnection.setMConnectionId((int) (System.currentTimeMillis() & 255));
                 connectionID = myConnection.getMConnectionId();
                 mConnectionsMap.put(myConnection.getMConnectionId(),
                                     myConnection);
-
                 isConnected = true;
-                Log.d(TAG,
-                      Integer.toString(connectionID));
-                Log.d(TAG,
-                      Boolean.toString(isConnected));
 
             }
         }
