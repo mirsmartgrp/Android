@@ -8,4 +8,5 @@
     <string name="TimeLbl">Time:</string>
     <string name="exerciseName">a exercise</string>
     <string name="chronometer_initial_format">Initial format:<xliff:g id="initial-format">%</xliff:g></string>
+    <string name="title_activity_select_exercise_activity_wear">SelectExerciseActivityWear</string>
 </resources>
