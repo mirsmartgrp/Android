@@ -26,7 +26,7 @@ ADDED from AndroidManifest.xml:7:2
 	android:name
 		ADDED from AndroidManifest.xml:7:19
 application
-ADDED from AndroidManifest.xml:8:5
+ADDED from AndroidManifest.xml:10:5
 MERGED from com.google.android.gms:play-services:7.0.0:19:5
 MERGED from com.google.android.gms:play-services-ads:7.0.0:19:5
 MERGED from com.google.android.gms:play-services-base:7.0.0:20:5
@@ -106,51 +106,57 @@ MERGED from com.google.android.gms:play-services-wearable:7.0.0:19:5
 MERGED from com.google.android.gms:play-services-base:7.0.0:20:5
 MERGED from com.android.support:support-v4:22.0.0:22:5
 	android:label
-		ADDED from AndroidManifest.xml:11:9
+		ADDED from AndroidManifest.xml:13:9
 	android:allowBackup
-		ADDED from AndroidManifest.xml:9:9
+		ADDED from AndroidManifest.xml:11:9
 	android:icon
-		ADDED from AndroidManifest.xml:10:9
-	android:theme
 		ADDED from AndroidManifest.xml:12:9
+	android:theme
+		ADDED from AndroidManifest.xml:14:9
 service#nl.fontys.exercisecontrol.connection.ConnectionHandlerTizen
-ADDED from AndroidManifest.xml:14:9
-	android:name
-		ADDED from AndroidManifest.xml:14:18
-receiver#com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver
 ADDED from AndroidManifest.xml:16:9
 	android:name
-		ADDED from AndroidManifest.xml:16:19
+		ADDED from AndroidManifest.xml:16:18
+receiver#com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver
+ADDED from AndroidManifest.xml:18:9
+	android:name
+		ADDED from AndroidManifest.xml:18:19
 intent-filter#android.accessory.service.action.ACCESSORY_SERVICE_CONNECTION_IND
-ADDED from AndroidManifest.xml:17:13
+ADDED from AndroidManifest.xml:19:13
 action#android.accessory.service.action.ACCESSORY_SERVICE_CONNECTION_IND
-ADDED from AndroidManifest.xml:18:17
+ADDED from AndroidManifest.xml:20:17
 	android:name
-		ADDED from AndroidManifest.xml:18:25
+		ADDED from AndroidManifest.xml:20:25
 receiver#com.samsung.android.sdk.accessory.RegisterUponInstallReceiver
-ADDED from AndroidManifest.xml:21:9
+ADDED from AndroidManifest.xml:23:9
 	android:name
-		ADDED from AndroidManifest.xml:21:19
+		ADDED from AndroidManifest.xml:23:19
 intent-filter#android.accessory.device.action.REGISTER_AFTER_INSTALL
-ADDED from AndroidManifest.xml:22:13
+ADDED from AndroidManifest.xml:24:13
 action#android.accessory.device.action.REGISTER_AFTER_INSTALL
-ADDED from AndroidManifest.xml:23:17
+ADDED from AndroidManifest.xml:25:17
 	android:name
-		ADDED from AndroidManifest.xml:23:25
+		ADDED from AndroidManifest.xml:25:25
+meta-data#AccessoryServicesLocation
+ADDED from AndroidManifest.xml:28:3
+	android:name
+		ADDED from AndroidManifest.xml:28:14
+	android:value
+		ADDED from AndroidManifest.xml:28:55
 activity#nl.fontys.exercisecontrol.MainActivityMobile
-ADDED from AndroidManifest.xml:28:9
+ADDED from AndroidManifest.xml:30:9
 	android:label
-		ADDED from AndroidManifest.xml:30:13
+		ADDED from AndroidManifest.xml:32:13
 	android:name
-		ADDED from AndroidManifest.xml:29:13
+		ADDED from AndroidManifest.xml:31:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:31:13
+ADDED from AndroidManifest.xml:33:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:32:17
-	android:name
-		ADDED from AndroidManifest.xml:32:25
-meta-data#com.google.android.gms.version
 ADDED from AndroidManifest.xml:34:17
+	android:name
+		ADDED from AndroidManifest.xml:34:25
+meta-data#com.google.android.gms.version
+ADDED from AndroidManifest.xml:36:17
 MERGED from com.google.android.gms:play-services-base:7.0.0:21:9
 MERGED from com.google.android.gms:play-services-base:7.0.0:21:9
 MERGED from com.google.android.gms:play-services-base:7.0.0:21:9
@@ -177,25 +183,25 @@ MERGED from com.google.android.gms:play-services-base:7.0.0:21:9
 MERGED from com.google.android.gms:play-services-base:7.0.0:21:9
 MERGED from com.google.android.gms:play-services-base:7.0.0:21:9
 	android:name
-		ADDED from AndroidManifest.xml:35:21
+		ADDED from AndroidManifest.xml:37:21
 	android:value
-		ADDED from AndroidManifest.xml:36:21
+		ADDED from AndroidManifest.xml:38:21
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:38:17
+ADDED from AndroidManifest.xml:40:17
 	android:name
-		ADDED from AndroidManifest.xml:38:27
+		ADDED from AndroidManifest.xml:40:27
 activity#nl.fontys.exercisecontrol.SelectExerciseActivity
-ADDED from AndroidManifest.xml:41:9
+ADDED from AndroidManifest.xml:43:9
 	android:label
-		ADDED from AndroidManifest.xml:43:13
+		ADDED from AndroidManifest.xml:45:13
 	android:name
-		ADDED from AndroidManifest.xml:42:13
+		ADDED from AndroidManifest.xml:44:13
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from AndroidManifest.xml:45:4
+ADDED from AndroidManifest.xml:47:4
 	android:name
-		ADDED from AndroidManifest.xml:46:5
+		ADDED from AndroidManifest.xml:48:5
 	android:value
-		ADDED from AndroidManifest.xml:47:5
+		ADDED from AndroidManifest.xml:49:5
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.google.android.gms:play-services:7.0.0:18:5
