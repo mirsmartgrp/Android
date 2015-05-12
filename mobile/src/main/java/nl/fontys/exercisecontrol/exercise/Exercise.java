@@ -55,23 +55,23 @@ public class Exercise
             for (int index = 0; index < jsonArray.length(); index++)
             {
                 JSONObject tmpJsonObject = jsonArray.getJSONObject(index);
-                Double timeStamp = tmpJsonObject.getDouble("time");
-                JSONObject accel = tmpJsonObject.getJSONObject("accelerometer");
-                JSONObject gyro = tmpJsonObject.getJSONObject("gyroscope");
+                Double time = tmpJsonObject.getDouble("time");
+                JSONObject accelerometer = tmpJsonObject.getJSONObject("accelerometer");
+                JSONObject gyroscope = tmpJsonObject.getJSONObject("gyroscope");
                 Double[][] coordinates = new Double[][]{
                         {
-                                Double.parseDouble(accel.get("x").toString()),
-                                Double.parseDouble(accel.get("y").toString()),
-                                Double.parseDouble(accel.get("z").toString())
+                                Double.parseDouble(accelerometer.get("x").toString()),
+                                Double.parseDouble(accelerometer.get("y").toString()),
+                                Double.parseDouble(accelerometer.get("z").toString())
                         },
                         {
-                                Double.parseDouble(gyro.get("x").toString()),
-                                Double.parseDouble(gyro.get("y").toString()),
-                                Double.parseDouble(gyro.get("z").toString())
+                                Double.parseDouble(gyroscope.get("x").toString()),
+                                Double.parseDouble(gyroscope.get("y").toString()),
+                                Double.parseDouble(gyroscope.get("z").toString())
                         }
                 };
 
-                exercise.getEXERCISE_DATA().addSingleExerciseData(timeStamp,
+                exercise.getEXERCISE_DATA().addSingleExerciseData(time,
                                                                   coordinates);
             }
         }
@@ -80,9 +80,6 @@ public class Exercise
             Log.e("parseExercise",
                   e.getMessage());
         }
-
-        Log.i("parseExercise",
-              "successful");
 
         return exercise;
     }
