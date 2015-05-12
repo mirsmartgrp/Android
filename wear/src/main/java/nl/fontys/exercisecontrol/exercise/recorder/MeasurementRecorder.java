@@ -27,6 +27,15 @@ public class MeasurementRecorder {
     private final List<MeasurementSensorData> sensorData;
     private final SensorMeasurementAdaptor adaptor;
     private final MeasurementListenerThread listenerThread;
+    private String exerciseName;
+
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
 
     /**
      * Instantiate a new measurement recorder.
@@ -35,10 +44,10 @@ public class MeasurementRecorder {
      * @param samplingRate Desired measurements per second
      * @param collector Instance of a measurement collector
      */
-    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector) {
+    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector, String exerciseName) {
         this.context = context;
         this.collector = collector;
-
+        this.exerciseName=exerciseName;
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensorData = new ArrayList<MeasurementSensorData>();
         adaptor = new SensorMeasurementAdaptor();
@@ -91,16 +100,13 @@ public class MeasurementRecorder {
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
             delay = -1;
-            collector.startCollecting();
+            collector.startCollecting(exerciseName);
 
             for (MeasurementSensorData data : sensorData)
                 adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));
         }
 
         public void onRecordingStop() throws MeasurementException {
-            if (delay < 0)
-                delay = event.timestamp - startTime;
-
             adaptorMap.clear();
             collector.stopCollecting((delay < 0) ? 0.0 : (double)(System.nanoTime() - startTime - delay) / 1000000000);
         }
