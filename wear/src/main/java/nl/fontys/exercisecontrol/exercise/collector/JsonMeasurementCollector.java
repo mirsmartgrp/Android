@@ -14,10 +14,10 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     private DataEntry.Vector gyroscope = null;
 
     @Override
-    public void startCollecting() throws MeasurementException {
+    public void startCollecting(String exerciseName) throws MeasurementException {
         accelerometer = null;
         gyroscope = null;
-        exerciseData = new ExerciseData("Exercise Data");
+        exerciseData = new ExerciseData(exerciseName);
     }
 
     @Override
