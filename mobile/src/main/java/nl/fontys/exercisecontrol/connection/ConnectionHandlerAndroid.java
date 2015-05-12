@@ -106,8 +106,7 @@ public class ConnectionHandlerAndroid
     public void onConnected(Bundle bundle)
     {
         //mApiClient.connect();
-        Log.i(TAG,
-              "Connected in ConnectionListener");
+        Log.i(TAG, "Connected in ConnectionListener");
     }
 
     /**
@@ -140,7 +139,7 @@ public class ConnectionHandlerAndroid
      */
     public void onMessageReceived(MessageEvent messageEvent)
     {
-
+        Log.d("ANDROID","MESSAGE RECEIVED");
         if (messageEvent.getPath().equalsIgnoreCase(WEAR_MESSAGE_PATH))
         {
             String data = new String(messageEvent.getData());

@@ -56,8 +56,8 @@ public class Exercise
             {
                 JSONObject tmpJsonObject = jsonArray.getJSONObject(index);
                 Double timeStamp = tmpJsonObject.getDouble("time");
-                JSONObject accel = tmpJsonObject.getJSONObject("accel");
-                JSONObject gyro = tmpJsonObject.getJSONObject("gyro");
+                JSONObject accel = tmpJsonObject.getJSONObject("accelerometer");
+                JSONObject gyro = tmpJsonObject.getJSONObject("gyroscope");
                 Double[][] coordinates = new Double[][]{
                         {
                                 Double.parseDouble(accel.get("x").toString()),

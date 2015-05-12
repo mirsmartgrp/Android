@@ -1,7 +1,5 @@
 package nl.fontys.exercisecontrol.exercise.collector;
 
-import android.util.Log;
-
 public class DataEntry {
 
     private final double time;
@@ -10,9 +8,8 @@ public class DataEntry {
 
     public DataEntry(double time) {
         this.time = time;
-        Log.d("JSM","time in DataEntry is "+time);
-        accelerometer = null;
-        gyroscope = null;
+        accelerometer = new Vector(0.0, 0.0, 0.0);
+        gyroscope = new Vector(0.0, 0.0, 0.0);
     }
 
     @Override

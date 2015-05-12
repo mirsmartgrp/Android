@@ -14,10 +14,10 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     private DataEntry.Vector gyroscope = null;
 
     @Override
-    public void startCollecting(String exerciseName) throws MeasurementException {
+    public void startCollecting() throws MeasurementException {
         accelerometer = null;
         gyroscope = null;
-        exerciseData = new ExerciseData(exerciseName);
+        exerciseData = new ExerciseData("Exercise Data");
     }
 
     @Override
@@ -31,7 +31,6 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     @Override
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
         DataEntry dataEntry = null;
-        boolean isFirst = false;
 
         ListIterator<DataEntry> iter = exerciseData.getData().listIterator(exerciseData.getData().size());
         while (iter.hasPrevious()) {
@@ -47,31 +46,20 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         // assign data to entry object
         switch (sensor.getType()) {
             case Sensor.TYPE_LINEAR_ACCELERATION:
-                isFirst = (accelerometer == null);
                 accelerometer = new DataEntry.Vector(values);
                 break;
             case Sensor.TYPE_GYROSCOPE:
-                isFirst = (gyroscope == null);
                 gyroscope = new DataEntry.Vector(values);
                 break;
             default:
                 throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
 
-        if (isFirst) {
-            for (DataEntry entry : exerciseData.getData()) {
-                if (entry.getAccelerometer() == null)
-                    entry.setAccelerometer(accelerometer);
-                if (entry.getGyroscope() == null)
-                    entry.setGyroscope(gyroscope);
-            }
-        }
-
-        dataEntry.setAccelerometer(accelerometer);
-        dataEntry.setGyroscope(gyroscope);
+        if (accelerometer != null)
+            dataEntry.setAccelerometer(accelerometer);
+        if (gyroscope != null)
+            dataEntry.setGyroscope(gyroscope);
         exerciseData.getData().add(dataEntry);
-
-
     }
 
     public abstract void collectionComplete(ExerciseData data);

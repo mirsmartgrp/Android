@@ -27,19 +27,18 @@ public class MeasurementRecorder {
     private final List<MeasurementSensorData> sensorData;
     private final SensorMeasurementAdaptor adaptor;
     private final MeasurementListenerThread listenerThread;
-    private  String exerciseName="";
+
     /**
      * Instantiate a new measurement recorder.
      * @param context Android context
      * @param sensorTypes Array of sensor types recorded
      * @param samplingRate Desired measurements per second
      * @param collector Instance of a measurement collector
-     * @param exerciseName name of exercise
      */
-    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector, String exerciseName) {
+    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector) {
         this.context = context;
         this.collector = collector;
-        this.exerciseName=exerciseName;
+
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensorData = new ArrayList<MeasurementSensorData>();
         adaptor = new SensorMeasurementAdaptor();
@@ -92,13 +91,16 @@ public class MeasurementRecorder {
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
             delay = -1;
-            collector.startCollecting(exerciseName);
+            collector.startCollecting();
 
             for (MeasurementSensorData data : sensorData)
                 adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));
         }
 
         public void onRecordingStop() throws MeasurementException {
+            if (delay < 0)
+                delay = event.timestamp - startTime;
+
             adaptorMap.clear();
             collector.stopCollecting((delay < 0) ? 0.0 : (double)(System.nanoTime() - startTime - delay) / 1000000000);
         }
@@ -107,11 +109,11 @@ public class MeasurementRecorder {
         public void onSensorChanged(SensorEvent event) {
             MeasurementAdaptor adaptor;
 
-            if ((adaptor = adaptorMap.get(event.sensor)) == null)
-                return;
-
             if (delay < 0)
                 delay = event.timestamp - startTime;
+
+            if ((adaptor = adaptorMap.get(event.sensor)) == null)
+                return;
 
             event.timestamp -= delay;
 
