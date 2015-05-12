@@ -1,5 +1,7 @@
 package nl.fontys.exercisecontrol.exercise.collector;
 
+import android.util.Log;
+
 public class DataEntry {
 
     private final double time;
@@ -8,8 +10,18 @@ public class DataEntry {
 
     public DataEntry(double time) {
         this.time = time;
+        Log.d("JSM","time in DataEntry is "+time);
         accelerometer = null;
         gyroscope = null;
+    }
+
+    @Override
+    public String toString() {
+        return "DataEntry{" +
+                "time=" + time +
+                ", accelerometer=" + accelerometer +
+                ", gyroscope=" + gyroscope +
+                '}';
     }
 
     public double getTime() {
@@ -41,6 +53,15 @@ public class DataEntry {
 
         public Vector(double[] v) {
             this(v[0], v[1], v[2]);
+        }
+
+        @Override
+        public String toString() {
+            return "Vector{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    ", z=" + z +
+                    '}';
         }
 
         public Vector(double x, double y, double z) {

@@ -5,22 +5,23 @@
     tools:context=".MainActivity" tools:deviceIds="wear_square"
     android:weightSum="1">
     <TextView
+        android:id="@+id/headerLbl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/exerciseName"
-        android:id="@+id/headerLbl"
+
 
         style="@style/TextView.Large" />
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/TimeLbl"
-    android:id="@+id/timeLbl"
-    style="@style/TextView.Medium" />
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format="@string/chronometer_initial_format"
+        android:id="@+id/chronometer"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
     <Button android:id="@+id/startBtn" android:layout_width="95dp"
         android:layout_height="150dp" android:text="@string/start"
         android:onClick="start"

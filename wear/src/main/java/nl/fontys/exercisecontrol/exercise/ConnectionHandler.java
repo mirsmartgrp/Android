@@ -74,6 +74,10 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
         }
     }
 
+
+    public boolean isConnected() {
+        return mApiClient.isConnected();
+    }
     /**
      * sending a string to the phone
      * @param message to be send to phone

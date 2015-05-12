@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol.exercise.recorder;
 
 import android.hardware.SensorEvent;
+import android.util.Log;
 
 /**
  * Adaptor between SensorEventListener and MeasurementCollector
@@ -34,6 +35,7 @@ public class MeasurementAdaptor {
 
     private double relativeToStart(long timestamp) {
         long diff = timestamp - startTime;
+    Log.d("JMS", "diff is " + diff);
 
         return (double)diff / 1000000000.0;
     }
