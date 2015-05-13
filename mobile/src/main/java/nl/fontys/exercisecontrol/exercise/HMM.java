@@ -33,9 +33,9 @@ public class HMM {
     public  HMM(){
 
         OpdfFactory factory = new OpdfMultiGaussianFactory(3);
-        hmm = new Hmm<ObservationVector>(2,factory);
+        hmm = new Hmm<ObservationVector>(5,factory);
         bwl = new BaumWelchLearner();
-
+        bwl.setNbIterations(100);
 
     }
 
@@ -53,6 +53,7 @@ public class HMM {
         }
         sequences.add(seq);
         kMeanSeq.add(seq);
+
         hmm = bwl.learn(hmm,sequences);
 
     }
@@ -67,21 +68,24 @@ public class HMM {
                  path = Environment.getDataDirectory();
             }
 
-            String filepath = path.getAbsolutePath()+"/hmm/" + (new Date()).getTime() + ".dot";
+            String filepath = path.getAbsolutePath()+"/hmm/" + (new Date())+ ".dot";
             (new GenericHmmDrawerDot()).write(hmm,filepath);
 
             Log.d("HMM","Printed HMM ");
 
-            meansLearner = new KMeansLearner(2,new OpdfMultiGaussianFactory(3),kMeanSeq);
+            meansLearner = new KMeansLearner(5,new OpdfMultiGaussianFactory(3),kMeanSeq);
             Hmm kmean = meansLearner.learn();
 
 
             String kMeanPath = path.getAbsolutePath()+"/mean/"+(new Date())+".dot";
             new GenericHmmDrawerDot().write(kmean,kMeanPath);
 
-            double prob = kmean.probability(kMeanSeq.get(new Random().nextInt(kMeanSeq.size())));
-            Log.d("KMEAN TEST",Double.toString(prob));
+            List<ObservationVector> seq = kMeanSeq.get(new Random().nextInt(kMeanSeq.size()));
+            double prob = kmean.probability(seq);
+            double prob2 = hmm.probability(seq);
 
+            Log.d("KMEAN TEST",Double.toString(prob));
+            Log.d("BWELC TEST",Double.toString(prob2));
 
         } catch (IOException e) {
             e.printStackTrace();
