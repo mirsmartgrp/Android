@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SelectExerciseActivityWear extends Activity implements WearableListView.ClickListener  {
@@ -42,9 +46,25 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
         listItems.add("Exercise v");
     }
 
+    private ArrayList<String> loadExerciseList(String filePath) throws IOException
+{
+   listItems = new ArrayList<String>();
+    File file = new File(filePath);
+    FileReader fr = new FileReader(file);
+    BufferedReader br = new BufferedReader(fr);
+    String line;
+    while((line = br.readLine()) != null){
+       listItems.add(line);
+    }
+    br.close();
+    fr.close();
+    return listItems;
+}
+
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d("WEAR", "you selected nr "+viewHolder.getItemId()+"");
+        Log.d("WEAR", "you selected nr "+viewHolder.getPosition()+1);
+        Log.d("WEAR", "you selected "+listItems.get(viewHolder.getPosition()));
     }
 
     @Override
