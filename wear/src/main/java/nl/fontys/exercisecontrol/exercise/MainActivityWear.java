@@ -86,7 +86,7 @@ public class MainActivityWear extends Activity {
      */
     public void start(View view) {
         initView();
-        if(!handler.isConnected()) {
+        /*if(!handler.isConnected()) {
             handler.connectGogleClient();
         }
         if(handler.isConnected()) {
@@ -96,8 +96,10 @@ public class MainActivityWear extends Activity {
         }
         else {
             showToast("could not establish connection to phone", Toast.LENGTH_LONG);
-        }
-
+        }*/
+        //chronometer = (Chronometer) findViewById(R.id.chronometer);
+        //chronometer.start();
+        recorder.start();
     }
 
     /**
@@ -106,8 +108,8 @@ public class MainActivityWear extends Activity {
      * @param view
      */
     public void stop(View view) {
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.stop();
+        //chronometer = (Chronometer) findViewById(R.id.chronometer);
+        //chronometer.stop();
         recorder.stop();
     }
 
@@ -129,22 +131,21 @@ public class MainActivityWear extends Activity {
         }
 
         @Override
-        public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
-            super.collectMeasurement(sensor, time, values, accuracy, interval);
+        public void stopCollecting(double time) throws MeasurementException {
+            super.stopCollecting(time);
+            Log.d(TAG, "Stopped collecting measurements. Recorded length: " + time);
         }
 
-
-            @Override
+        @Override
         public void collectionComplete(ExerciseData data) {
 
-            Gson gson = new Gson();
+            //Gson gson = new Gson();
                 Log.d(TAG,"name: "+data.getName());
-                for(DataEntry d:data.getData()) {
-                    Log.d(TAG,"dataEntry: "+d);
-                }
-            Log.d(TAG, "collecting measurements complete: " + gson.toString());
-            sendMessage(gson.toString());
-
+            for(DataEntry d:data.getData()) {
+                Log.d(TAG,"dataEntry: "+d);
+            }
+//            Log.d(TAG, "collecting measurements complete: " + gson.toString());
+            //sendMessage(gson.toString());
         }
 
         /**
