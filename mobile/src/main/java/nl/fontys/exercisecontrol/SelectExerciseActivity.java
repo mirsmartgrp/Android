@@ -2,6 +2,7 @@ package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -49,7 +50,9 @@ public class SelectExerciseActivity extends ListActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                FinishActivityWithClick(parent, view, position, id);
+                //FinishActivityWithClick(parent, view, position, id);
+                Intent exerciseIntent = new Intent(SelectExerciseActivity.this, ExerciseDescriptionActivity.class);
+                startActivity(exerciseIntent);
             }
         });
         Button returnButton =(Button) findViewById(R.id.returnButton);
