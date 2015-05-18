@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "nl.fontys.exercisecontrol.SelectExerciseActivity"/>
+      <point      
+        x = "112"      
+        y = "40"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "nl.fontys.exercisecontrol.SelectExerciseActivity"/>
+      <point      
+        x = "1380"      
+        y = "40"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "nl.fontys.exercisecontrol.MainActivityMobile"/>
+      <point      
+        x = "832"      
+        y = "1556"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "nl.fontys.exercisecontrol.MainActivityMobile"/>
+      <point      
+        x = "2100"      
+        y = "1556"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

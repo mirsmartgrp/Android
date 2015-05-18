@@ -35,7 +35,7 @@ public class MainActivityMobile
     private       TextView                 helloWorldTextView;
     private static int exerciseRequestCode = 1001;
     private static int historyRequestCode = 1002;
-
+    private static boolean learn = true;
 
     private HMM hmm;
 
@@ -52,8 +52,8 @@ public class MainActivityMobile
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button androidButton = (Button) findViewById(R.id.androidButton);
-        Button tizenButton = (Button) findViewById(R.id.tizenButton);
-
+        final Button tizenButton = (Button) findViewById(R.id.tizenButton);
+        tizenButton.setText("Learn");
 
         androidButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +88,17 @@ public class MainActivityMobile
         tizenButton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        connectionHandlerBackend.sendExerciseData("Hallo Welt!");
+
+                        if(learn){
+                            learn = false;
+                            tizenButton.setText("Test");
+                        }else{
+                            learn = true;
+                            tizenButton.setText("Learn");
+                        }
+
+                        //connectionHandlerBackend.sendExerciseData("Hallo Welt!");
+
                     }
                 }
 
@@ -116,8 +126,13 @@ public class MainActivityMobile
                         for(SingleExerciseData s :l ){
                             accelData.add(s.getAcceleratorData());
                         }
-                        hmm.learnExercise(accelData);
 
+                        if(learn) {
+                            hmm.learnExercise(accelData);
+                            Log.d("Learn", "Leanr");
+                        }else{
+                            hmm.testExercise(accelData);
+                        }
                     }
 
                 } catch (JSONException e) {
