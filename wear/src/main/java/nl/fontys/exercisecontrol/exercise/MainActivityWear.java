@@ -115,8 +115,8 @@ public class MainActivityWear extends Activity {
      * @param view
      */
     public void stop(View view) {
-        //chronometer = (Chronometer) findViewById(R.id.chronometer);
-        //chronometer.stop();
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.stop();
         recorder.stop();
     }
 
