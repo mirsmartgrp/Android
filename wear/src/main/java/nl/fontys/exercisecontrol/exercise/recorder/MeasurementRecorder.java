@@ -63,6 +63,11 @@ public class MeasurementRecorder {
 
         handlerThread.start();
         messageHandler = new MeasurementRecorderMessageHandler(handlerThread.getLooper());
+
+        for (MeasurementSensorData data : sensorData) {
+            if (!sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), messageHandler))
+                throw new RuntimeException("Sensor registration failed.");
+        }
     }
 
     /**
@@ -152,14 +157,19 @@ public class MeasurementRecorder {
             super(looper);
         }
 
+        public void quit() {
+            if (recording)
+                stop();
+            sensorManager.unregisterListener(adaptor);
+            getLooper().quitSafely();
+        }
+
         public void start() {
             if (recording)
                 return;
 
             try {
                 adaptor.onRecordingStart();
-                if (!register())
-                    throw new MeasurementException("Listener registration failed.");
                 recording = true;
             } catch (MeasurementException ex) {
                 adaptor.onRecordingFailed(ex);
@@ -170,7 +180,6 @@ public class MeasurementRecorder {
             if (!recording)
                 return;
 
-            unregister();
             try {
                 adaptor.onRecordingStop();
             } catch (MeasurementException ex) {
@@ -184,22 +193,8 @@ public class MeasurementRecorder {
             if (!recording)
                 return;
 
-            unregister();
             adaptor.onRecordingFailed(ex);
             recording = false;
-        }
-
-        public boolean register() {
-            for (MeasurementSensorData data : sensorData) {
-                if (!sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), this))
-                    return false;
-            }
-
-            return true;
-        }
-
-        public void unregister() {
-            sensorManager.unregisterListener(adaptor);
         }
 
         @Override
@@ -208,9 +203,9 @@ public class MeasurementRecorder {
                 MeasurementRecorderMessage msg = (MeasurementRecorderMessage)message.obj;
 
                 switch (msg) {
-                    case START: start();                    break;
-                    case STOP:  stop();                     break;
-                    case QUIT:  stop(); getLooper().quit();
+                    case START: start(); break;
+                    case STOP:  stop();  break;
+                    case QUIT:  quit();  break;
                 }
             } else if (message.obj instanceof MeasurementException) {
                 MeasurementException ex = (MeasurementException)message.obj;
