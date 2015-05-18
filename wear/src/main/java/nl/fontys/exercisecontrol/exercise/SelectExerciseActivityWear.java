@@ -2,6 +2,7 @@ package nl.fontys.exercisecontrol.exercise;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
@@ -10,12 +11,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SelectExerciseActivityWear extends Activity implements WearableListView.ClickListener  {
 
     private WearableListView mListView;
-
+    public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +47,38 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
         listItems.add("Exercise v");
     }
 
+    private ArrayList<String> loadExerciseList(String filePath) throws IOException
+{
+   listItems = new ArrayList<String>();
+    File file = new File(filePath);
+    FileReader fr = new FileReader(file);
+    BufferedReader br = new BufferedReader(fr);
+    String line;
+    while((line = br.readLine()) != null){
+       listItems.add(line);
+    }
+    br.close();
+    fr.close();
+    return listItems;
+}
+
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d("WEAR", "you selected nr "+viewHolder.getItemId()+"");
+        Log.d("WEAR", "selected nr "+viewHolder.getPosition()+1);
+        Log.d("WEAR", " selected " + listItems.get(viewHolder.getPosition()));
+        startMainActivity(listItems.get(viewHolder.getPosition()));
+        
     }
 
+    /**
+     * starts the main activity
+     * @param exerciseName name of the selected exercise
+     */
+    private void startMainActivity(String exerciseName) {
+        Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
+        i.putExtra(EXERCISE_NAME, exerciseName );
+        startActivity(i);
+    }
     @Override
     public void onTopEmptyRegionClick() {
 
