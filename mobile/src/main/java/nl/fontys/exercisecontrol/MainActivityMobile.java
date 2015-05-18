@@ -48,7 +48,7 @@ public class MainActivityMobile
         hmm = new HMM();
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
-        helloWorldTextView = (TextView) findViewById(R.id.helloWorldTextView);
+        helloWorldTextView = (TextView) findViewById(R.id.testTextView);
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button androidButton = (Button) findViewById(R.id.androidButton);
@@ -121,17 +121,12 @@ public class MainActivityMobile
                     Exercise ex = Exercise.parseExercise(json);
 
                     if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
-                        List<PartialExerciseData> accelData = new ArrayList<PartialExerciseData>();
-                        List<SingleExerciseData> l = ex.getEXERCISE_DATA().getListOfSingleExerciseData();
-                        for(SingleExerciseData s :l ){
-                            accelData.add(s.getAcceleratorData());
-                        }
 
                         if(learn) {
-                            hmm.learnExercise(accelData);
+                            hmm.learnExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
                             Log.d("Learn", "Leanr");
                         }else{
-                            hmm.testExercise(accelData);
+                            hmm.testExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
                         }
                     }
 

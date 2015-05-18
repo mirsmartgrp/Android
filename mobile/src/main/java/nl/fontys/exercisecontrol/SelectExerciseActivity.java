@@ -1,9 +1,7 @@
 package nl.fontys.exercisecontrol;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +37,7 @@ public class SelectExerciseActivity extends ListActivity
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1,testExercises);
-        setContentView(R.layout.activity_select_exercise);
+        setContentView(R.layout.activity_exercise_overview);
         setListAdapter(listAdapter);
         //listView.setAdapter(listAdapter);
         listView = getListView();
