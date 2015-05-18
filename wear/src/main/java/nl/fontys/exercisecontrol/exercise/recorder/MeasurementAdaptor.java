@@ -23,20 +23,18 @@ public class MeasurementAdaptor {
         samplingInterval = 1.0 / (double)sensorData.getSamplingRate();
     }
 
-    public void sensorEvent(SensorEvent event) throws MeasurementException {
+    public void sensorEvent(long timestamp, SensorEvent event) throws MeasurementException {
         if (lastFired >= 0) {
-            long passed = event.timestamp - lastFired;
+            long passed = timestamp - lastFired;
             if (passed < samplingDelayUs) return;
         }
 
-        collector.collectMeasurement(event.sensor, relativeToStart(event.timestamp), event.values, event.accuracy, samplingInterval);
-        lastFired = event.timestamp;
+        collector.collectMeasurement(event.sensor, relativeToStart(timestamp), event.values, event.accuracy, samplingInterval);
+        lastFired = timestamp;
     }
 
     private double relativeToStart(long timestamp) {
         long diff = timestamp - startTime;
-    Log.d("JMS", "diff is " + diff);
-
         return (double)diff / 1000000000.0;
     }
 }

@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
@@ -26,16 +27,9 @@ public class MeasurementRecorder {
     private final MeasurementCollector collector;
     private final List<MeasurementSensorData> sensorData;
     private final SensorMeasurementAdaptor adaptor;
-    private final MeasurementListenerThread listenerThread;
+    private final HandlerThread handlerThread;
+    private MeasurementRecorderMessageHandler messageHandler = null;
     private String exerciseName;
-
-    public String getExerciseName() {
-        return exerciseName;
-    }
-
-    public void setExerciseName(String exerciseName) {
-        this.exerciseName = exerciseName;
-    }
 
     /**
      * Instantiate a new measurement recorder.
@@ -51,7 +45,7 @@ public class MeasurementRecorder {
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensorData = new ArrayList<MeasurementSensorData>();
         adaptor = new SensorMeasurementAdaptor();
-        listenerThread = new MeasurementListenerThread();
+        handlerThread = new HandlerThread(getClass().getSimpleName());
 
         for (int sensorType : sensorTypes) {
             MeasurementSensorData data = new MeasurementSensorData(sensorType, samplingRate);
@@ -67,39 +61,57 @@ public class MeasurementRecorder {
         for (MeasurementSensorData data : sensorData)
             data.setDefaultSensor(sensorManager);
 
-        listenerThread.start();
+        handlerThread.start();
+        messageHandler = new MeasurementRecorderMessageHandler(handlerThread.getLooper());
+
+        for (MeasurementSensorData data : sensorData) {
+            if (!sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), messageHandler))
+                throw new RuntimeException("Sensor registration failed.");
+        }
     }
 
     /**
      * Terminates the measurement recorder.
      */
     public void terminate() {
-        listenerThread.terminate();
+        Message message = new Message();
+        message.obj = MeasurementRecorderMessage.QUIT;
+        messageHandler.sendMessage(message);
+    }
+
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
     }
 
     /**
      * Starts recording of measurements.
      */
     public void start() {
-        listenerThread.sendMessage(MeasurementListenerThreadMessage.START);
+        Message message = new Message();
+        message.obj = MeasurementRecorderMessage.START;
+        messageHandler.sendMessage(message);
     }
 
     /**
      * Stops the recording of measurements.
      */
     public void stop() {
-        listenerThread.sendMessage(MeasurementListenerThreadMessage.STOP);
+        Message message = new Message();
+        message.obj = MeasurementRecorderMessage.STOP;
+        messageHandler.sendMessage(message);
     }
 
     private class SensorMeasurementAdaptor implements SensorEventListener {
 
         private final Map<Sensor, MeasurementAdaptor> adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
         private long startTime = 0;
-        private long delay = -1;
 
         public void onRecordingStart() throws MeasurementException {
             startTime = System.nanoTime();
-            delay = -1;
             collector.startCollecting(exerciseName);
 
             for (MeasurementSensorData data : sensorData)
@@ -108,25 +120,22 @@ public class MeasurementRecorder {
 
         public void onRecordingStop() throws MeasurementException {
             adaptorMap.clear();
-            collector.stopCollecting((delay < 0) ? 0.0 : (double)(System.nanoTime() - startTime - delay) / 1000000000);
+            collector.stopCollecting((double)(System.nanoTime() - startTime) / 1000000000.0);
         }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
             MeasurementAdaptor adaptor;
 
-            if (delay < 0)
-                delay = event.timestamp - startTime;
-
             if ((adaptor = adaptorMap.get(event.sensor)) == null)
                 return;
 
-            event.timestamp -= delay;
-
             try {
-                adaptor.sensorEvent(event);
+                adaptor.sensorEvent(System.nanoTime(), event);
             } catch (MeasurementException ex) {
-                listenerThread.sendMessage(ex);
+                Message message = new Message();
+                message.obj = ex;
+                messageHandler.sendMessage(message);
                 adaptorMap.clear();
             }
         }
@@ -140,131 +149,72 @@ public class MeasurementRecorder {
         public void onAccuracyChanged(Sensor sensor, int accuracy) { }
     }
 
-    private class MeasurementListenerThread extends Thread {
+    private class MeasurementRecorderMessageHandler extends Handler {
 
-        private volatile MeasurementListenerMessageHandler handler = null;
-        private final Object sync = new Object();
+        boolean recording = false;
 
-        @Override
+        public MeasurementRecorderMessageHandler(Looper looper) {
+            super(looper);
+        }
+
+        public void quit() {
+            if (recording)
+                stop();
+            sensorManager.unregisterListener(adaptor);
+            getLooper().quitSafely();
+        }
+
         public void start() {
-            super.start();
+            if (recording)
+                return;
+
             try {
-                synchronized (sync) { sync.wait(); }
-            } catch (InterruptedException e) { }
-        }
-
-        public void terminate() {
-            sendMessage(MeasurementListenerThreadMessage.QUIT);
-            try {
-                synchronized (sync) {
-                    synchronized (sync) { sync.wait(); }
-                }
-            } catch (InterruptedException e) { }
-        }
-
-        @Override
-        public void run() {
-            // associate messaging loop to this thread
-            Looper.prepare();
-
-            // create messaging handler
-            handler = new MeasurementListenerMessageHandler(this);
-
-            // notify that thread has started
-            synchronized (sync) { sync.notifyAll(); }
-
-            // start looping
-            Looper.loop();
-
-            // reset handler
-            handler = null;
-
-            // notify that thread has stopped
-            synchronized (sync) { sync.notifyAll(); }
-        }
-
-        public void sendMessage(Object msg) {
-            if (handler == null)
-                throw new RuntimeException("Can not send message.");
-
-            Message message = handler.obtainMessage();
-            message.obj = msg;
-            handler.sendMessage(message);
-        }
-
-        private class MeasurementListenerMessageHandler extends Handler {
-
-            private final MeasurementListenerThread parentThread;
-            boolean recording = false;
-
-            public MeasurementListenerMessageHandler(MeasurementListenerThread parentThread) {
-                this.parentThread = parentThread;
-            }
-
-            public void start() {
-                if (recording)
-                    return;
-
-                try {
-                    adaptor.onRecordingStart();
-                    register();
-                    recording = true;
-                } catch (MeasurementException ex) {
-                    adaptor.onRecordingFailed(ex);
-                }
-            }
-
-            public void stop() {
-                if (!recording)
-                    return;
-
-                unregister();
-                try {
-                    adaptor.onRecordingStop();
-                } catch (MeasurementException ex) {
-                    adaptor.onRecordingFailed(ex);
-                } finally {
-                    recording = false;
-                }
-            }
-
-            public void fail(MeasurementException ex) {
-                if (!recording)
-                    return;
-
-                unregister();
+                adaptor.onRecordingStart();
+                recording = true;
+            } catch (MeasurementException ex) {
                 adaptor.onRecordingFailed(ex);
+            }
+        }
+
+        public void stop() {
+            if (!recording)
+                return;
+
+            try {
+                adaptor.onRecordingStop();
+            } catch (MeasurementException ex) {
+                adaptor.onRecordingFailed(ex);
+            } finally {
                 recording = false;
             }
+        }
 
-            public void register() {
-                for (MeasurementSensorData data : sensorData)
-                    sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), handler);
-            }
+        public void fail(MeasurementException ex) {
+            if (!recording)
+                return;
 
-            public void unregister() {
-                sensorManager.unregisterListener(adaptor);
-            }
+            adaptor.onRecordingFailed(ex);
+            recording = false;
+        }
 
-            @Override
-            public void handleMessage(Message message) {
-                if (message.obj instanceof MeasurementListenerThreadMessage) {
-                    MeasurementListenerThreadMessage msg = (MeasurementListenerThreadMessage)message.obj;
+        @Override
+        public void handleMessage(Message message) {
+            if (message.obj instanceof MeasurementRecorderMessage) {
+                MeasurementRecorderMessage msg = (MeasurementRecorderMessage)message.obj;
 
-                    switch (msg) {
-                        case START: start();                    break;
-                        case STOP:  stop();                     break;
-                        case QUIT:  stop(); getLooper().quit();
-                    }
-                } else if (message.obj instanceof MeasurementException) {
-                    MeasurementException ex = (MeasurementException)message.obj;
-                    fail(ex);
+                switch (msg) {
+                    case START: start(); break;
+                    case STOP:  stop();  break;
+                    case QUIT:  quit();  break;
                 }
+            } else if (message.obj instanceof MeasurementException) {
+                MeasurementException ex = (MeasurementException)message.obj;
+                fail(ex);
             }
         }
     }
 
-    private static enum MeasurementListenerThreadMessage {
+    private enum MeasurementRecorderMessage {
         START, STOP, QUIT
     }
 }

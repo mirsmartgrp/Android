@@ -10,8 +10,6 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
@@ -86,10 +84,7 @@ public class MainActivityWear extends Activity {
      */
     public void start(View view) {
         initView();
-        if(!handler.isConnected()) {
-            handler.connectGogleClient();
-        }
-        if(handler.isConnected()) {
+        if(isConnectedToPhone()) {
             chronometer = (Chronometer) findViewById(R.id.chronometer);
             chronometer.start();
             recorder.start();
@@ -101,13 +96,27 @@ public class MainActivityWear extends Activity {
     }
 
     /**
+     * TODO: enable, disabled during debug
+     * check if phone and watch are connected
+     * @return
+     */
+    private boolean isConnectedToPhone() {
+     /*
+        if(!handler.isConnected()) {
+            handler.connectGogleClient();
+        }
+        return handler.isConnected();
+        */
+        return true;
+    }
+    /**
      * stop the measurement
      * stop chronometer
      * @param view
      */
     public void stop(View view) {
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.stop();
+        //chronometer = (Chronometer) findViewById(R.id.chronometer);
+        //chronometer.stop();
         recorder.stop();
     }
 
@@ -129,22 +138,21 @@ public class MainActivityWear extends Activity {
         }
 
         @Override
-        public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
-            super.collectMeasurement(sensor, time, values, accuracy, interval);
+        public void stopCollecting(double time) throws MeasurementException {
+            super.stopCollecting(time);
+            Log.d(TAG, "Stopped collecting measurements. Recorded length: " + time);
         }
 
-
-            @Override
+        @Override
         public void collectionComplete(ExerciseData data) {
 
-            Gson gson = new Gson();
+            //Gson gson = new Gson();
                 Log.d(TAG,"name: "+data.getName());
-                for(DataEntry d:data.getData()) {
-                    Log.d(TAG,"dataEntry: "+d);
-                }
-            Log.d(TAG, "collecting measurements complete: " + gson.toString());
-            sendMessage(gson.toString());
-
+            for(DataEntry d:data.getData()) {
+                Log.d(TAG,"dataEntry: "+d);
+            }
+//            Log.d(TAG, "collecting measurements complete: " + gson.toString());
+            //sendMessage(gson.toString());
         }
 
         /**
@@ -152,8 +160,7 @@ public class MainActivityWear extends Activity {
          * @param text text of message
          **/
         private void sendMessage(String text) {
-            handler.connectGogleClient();
-            if(handler.isConnected()) {
+             if(isConnectedToPhone()) {
                 handler.sendMessage(text);
                 showToast("data send to phone", Toast.LENGTH_LONG);
             }
