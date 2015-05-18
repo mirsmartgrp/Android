@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ public class HMM {
         OpdfFactory factory = new OpdfMultiGaussianFactory(3);
         hmm = new Hmm<ObservationVector>(5,factory);
         bwl = new BaumWelchLearner();
-        bwl.setNbIterations(100);
+        bwl.setNbIterations(250);
 
     }
 
@@ -54,38 +55,73 @@ public class HMM {
         sequences.add(seq);
         kMeanSeq.add(seq);
 
-        hmm = bwl.learn(hmm,sequences);
+        //hmm = bwl.learn(hmm,sequences);
+
+    }
+
+    public void testExercise(List<PartialExerciseData> data){
+        List<List<ObservationVector>> sequences = new ArrayList<List<ObservationVector>>();
+        List<ObservationVector> seq = new ArrayList<ObservationVector>();
+        for(PartialExerciseData single : data){
+            double[] values = {single.getX(),single.getY(),single
+                    .getZ()};
+            ObservationVector vector =  new ObservationVector(values);
+            seq.add(vector);
+        }
+        int[] probSeq = hmm.mostLikelyStateSequence(seq);
+        String seqString = "";
+        for (int i : probSeq) {
+
+            seqString = seqString + " " + i;
+        }
+        Log.d("KMEAN TEST",seqString);
 
     }
 
     public void printHMM(){
         try {
-          File path;
-           String state =  Environment.getExternalStorageState();
-             if (Environment.MEDIA_MOUNTED.equals(state)) {
-                 path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            }else{
-                 path = Environment.getDataDirectory();
+            File path;
+            String state = Environment.getExternalStorageState();
+            if (Environment.MEDIA_MOUNTED.equals(state)) {
+                path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            } else {
+                path = Environment.getDataDirectory();
             }
 
-            String filepath = path.getAbsolutePath()+"/hmm/" + (new Date())+ ".dot";
-            (new GenericHmmDrawerDot()).write(hmm,filepath);
+            String filepath = path.getAbsolutePath() + "/hmm/" + (new Date()) + ".dot";
+            (new GenericHmmDrawerDot()).write(hmm, filepath);
 
-            Log.d("HMM","Printed HMM ");
+            Log.d("HMM", "Printed HMM ");
 
-            meansLearner = new KMeansLearner(5,new OpdfMultiGaussianFactory(3),kMeanSeq);
+            meansLearner = new KMeansLearner(5, new OpdfMultiGaussianFactory(3), kMeanSeq);
             Hmm kmean = meansLearner.learn();
 
 
-            String kMeanPath = path.getAbsolutePath()+"/mean/"+(new Date())+".dot";
-            new GenericHmmDrawerDot().write(kmean,kMeanPath);
+            String kMeanPath = path.getAbsolutePath() + "/mean/" + (new Date()) + ".dot";
+            new GenericHmmDrawerDot().write(kmean, kMeanPath);
 
-            List<ObservationVector> seq = kMeanSeq.get(new Random().nextInt(kMeanSeq.size()));
+            List<ObservationVector> seq = kMeanSeq.get(0);
+
             double prob = kmean.probability(seq);
             double prob2 = hmm.probability(seq);
 
-            Log.d("KMEAN TEST",Double.toString(prob));
-            Log.d("BWELC TEST",Double.toString(prob2));
+
+            Log.d("KMEAN TEST", Double.toString(prob));
+            Log.d("KMEAN2 TEST", Double.toString(prob2));
+            int count = -1;
+            for (List<ObservationVector> sequence : kMeanSeq) {
+                int[] probSeq = kmean.mostLikelyStateSequence(sequence);
+                Log.d("Length",Integer.toString(sequence.size()));
+                String seqString = "";
+                for (int i : probSeq) {
+
+                    seqString = seqString + " " + i;
+                }
+                count++;
+                Log.d("KMEAN TEST", count + ": " + seqString);
+                seqString = "";
+                hmm =kmean;
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
