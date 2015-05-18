@@ -35,8 +35,7 @@ public class MainActivityWear extends Activity {
         handler = new ConnectionHandler(this);
 
         collector = new JsonMeasurementCollectorImpl();
-        exerciseName = getExerciseName();
-        recorder = new MeasurementRecorder(this,initSensors(), 1, collector, exerciseName);
+        recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
         recorder.initialize();
        // initView();
 
@@ -87,7 +86,7 @@ public class MainActivityWear extends Activity {
         if(isConnectedToPhone()) {
             chronometer = (Chronometer) findViewById(R.id.chronometer);
             chronometer.start();
-            recorder.start();
+            recorder.start(getExerciseName());
         }
         else {
             showToast("could not establish connection to phone", Toast.LENGTH_LONG);
