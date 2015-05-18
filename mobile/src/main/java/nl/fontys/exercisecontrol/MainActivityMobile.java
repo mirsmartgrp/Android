@@ -121,17 +121,12 @@ public class MainActivityMobile
                     Exercise ex = Exercise.parseExercise(json);
 
                     if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
-                        List<PartialExerciseData> accelData = new ArrayList<PartialExerciseData>();
-                        List<SingleExerciseData> l = ex.getEXERCISE_DATA().getListOfSingleExerciseData();
-                        for(SingleExerciseData s :l ){
-                            accelData.add(s.getAcceleratorData());
-                        }
 
                         if(learn) {
-                            hmm.learnExercise(accelData);
+                            hmm.learnExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
                             Log.d("Learn", "Leanr");
                         }else{
-                            hmm.testExercise(accelData);
+                            hmm.testExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
                         }
                     }
 
