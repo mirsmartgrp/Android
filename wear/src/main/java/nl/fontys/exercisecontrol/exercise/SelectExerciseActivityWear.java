@@ -2,6 +2,7 @@ package nl.fontys.exercisecontrol.exercise;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
@@ -65,6 +66,9 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
     public void onClick(WearableListView.ViewHolder viewHolder) {
         Log.d("WEAR", "you selected nr "+viewHolder.getPosition()+1);
         Log.d("WEAR", "you selected "+listItems.get(viewHolder.getPosition()));
+        Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
+        startActivity(i);
+        
     }
 
     @Override
