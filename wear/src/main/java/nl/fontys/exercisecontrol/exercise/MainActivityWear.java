@@ -86,7 +86,9 @@ public class MainActivityWear extends Activity {
         if(isConnectedToPhone()) {
             chronometer = (Chronometer) findViewById(R.id.chronometer);
             chronometer.start();
-            recorder.start(getExerciseName());
+            String exerciseName =getExerciseName();
+            recorder.start(exerciseName);
+            headerLbl.setText(exerciseName);
         }
         else {
             showToast("could not establish connection to phone", Toast.LENGTH_LONG);
