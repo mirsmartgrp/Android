@@ -9,4 +9,5 @@
     <string name="exerciseName">a exercise</string>
     <string name="chronometer_initial_format">Initial format:<xliff:g id="initial-format">%</xliff:g></string>
     <string name="title_activity_select_exercise_activity_wear">SelectExerciseActivityWear</string>
+    <string name="title_activity_message_view">MessageViewActivity</string>
 </resources>

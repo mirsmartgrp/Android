@@ -86,20 +86,31 @@ public class MainActivityWear extends Activity {
      */
     public void start(View view) {
         initView();
+            chronometer = (Chronometer) findViewById(R.id.chronometer);
+            chronometer.start();
+            recorder.start();
+
+    }
+
+    /**TODO: enable, disabled while debugging
+     * is the device connected to the phone
+     * @return true if connected, false if not
+     */
+    private boolean isConnectedToPhone() {
+ /*
         if(!handler.isConnected()) {
             handler.connectGogleClient();
         }
         if(handler.isConnected()) {
-            chronometer = (Chronometer) findViewById(R.id.chronometer);
-            chronometer.start();
-            recorder.start();
+            return true;
         }
-        else {
-            showToast("could not establish connection to phone", Toast.LENGTH_LONG);
-        }
-
+            else {
+                showToast("could not establish connection to phone", Toast.LENGTH_LONG);
+            return false;
+            }
+*/
+        return true;
     }
-
     /**
      * stop the measurement
      * stop chronometer
@@ -147,20 +158,15 @@ public class MainActivityWear extends Activity {
 
         }
 
-        /**
+        /**TODO: enable, disabled during debug
          * send message with text and show toast
          * @param text text of message
          **/
         private void sendMessage(String text) {
-            handler.connectGogleClient();
-            if(handler.isConnected()) {
-                handler.sendMessage(text);
-                showToast("data send to phone", Toast.LENGTH_LONG);
-            }
-            else {
-                    showToast("no connection to phone.", Toast.LENGTH_LONG);
-            }
-
+                if(isConnectedToPhone()) {
+                    handler.sendMessage(text);
+                    showToast("data send to phone", Toast.LENGTH_LONG);
+                }
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
