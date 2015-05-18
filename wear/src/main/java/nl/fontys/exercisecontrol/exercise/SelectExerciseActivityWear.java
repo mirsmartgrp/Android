@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class SelectExerciseActivityWear extends Activity implements WearableListView.ClickListener  {
 
     private WearableListView mListView;
-
+    public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +64,21 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
 
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d("WEAR", "you selected nr "+viewHolder.getPosition()+1);
-        Log.d("WEAR", "you selected "+listItems.get(viewHolder.getPosition()));
-        Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
-        startActivity(i);
+        Log.d("WEAR", "selected nr "+viewHolder.getPosition()+1);
+        Log.d("WEAR", " selected " + listItems.get(viewHolder.getPosition()));
+        startMainActivity(listItems.get(viewHolder.getPosition()));
         
     }
 
+    /**
+     * starts the main activity
+     * @param exerciseName name of the selected exercise
+     */
+    private void startMainActivity(String exerciseName) {
+        Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
+        i.putExtra(EXERCISE_NAME, exerciseName );
+        startActivity(i);
+    }
     @Override
     public void onTopEmptyRegionClick() {
 

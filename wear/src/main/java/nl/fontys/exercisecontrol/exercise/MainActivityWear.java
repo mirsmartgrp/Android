@@ -26,7 +26,7 @@ public class MainActivityWear extends Activity {
     private MeasurementCollector collector;
     private Chronometer chronometer;
     private TextView headerLbl;
-    private String exerciseName="cycling";
+    private String exerciseName="unknown exercise";
     private final static String TAG="LOG";
 
 
@@ -37,10 +37,16 @@ public class MainActivityWear extends Activity {
         handler = new ConnectionHandler(this);
 
         collector = new JsonMeasurementCollectorImpl();
-
+        exerciseName = getExerciseName();
         recorder = new MeasurementRecorder(this,initSensors(), 1, collector, exerciseName);
         recorder.initialize();
        // initView();
+
+    }
+
+    private String getExerciseName() {
+        Intent intent = getIntent();
+        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
     }
 
 
@@ -154,8 +160,7 @@ public class MainActivityWear extends Activity {
             else {
                     showToast("no connection to phone.", Toast.LENGTH_LONG);
             }
-            Intent i = new Intent(getApplicationContext(), SelectExerciseActivityWear.class);
-            startActivity(i);
+
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
