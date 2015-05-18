@@ -10,8 +10,6 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
@@ -86,22 +84,31 @@ public class MainActivityWear extends Activity {
      */
     public void start(View view) {
         initView();
-        /*if(!handler.isConnected()) {
-            handler.connectGogleClient();
-        }
-        if(handler.isConnected()) {
+        if(isConnectedToPhone()) {
             chronometer = (Chronometer) findViewById(R.id.chronometer);
             chronometer.start();
             recorder.start();
         }
         else {
             showToast("could not establish connection to phone", Toast.LENGTH_LONG);
-        }*/
-        //chronometer = (Chronometer) findViewById(R.id.chronometer);
-        //chronometer.start();
-        recorder.start();
+        }
+
     }
 
+    /**
+     * TODO: enable, disabled during debug
+     * check if phone and watch are connected
+     * @return
+     */
+    private boolean isConnectedToPhone() {
+     /*
+        if(!handler.isConnected()) {
+            handler.connectGogleClient();
+        }
+        return handler.isConnected();
+        */
+        return true;
+    }
     /**
      * stop the measurement
      * stop chronometer
@@ -153,8 +160,7 @@ public class MainActivityWear extends Activity {
          * @param text text of message
          **/
         private void sendMessage(String text) {
-            handler.connectGogleClient();
-            if(handler.isConnected()) {
+             if(isConnectedToPhone()) {
                 handler.sendMessage(text);
                 showToast("data send to phone", Toast.LENGTH_LONG);
             }
