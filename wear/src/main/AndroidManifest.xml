@@ -12,6 +12,18 @@
         <activity
             android:name=".MainActivityWear"
             android:label="@string/app_name" >
+           <!-- change the main activity
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+       -->
+        </activity>
+
+        <activity
+            android:name=".SelectExerciseActivityWear"
+            android:label="@string/title_activity_select_exercise_activity_wear" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
