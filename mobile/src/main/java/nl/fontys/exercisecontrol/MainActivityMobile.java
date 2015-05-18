@@ -48,7 +48,7 @@ public class MainActivityMobile
         hmm = new HMM();
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
-        helloWorldTextView = (TextView) findViewById(R.id.helloWorldTextView);
+        helloWorldTextView = (TextView) findViewById(R.id.testTextView);
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button androidButton = (Button) findViewById(R.id.androidButton);
