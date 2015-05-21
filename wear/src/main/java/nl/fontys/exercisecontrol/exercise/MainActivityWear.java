@@ -48,7 +48,7 @@ public class MainActivityWear extends Activity {
 
 
     /**
-     * setup the view
+     * setting the name of the exerccise to the header
      */
     private void setExerciseNameToHeaderLbl() {
         headerLbl = (TextView ) findViewById(R.id.headerLbl);
@@ -80,6 +80,7 @@ public class MainActivityWear extends Activity {
     /**
      * start the measurement
      * start chronometer
+     * set the Exercise nameS
      * @param view
      */
     public void start(View view) {

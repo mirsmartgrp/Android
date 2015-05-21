@@ -17,14 +17,14 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SelectExerciseActivityWear extends Activity implements WearableListView.ClickListener  {
 
     private WearableListView mListView;
     public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
-    private  ArrayList<String> listItems;
+    private  List<String> listItems;
     public SelectExerciseActivityWear() {
-        listItems = new ArrayList<>();
     }
 
     @Override
@@ -41,28 +41,40 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
             }
         });
         InputStream inputStream = getResources().openRawResource(R.raw.exerciseist);
+        listItems=loadExerciseList(inputStream);
+
+    }
+
+
+    /**
+     * loading exercise names from json file
+     * @param inputStream stream with the file as input
+     */
+    private List<String> loadExerciseList(InputStream inputStream) {
+        List names =new ArrayList<>();
         InputStreamReader inputreader = new InputStreamReader(inputStream);
         BufferedReader buffreader = new BufferedReader(inputreader);
+        final String ELEMENT_TO_GET="name";
         String line;
         try {
             while (( line = buffreader.readLine()) != null) {
                 Log.d("log", line);
                 JSONObject jsonObj = new JSONObject(line);
                 JSONObject exercise = jsonObj.getJSONObject("Exercise");
-                String name = exercise.getString("name");
-                listItems.add(name);
+                String name = exercise.getString(ELEMENT_TO_GET);
+                names.add(name);
             }
-            }
+            return names;
+        }
         catch (Exception e) {
-            Log.e("log","error reading exercise list. "+e);
+            Log.e("log", "error reading exercise list. " + e);
+            //TODO try to download from server ?
+            return null;
         }
     }
-
-
-
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d("WEAR", "selected nr "+viewHolder.getPosition()+1);
+        Log.d("WEAR", "selected nr " + viewHolder.getPosition() + 1);
         Log.d("WEAR", " selected " + listItems.get(viewHolder.getPosition()));
         startMainActivity(listItems.get(viewHolder.getPosition()));
         
