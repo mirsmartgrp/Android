@@ -29,7 +29,6 @@ public class MeasurementRecorder {
     private final SensorMeasurementAdaptor adaptor;
     private final HandlerThread handlerThread;
     private MeasurementRecorderMessageHandler messageHandler = null;
-    private String exerciseName;
 
     /**
      * Instantiate a new measurement recorder.
@@ -38,10 +37,9 @@ public class MeasurementRecorder {
      * @param samplingRate Desired measurements per second
      * @param collector Instance of a measurement collector
      */
-    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector, String exerciseName) {
+    public MeasurementRecorder(Context context, int[] sensorTypes, int samplingRate, MeasurementCollector collector) {
         this.context = context;
         this.collector = collector;
-        this.exerciseName=exerciseName;
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensorData = new ArrayList<MeasurementSensorData>();
         adaptor = new SensorMeasurementAdaptor();
@@ -75,24 +73,16 @@ public class MeasurementRecorder {
      */
     public void terminate() {
         Message message = new Message();
-        message.obj = MeasurementRecorderMessage.QUIT;
+        message.obj = MeasurementRecorderMessageObject.quit();
         messageHandler.sendMessage(message);
-    }
-
-    public String getExerciseName() {
-        return exerciseName;
-    }
-
-    public void setExerciseName(String exerciseName) {
-        this.exerciseName = exerciseName;
     }
 
     /**
      * Starts recording of measurements.
      */
-    public void start() {
+    public void start(String name) {
         Message message = new Message();
-        message.obj = MeasurementRecorderMessage.START;
+        message.obj = MeasurementRecorderMessageObject.start(name);
         messageHandler.sendMessage(message);
     }
 
@@ -101,7 +91,7 @@ public class MeasurementRecorder {
      */
     public void stop() {
         Message message = new Message();
-        message.obj = MeasurementRecorderMessage.STOP;
+        message.obj = MeasurementRecorderMessageObject.stop();
         messageHandler.sendMessage(message);
     }
 
@@ -110,9 +100,9 @@ public class MeasurementRecorder {
         private final Map<Sensor, MeasurementAdaptor> adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
         private long startTime = 0;
 
-        public void onRecordingStart() throws MeasurementException {
+        public void onRecordingStart(String name) throws MeasurementException {
             startTime = System.nanoTime();
-            collector.startCollecting(exerciseName);
+            collector.startCollecting(name);
 
             for (MeasurementSensorData data : sensorData)
                 adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));
@@ -133,10 +123,10 @@ public class MeasurementRecorder {
             try {
                 adaptor.sensorEvent(System.nanoTime(), event);
             } catch (MeasurementException ex) {
-                Message message = new Message();
-                message.obj = ex;
-                messageHandler.sendMessage(message);
                 adaptorMap.clear();
+                Message message = new Message();
+                message.obj = MeasurementRecorderMessageObject.fail(ex);
+                messageHandler.sendMessage(message);
             }
         }
 
@@ -164,12 +154,12 @@ public class MeasurementRecorder {
             getLooper().quitSafely();
         }
 
-        public void start() {
+        public void start(String name) {
             if (recording)
                 return;
 
             try {
-                adaptor.onRecordingStart();
+                adaptor.onRecordingStart(name);
                 recording = true;
             } catch (MeasurementException ex) {
                 adaptor.onRecordingFailed(ex);
@@ -199,22 +189,62 @@ public class MeasurementRecorder {
 
         @Override
         public void handleMessage(Message message) {
-            if (message.obj instanceof MeasurementRecorderMessage) {
-                MeasurementRecorderMessage msg = (MeasurementRecorderMessage)message.obj;
+            if (!(message.obj instanceof MeasurementRecorderMessageObject))
+                return;
 
-                switch (msg) {
-                    case START: start(); break;
-                    case STOP:  stop();  break;
-                    case QUIT:  quit();  break;
-                }
-            } else if (message.obj instanceof MeasurementException) {
-                MeasurementException ex = (MeasurementException)message.obj;
-                fail(ex);
+            MeasurementRecorderMessageObject msg = (MeasurementRecorderMessageObject)message.obj;
+
+            switch (msg.getAction()) {
+                case START: start(msg.getName()); break;
+                case STOP:  stop();  break;
+                case FAIL:  fail(msg.getException()); break;
+                case QUIT:  quit();  break;
             }
         }
     }
 
-    private enum MeasurementRecorderMessage {
-        START, STOP, QUIT
+    private static class MeasurementRecorderMessageObject {
+
+        private final MessageAction action;
+        private final String name;
+        private final MeasurementException exception;
+
+        private MeasurementRecorderMessageObject(MessageAction action, String name, MeasurementException exception) {
+            this.action = action;
+            this.name = name;
+            this.exception = exception;
+        }
+
+        public MessageAction getAction() {
+            return action;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public MeasurementException getException() {
+            return exception;
+        }
+
+        private enum MessageAction {
+            START, STOP, FAIL, QUIT
+        }
+
+        public static MeasurementRecorderMessageObject start(String name) {
+            return new MeasurementRecorderMessageObject(MessageAction.START, name, null);
+        }
+
+        public static MeasurementRecorderMessageObject stop() {
+            return new MeasurementRecorderMessageObject(MessageAction.STOP, null, null);
+        }
+
+        public static MeasurementRecorderMessageObject fail(MeasurementException exception) {
+            return new MeasurementRecorderMessageObject(MessageAction.FAIL, null, exception);
+        }
+
+        public static MeasurementRecorderMessageObject quit() {
+            return new MeasurementRecorderMessageObject(MessageAction.QUIT, null, null);
+        }
     }
 }
