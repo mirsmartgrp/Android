@@ -228,8 +228,8 @@ There *are* cases where you might need to use `dp`; typically this happens when 
         errorLine2="                       ~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/exercise/HMM.java"
-            line="153"
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/exercise/analysis/AnalysisUtil.java"
+            line="11"
             column="24"/>
     </issue>
 
