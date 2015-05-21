@@ -74,9 +74,9 @@ public class MeasurementRecorder {
     /**
      * Starts recording of measurements.
      */
-    public void start(String name) {
+    public void start(String guid) {
         Message message = new Message();
-        message.obj = MeasurementRecorderMessageObject.start(name);
+        message.obj = MeasurementRecorderMessageObject.start(guid);
         messageHandler.sendMessage(message);
     }
 
@@ -113,12 +113,12 @@ public class MeasurementRecorder {
             getLooper().quitSafely();
         }
 
-        public void start(String name) {
+        public void start(String guid) {
             if (recording)
                 return;
 
             try {
-                adaptor.onRecordingStart(name);
+                adaptor.onRecordingStart(guid);
                 recording = true;
             } catch (MeasurementException ex) {
                 adaptor.onRecordingFailed(ex);
@@ -154,7 +154,7 @@ public class MeasurementRecorder {
             MeasurementRecorderMessageObject msg = (MeasurementRecorderMessageObject)message.obj;
 
             switch (msg.getAction()) {
-                case START: start(msg.getName()); break;
+                case START: start(msg.getGuid()); break;
                 case STOP:  stop();  break;
                 case FAIL:  fail(msg.getException()); break;
                 case QUIT:  quit();  break;

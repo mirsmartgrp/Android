@@ -28,9 +28,9 @@ public class MeasurementCollectorAdaptor implements SensorEventListener {
         adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
     }
 
-    public void onRecordingStart(String name) throws MeasurementException {
+    public void onRecordingStart(String guid) throws MeasurementException {
         startTime = System.nanoTime();
-        collector.startCollecting(name);
+        collector.startCollecting(guid);
 
         for (MeasurementSensorData data : sensorData)
             adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));

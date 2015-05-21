@@ -8,7 +8,7 @@ public interface MeasurementCollector {
      * @param name name of the exercise
      * @throws MeasurementException when an error occurred
      */
-    void startCollecting(String name) throws MeasurementException;
+    void startCollecting(String guid) throws MeasurementException;
 
     /**
      * Stops the collecting process

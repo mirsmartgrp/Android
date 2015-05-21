@@ -14,10 +14,10 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     private DataEntry.Vector gyroscope = null;
 
     @Override
-    public void startCollecting(String name) throws MeasurementException {
+    public void startCollecting(String guid) throws MeasurementException {
         accelerometer = null;
         gyroscope = null;
-        exerciseData = new ExerciseData(name);
+        exerciseData = new ExerciseData(guid);
     }
 
     @Override
@@ -35,7 +35,7 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         ListIterator<DataEntry> iter = exerciseData.getData().listIterator(exerciseData.getData().size());
         while (iter.hasPrevious()) {
             DataEntry entry = iter.previous();
-            if (entry.getTime() >= time - interval) {
+            if (entry.getSecondsSinceStart() >= time - interval) {
                 dataEntry = entry;
                 break;
             }
