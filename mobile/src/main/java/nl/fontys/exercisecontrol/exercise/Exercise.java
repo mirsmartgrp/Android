@@ -12,9 +12,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
+import be.ac.ulg.montefiore.run.jahmm.OpdfFactory;
+import be.ac.ulg.montefiore.run.jahmm.OpdfMultiGaussianFactory;
 import nl.fontys.exercisecontrol.MainActivityMobile;
 
 /**
@@ -28,6 +34,8 @@ public class Exercise
     private final String       NAME;
     private final String       DESCRIPTION;
     private final ExerciseData EXERCISE_DATA;
+    private Hmm<ObservationVector> hmm;
+    private List<String> sequences = new ArrayList<String>();
 
     /**
      * Constructs an exercise object with given NAME.
@@ -40,7 +48,28 @@ public class Exercise
         this.NAME = name;
         this.DESCRIPTION = "";
         this.EXERCISE_DATA = new ExerciseData();
+        this.hmm =  null;
+        this.sequences = null;
     }
+
+
+    public void  setHmm(Hmm<ObservationVector> hmm){
+        this.hmm = hmm;
+    }
+
+    public void setSequences(List<String> sequences){
+        this.sequences = sequences;
+    }
+
+    public Hmm<ObservationVector>getHmm(){
+        return  hmm;
+    }
+
+    public List<String> getSequences(){
+        return sequences;
+    }
+
+
 
     public static Exercise parseExercise(JSONObject jsonObject)
     {
