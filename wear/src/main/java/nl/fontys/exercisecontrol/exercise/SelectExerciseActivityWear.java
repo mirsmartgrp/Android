@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -48,13 +46,11 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
         String line;
         try {
             while (( line = buffreader.readLine()) != null) {
-                Log.d("log",line);
-                JsonParser jp = new JsonParser(); //from gson
-                JsonElement root = jp.parse(line); //convert the input stream to a json element
-                JsonObject rootobj = root.getAsJsonObject(); //may be an array, may be an object.
-                Log.d("obj",rootobj.get("name").toString());
-                //Log.d("root",rootobj.toString());
-               // listItems.add(name);
+                Log.d("log", line);
+                JSONObject jsonObj = new JSONObject(line);
+                JSONObject exercise = jsonObj.getJSONObject("Exercise");
+                String name = exercise.getString("name");
+                listItems.add(name);
             }
             }
         catch (Exception e) {
