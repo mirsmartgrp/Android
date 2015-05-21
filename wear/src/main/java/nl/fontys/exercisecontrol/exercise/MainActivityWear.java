@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
@@ -37,7 +38,6 @@ public class MainActivityWear extends Activity {
         collector = new JsonMeasurementCollectorImpl();
         recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
         recorder.initialize();
-       // initView();
 
     }
 
@@ -50,8 +50,9 @@ public class MainActivityWear extends Activity {
     /**
      * setup the view
      */
-    private void initView() {
+    private void setExerciseNameToHeaderLbl() {
         headerLbl = (TextView ) findViewById(R.id.headerLbl);
+        exerciseName = getExerciseName();
         headerLbl.setText(exerciseName);
     }
     /**
@@ -82,13 +83,12 @@ public class MainActivityWear extends Activity {
      * @param view
      */
     public void start(View view) {
-        initView();
         if(isConnectedToPhone()) {
             chronometer = (Chronometer) findViewById(R.id.chronometer);
-            chronometer.start();
-            String exerciseName =getExerciseName();
+            chronometer.setBase(SystemClock.elapsedRealtime()); //reset to 0
             recorder.start(exerciseName);
-            headerLbl.setText(exerciseName);
+            chronometer.start();
+            setExerciseNameToHeaderLbl();
         }
         else {
             showToast("could not establish connection to phone", Toast.LENGTH_LONG);
@@ -134,8 +134,8 @@ public class MainActivityWear extends Activity {
 
         @Override
         public void startCollecting(String exerciseName) throws MeasurementException {
-            super.startCollecting(exerciseName);
             Log.d(TAG, "Started collecting measurements.");
+            super.startCollecting(exerciseName);
         }
 
         @Override
@@ -146,13 +146,11 @@ public class MainActivityWear extends Activity {
 
         @Override
         public void collectionComplete(ExerciseData data) {
-
-            //Gson gson = new Gson();
-                Log.d(TAG,"name: "+data.getName());
+            Log.d("log","measurement completed");
+             Log.d(TAG,"name: "+data.getName());
             for(DataEntry d:data.getData()) {
                 Log.d(TAG,"dataEntry: "+d);
             }
-//            Log.d(TAG, "collecting measurements complete: " + gson.toString());
             //sendMessage(gson.toString());
         }
 
