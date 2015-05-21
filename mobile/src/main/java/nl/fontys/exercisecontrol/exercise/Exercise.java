@@ -35,7 +35,8 @@ public class Exercise
     private final String       DESCRIPTION;
     private final ExerciseData EXERCISE_DATA;
     private Hmm<ObservationVector> hmm;
-    private List<String> sequences = new ArrayList<String>();
+    private List<String> sequences;
+
 
     /**
      * Constructs an exercise object with given NAME.
@@ -50,6 +51,10 @@ public class Exercise
         this.EXERCISE_DATA = new ExerciseData();
         this.hmm =  null;
         this.sequences = null;
+    }
+
+    public String getGUID(){
+        return getGUID();
     }
 
 
