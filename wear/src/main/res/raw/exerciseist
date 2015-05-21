@@ -1,1 +1,16 @@
-{"Exercise": { "GUID": "A","name": "Exercise I","description": "this is the first","video_image": "http://wwww.google.de"}}
+{
+  "exercises": [
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b",
+      "name": "Example exercise 1",
+      "description": "This should be an description of these exercise. Also it should say for which muscles it is.",
+      "video_image": "path"
+    },
+    {
+      "guid": "4965277eda2d40edba6f140282d88462",
+      "name": "Example exercise 2",
+      "description": "This should be an description of these exercise. Also it should say for which muscles it is.",
+      "video_image": "path"
+    }
+  ]
+}
