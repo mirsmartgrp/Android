@@ -14,15 +14,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.Exercise;
-import nl.fontys.exercisecontrol.exercise.HMM;
-import nl.fontys.exercisecontrol.exercise.PartialExerciseData;
+import nl.fontys.exercisecontrol.exercise.analysis.HMM;
 import nl.fontys.exercisecontrol.exercise.R;
-import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
@@ -123,7 +118,7 @@ public class MainActivityMobile
                     if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
 
                         if(learn) {
-                            hmm.learnExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
+                            hmm.addLearnSequence(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
                             Log.d("Learn", "Leanr");
                         }else{
                             hmm.testExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
