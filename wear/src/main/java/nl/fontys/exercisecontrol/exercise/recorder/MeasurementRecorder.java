@@ -26,7 +26,6 @@ public class MeasurementRecorder {
     private final SensorManager sensorManager;
     private final MeasurementCollector collector;
     private final List<MeasurementSensorData> sensorData;
-    private final SensorMeasurementAdaptor adaptor;
     private final HandlerThread handlerThread;
     private MeasurementRecorderMessageHandler messageHandler = null;
 
@@ -42,7 +41,6 @@ public class MeasurementRecorder {
         this.collector = collector;
         sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
         sensorData = new ArrayList<MeasurementSensorData>();
-        adaptor = new SensorMeasurementAdaptor();
         handlerThread = new HandlerThread(getClass().getSimpleName());
 
         for (int sensorType : sensorTypes) {
@@ -61,11 +59,7 @@ public class MeasurementRecorder {
 
         handlerThread.start();
         messageHandler = new MeasurementRecorderMessageHandler(handlerThread.getLooper());
-
-        for (MeasurementSensorData data : sensorData) {
-            if (!sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), messageHandler))
-                throw new RuntimeException("Sensor registration failed.");
-        }
+        messageHandler.initialize();
     }
 
     /**
@@ -95,56 +89,21 @@ public class MeasurementRecorder {
         messageHandler.sendMessage(message);
     }
 
-    private class SensorMeasurementAdaptor implements SensorEventListener {
-
-        private final Map<Sensor, MeasurementAdaptor> adaptorMap = new HashMap<Sensor, MeasurementAdaptor>();
-        private long startTime = 0;
-
-        public void onRecordingStart(String name) throws MeasurementException {
-            startTime = System.nanoTime();
-            collector.startCollecting(name);
-
-            for (MeasurementSensorData data : sensorData)
-                adaptorMap.put(data.getSensor(), new MeasurementAdaptor(data, collector, startTime));
-        }
-
-        public void onRecordingStop() throws MeasurementException {
-            adaptorMap.clear();
-            collector.stopCollecting((double)(System.nanoTime() - startTime) / 1000000000.0);
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            MeasurementAdaptor adaptor;
-
-            if ((adaptor = adaptorMap.get(event.sensor)) == null)
-                return;
-
-            try {
-                adaptor.sensorEvent(System.nanoTime(), event);
-            } catch (MeasurementException ex) {
-                adaptorMap.clear();
-                Message message = new Message();
-                message.obj = MeasurementRecorderMessageObject.fail(ex);
-                messageHandler.sendMessage(message);
-            }
-        }
-
-        public void onRecordingFailed(MeasurementException ex) {
-            adaptorMap.clear();
-            collector.collectionFailed(ex);
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) { }
-    }
 
     private class MeasurementRecorderMessageHandler extends Handler {
 
-        boolean recording = false;
+        private final MeasurementCollectorAdaptor adaptor;
+        private boolean recording = false;
 
         public MeasurementRecorderMessageHandler(Looper looper) {
             super(looper);
+            adaptor = new MeasurementCollectorAdaptor(collector, sensorData, this);
+        }
+
+        public void initialize() {
+            for (MeasurementSensorData data : sensorData) {
+                sensorManager.registerListener(adaptor, data.getSensor(), 1000000 / data.getSamplingRate(), messageHandler);
+            }
         }
 
         public void quit() {
@@ -200,51 +159,6 @@ public class MeasurementRecorder {
                 case FAIL:  fail(msg.getException()); break;
                 case QUIT:  quit();  break;
             }
-        }
-    }
-
-    private static class MeasurementRecorderMessageObject {
-
-        private final MessageAction action;
-        private final String name;
-        private final MeasurementException exception;
-
-        private MeasurementRecorderMessageObject(MessageAction action, String name, MeasurementException exception) {
-            this.action = action;
-            this.name = name;
-            this.exception = exception;
-        }
-
-        public MessageAction getAction() {
-            return action;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public MeasurementException getException() {
-            return exception;
-        }
-
-        private enum MessageAction {
-            START, STOP, FAIL, QUIT
-        }
-
-        public static MeasurementRecorderMessageObject start(String name) {
-            return new MeasurementRecorderMessageObject(MessageAction.START, name, null);
-        }
-
-        public static MeasurementRecorderMessageObject stop() {
-            return new MeasurementRecorderMessageObject(MessageAction.STOP, null, null);
-        }
-
-        public static MeasurementRecorderMessageObject fail(MeasurementException exception) {
-            return new MeasurementRecorderMessageObject(MessageAction.FAIL, null, exception);
-        }
-
-        public static MeasurementRecorderMessageObject quit() {
-            return new MeasurementRecorderMessageObject(MessageAction.QUIT, null, null);
         }
     }
 }
