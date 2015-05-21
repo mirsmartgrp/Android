@@ -12,13 +12,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.fontys.exercisecontrol.exercise.exlist.Exercise;
+import nl.fontys.exercisecontrol.exercise.exlist.ExercisesObject;
+import nl.fontys.exercisecontrol.exercise.exlist.ExercisesObjectParser;
 
 public class SelectExerciseActivityWear extends Activity implements WearableListView.ClickListener  {
 
@@ -54,24 +57,26 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
      * @param inputStream stream with the file as input
      */
     private List<String> loadExerciseList(InputStream inputStream) {
+        ExercisesObjectParser parser = new ExercisesObjectParser();
+
         List names =new ArrayList<>();
         InputStreamReader inputreader = new InputStreamReader(inputStream);
         BufferedReader buffreader = new BufferedReader(inputreader);
-        final String ELEMENT_TO_GET="name";
+        StringBuilder stringBuilder = new StringBuilder();
         String line;
         try {
             while (( line = buffreader.readLine()) != null) {
-                Log.d(TAG, line);
-                JSONObject jsonObj = new JSONObject(line);
-                String name = jsonObj.getString(ELEMENT_TO_GET);
-                names.add(name);
+                stringBuilder.append(line);
+            }
+            Log.d(TAG, stringBuilder.toString());
+            ExercisesObject obj = parser.parse(stringBuilder.toString());
+            for(Exercise ex:obj.getExercises()) {
+                names.add(ex.getName());
             }
             return names;
-        }
-        catch (Exception e) {
-            Log.e(TAG, "error reading exercise list. " + e);
-            //TODO try to download from server ?
-            return null;
+        } catch (IOException e) {
+           Log.e(TAG, "error loading exercise list" +e);
+        return names;
         }
     }
     @Override
