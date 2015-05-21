@@ -7,11 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import be.ac.ulg.montefiore.run.jahmm.Hmm;
 import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
-import be.ac.ulg.montefiore.run.jahmm.OpdfFactory;
 import be.ac.ulg.montefiore.run.jahmm.OpdfMultiGaussianFactory;
 import be.ac.ulg.montefiore.run.jahmm.draw.GenericHmmDrawerDot;
 import be.ac.ulg.montefiore.run.jahmm.learn.KMeansLearner;
@@ -25,8 +26,7 @@ import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
 public class Analysis {
 
 
-    /* TO_DO :  PROBLEM WHEN 2 Exercises are trained*/
-    private List<List<ObservationVector>> kMeanSeq = new ArrayList<List<ObservationVector>>();
+    private Map<String, List<List<ObservationVector>>> map = new HashMap<String, List<List<ObservationVector>>>();
     private static final int FAILURE_TOLERANCE = 4;
 
 
@@ -35,21 +35,24 @@ public class Analysis {
 
 
     public void addLearnSequence(Exercise exercise) {
-        if(exercise.getEXERCISE_DATA() != null && exercise.getEXERCISE_DATA().getListOfSingleExerciseData() != null) {
+        if (exercise.getEXERCISE_DATA() != null && exercise.getEXERCISE_DATA().getListOfSingleExerciseData() != null) {
             List<ObservationVector> seq = createSequence(exercise.getEXERCISE_DATA().getListOfSingleExerciseData());
+            List<List<ObservationVector>> kMeanSeq = map.get(exercise.getGUID());
+            if (kMeanSeq == null) {
+                kMeanSeq = new ArrayList<List<ObservationVector>>();
+                map.put(exercise.getGUID(), kMeanSeq);
+            }
             kMeanSeq.add(seq);
         }
     }
 
     public boolean testExercise(Exercise exercise) throws AnalysisError {
 
-        if(exercise.getHmm() == null || exercise.getSequences() == null){
-
-            // throw new Exception !!!!!
-            throw new AnalysisError("Exerise "+ exercise.getNAME() +  " not trained!");
+        if (exercise.getHmm() == null || exercise.getSequences() == null) {
+            throw new AnalysisError("Exerise " + exercise.getNAME() + " not trained!");
         }
 
-        if(exercise.getEXERCISE_DATA() != null && exercise.getEXERCISE_DATA().getListOfSingleExerciseData()!= null) {
+        if (exercise.getEXERCISE_DATA() != null && exercise.getEXERCISE_DATA().getListOfSingleExerciseData() != null) {
             List<ObservationVector> seq = createSequence(exercise.getEXERCISE_DATA().getListOfSingleExerciseData());
             int[] probSeq = AnalysisUtil.FILTER_SEQUENCES(exercise.getHmm().mostLikelyStateSequence(seq));
             String seqString = "";
@@ -65,8 +68,8 @@ public class Analysis {
                 }
             }
             return min <= FAILURE_TOLERANCE;
-        }else{
-           throw new AnalysisError("Exercise Data is empty!");
+        } else {
+            throw new AnalysisError("Exercise Data is empty!");
         }
     }
 
@@ -95,27 +98,32 @@ public class Analysis {
 
     public void learnHMM(Exercise exercise) {
 
-        KMeansLearner<ObservationVector> meansLearner = new KMeansLearner(5, new OpdfMultiGaussianFactory(3), kMeanSeq);
-        Hmm<ObservationVector> hmm = meansLearner.learn();
-        List<String> sequences = new ArrayList<String>();
+        List<List<ObservationVector>> kMeanSeq = map.get(exercise.getGUID());
 
-        for (List<ObservationVector> sequence : kMeanSeq) {
-            int[] probSeq = AnalysisUtil.FILTER_SEQUENCES(hmm.mostLikelyStateSequence(sequence));
-            String seqString = "";
-            for (int i : probSeq) {
+        if (kMeanSeq != null) {
+            KMeansLearner<ObservationVector> meansLearner = new KMeansLearner(5, new OpdfMultiGaussianFactory(3), kMeanSeq);
+            Hmm<ObservationVector> hmm = meansLearner.learn();
+            List<String> sequences = new ArrayList<String>();
 
-                seqString = seqString + i;
+
+            for (List<ObservationVector> sequence : kMeanSeq) {
+                int[] probSeq = AnalysisUtil.FILTER_SEQUENCES(hmm.mostLikelyStateSequence(sequence));
+                String seqString = "";
+                for (int i : probSeq) {
+
+                    seqString = seqString + i;
+                }
+                sequences.add(seqString);
             }
-            sequences.add(seqString);
+            exercise.setHmm(hmm);
+            exercise.setSequences(sequences);
         }
-        exercise.setHmm(hmm);
-        exercise.setSequences(sequences);
     }
 
 
     public void printHMM(Exercise exercise) {
         try {
-            if(exercise.getHmm() != null) {
+            if (exercise.getHmm() != null) {
                 File path;
                 String state = Environment.getExternalStorageState();
                 if (Environment.MEDIA_MOUNTED.equals(state)) {
