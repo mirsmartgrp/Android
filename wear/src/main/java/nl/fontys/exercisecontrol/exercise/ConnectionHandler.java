@@ -71,7 +71,7 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
             BufferedInputStream in = null;
             FileOutputStream fout = null;
             String urlString="";
-            String filename="";
+            String filename="/raw/exerciseist";
             try {
                 in = new BufferedInputStream(new URL(urlString).openStream());
                 fout = new FileOutputStream(filename);

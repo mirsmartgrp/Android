@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -24,6 +25,8 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
     private WearableListView mListView;
     public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
     private  List<String> listItems;
+    private static final String TAG="LOG";
+
     public SelectExerciseActivityWear() {
     }
 
@@ -58,24 +61,22 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
         String line;
         try {
             while (( line = buffreader.readLine()) != null) {
-                Log.d("log", line);
+                Log.d(TAG, line);
                 JSONObject jsonObj = new JSONObject(line);
-                JSONObject exercise = jsonObj.getJSONObject("Exercise");
-                String name = exercise.getString(ELEMENT_TO_GET);
+                String name = jsonObj.getString(ELEMENT_TO_GET);
                 names.add(name);
             }
             return names;
         }
         catch (Exception e) {
-            Log.e("log", "error reading exercise list. " + e);
+            Log.e(TAG, "error reading exercise list. " + e);
             //TODO try to download from server ?
             return null;
         }
     }
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d("WEAR", "selected nr " + viewHolder.getPosition() + 1);
-        Log.d("WEAR", " selected " + listItems.get(viewHolder.getPosition()));
+        Log.d(TAG, " selected " + listItems.get(viewHolder.getPosition()));
         startMainActivity(listItems.get(viewHolder.getPosition()));
         
     }
@@ -86,8 +87,23 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
      */
     private void startMainActivity(String exerciseName) {
         Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
-        i.putExtra(EXERCISE_NAME, exerciseName);
-        startActivity(i);
+        if( exerciseName==null || exerciseName.isEmpty() ) {
+            Log.d(TAG, "no exercise collected");
+                showToast("Error in selecting the exercise.\n Please try again", Toast.LENGTH_SHORT);
+        }
+        else {
+            i.putExtra(EXERCISE_NAME, exerciseName);
+            startActivity(i);
+        }
+    }
+    /**
+     * display a toast message
+     * @param message text to display
+     * @param length time how long the display is show
+     */
+    private void showToast(String message, int length) {
+        Toast toast = Toast.makeText(this, message, length);
+        toast.show();
     }
     @Override
     public void onTopEmptyRegionClick() {
