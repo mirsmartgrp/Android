@@ -24,7 +24,9 @@ import nl.fontys.exercisecontrol.MainActivityMobile;
  */
 public class Exercise
 {
+    private final String       GUID;
     private final String       NAME;
+    private final String       DESCRIPTION;
     private final ExerciseData EXERCISE_DATA;
 
     /**
@@ -34,7 +36,9 @@ public class Exercise
      */
     Exercise(String name)
     {
+        this.GUID = "";
         this.NAME = name;
+        this.DESCRIPTION = "";
         this.EXERCISE_DATA = new ExerciseData();
     }
 
@@ -88,6 +92,10 @@ public class Exercise
     public String getNAME()
     {
         return NAME;
+    }
+    public String getDESCRIPTION()
+    {
+        return DESCRIPTION;
     }
 
     public ExerciseData getEXERCISE_DATA()
