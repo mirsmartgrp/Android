@@ -14,15 +14,11 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.Exercise;
-import nl.fontys.exercisecontrol.exercise.HMM;
-import nl.fontys.exercisecontrol.exercise.PartialExerciseData;
+import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.exercise.R;
-import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
+import nl.fontys.exercisecontrol.exercise.analysis.AnalysisError;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
@@ -37,7 +33,7 @@ public class MainActivityMobile
     private static int historyRequestCode = 1002;
     private static boolean learn = true;
 
-    private HMM hmm;
+    private Analysis hmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,7 +41,7 @@ public class MainActivityMobile
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
-        hmm = new HMM();
+        hmm = new Analysis();
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
         helloWorldTextView = (TextView) findViewById(R.id.testTextView);
@@ -58,7 +54,7 @@ public class MainActivityMobile
         androidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hmm.printHMM();
+               // hmm.printHMM();
             }
         });
 
@@ -121,14 +117,14 @@ public class MainActivityMobile
                     JSONObject json = new JSONObject(data);
                     Log.d("JSON",json.toString());
                     Exercise ex = Exercise.parseExercise(json);
-
-                    if(ex.getEXERCISE_DATA() != null&& ex.getEXERCISE_DATA().getListOfSingleExerciseData() != null){
-
-                        if(learn) {
-                            hmm.learnExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
+                    if(learn) {
+                            hmm.addLearnSequence(ex);
                             Log.d("Learn", "Leanr");
                         }else{
-                            hmm.testExercise(ex.getEXERCISE_DATA().getListOfSingleExerciseData());
+                        try {
+                            hmm.testExercise(ex);
+                        } catch (AnalysisError analysisError) {
+                            analysisError.printStackTrace();
                         }
                     }
 

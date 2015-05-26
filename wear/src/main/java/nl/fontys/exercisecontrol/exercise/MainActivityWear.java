@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
@@ -25,6 +28,7 @@ public class MainActivityWear extends Activity {
     private Chronometer chronometer;
     private TextView headerLbl;
     private String exerciseName="unknown exercise";
+    private String exerciseGUID ="";
     private final static String TAG="LOG";
 
 
@@ -35,10 +39,8 @@ public class MainActivityWear extends Activity {
         handler = new ConnectionHandler(this);
 
         collector = new JsonMeasurementCollectorImpl();
-        exerciseName = getExerciseName();
-        recorder = new MeasurementRecorder(this,initSensors(), 1, collector, exerciseName);
+        recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
         recorder.initialize();
-       // initView();
 
     }
 
@@ -46,13 +48,17 @@ public class MainActivityWear extends Activity {
         Intent intent = getIntent();
         return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
     }
-
+    private String getExerciseGUID() {
+        Intent intent = getIntent();
+        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_GUID);
+    }
 
     /**
-     * setup the view
+     * setting the name of the exerccise to the header
      */
-    private void initView() {
+    private void setExerciseNameToHeaderLbl() {
         headerLbl = (TextView ) findViewById(R.id.headerLbl);
+        exerciseName = getExerciseName();
         headerLbl.setText(exerciseName);
     }
     /**
@@ -80,17 +86,20 @@ public class MainActivityWear extends Activity {
     /**
      * start the measurement
      * start chronometer
+     * set the Exercise nameS
      * @param view
      */
     public void start(View view) {
-        initView();
         if(isConnectedToPhone()) {
+            exerciseGUID = getExerciseGUID();
             chronometer = (Chronometer) findViewById(R.id.chronometer);
+            chronometer.setBase(SystemClock.elapsedRealtime()); //reset to 0
+            recorder.start(exerciseGUID);
             chronometer.start();
-            recorder.start();
+            setExerciseNameToHeaderLbl();
         }
         else {
-            showToast("could not establish connection to phone", Toast.LENGTH_LONG);
+            showToast(getString(R.string.errorConnectionToPhone), Toast.LENGTH_LONG);
         }
 
     }
@@ -133,8 +142,8 @@ public class MainActivityWear extends Activity {
 
         @Override
         public void startCollecting(String exerciseName) throws MeasurementException {
-            super.startCollecting(exerciseName);
             Log.d(TAG, "Started collecting measurements.");
+            super.startCollecting(exerciseGUID);
         }
 
         @Override
@@ -145,14 +154,15 @@ public class MainActivityWear extends Activity {
 
         @Override
         public void collectionComplete(ExerciseData data) {
-
-            //Gson gson = new Gson();
-                Log.d(TAG,"name: "+data.getName());
+            Log.d("log","measurement completed");
+             Log.d(TAG, "guid: " + data.getGuid());
             for(DataEntry d:data.getData()) {
-                Log.d(TAG,"dataEntry: "+d);
+               // Log.d(TAG,"dataEntry: "+d);
             }
-//            Log.d(TAG, "collecting measurements complete: " + gson.toString());
-            //sendMessage(gson.toString());
+            Gson gson = new Gson();
+            gson.toJson(data.getData());
+            Log.d(TAG,gson.toString());
+            sendMessage(gson.toString());
         }
 
         /**
@@ -162,17 +172,17 @@ public class MainActivityWear extends Activity {
         private void sendMessage(String text) {
              if(isConnectedToPhone()) {
                 handler.sendMessage(text);
-                showToast("data send to phone", Toast.LENGTH_LONG);
+                showToast(getString(R.string.messageSendSuccess), Toast.LENGTH_LONG);
             }
             else {
-                    showToast("no connection to phone.", Toast.LENGTH_LONG);
+                 showToast(getString(R.string.messageSendFailed), Toast.LENGTH_LONG);
             }
 
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
             Log.d(TAG, "Measurement failed: " + ex.getMessage());
-            showToast("Measurement failed", Toast.LENGTH_LONG);
+            showToast(getString(R.string.measurementFailed), Toast.LENGTH_LONG);
         }
     }
 }

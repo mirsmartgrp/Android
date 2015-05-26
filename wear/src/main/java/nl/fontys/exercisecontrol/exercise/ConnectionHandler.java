@@ -66,12 +66,13 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
 
     /**
      * Download exercise list
+     * or just copy string ?
      */
     private void handleDownload(MessageEvent event) {
             BufferedInputStream in = null;
             FileOutputStream fout = null;
             String urlString="";
-            String filename="";
+            String filename="/raw/exerciseist";
             try {
                 in = new BufferedInputStream(new URL(urlString).openStream());
                 fout = new FileOutputStream(filename);
@@ -119,7 +120,7 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
     }
 
     /**
-     *
+     * TODO: determine how to check if feedback
      * @param messageEvent message received
      * @return true if message indicates to download exercises
      */
@@ -129,12 +130,11 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
     }
 
     /**
-     * TODO: check with real Strings
      * @param messageEvent messsage received
      * @return true if messae contains feedback for exercises
      */
     private boolean isFeedback(MessageEvent messageEvent) {
-        return messageEvent.getData().toString().contains("GUID");
+        return messageEvent.getData().toString().contains("exercise");
     }
 
 

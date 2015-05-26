@@ -2,12 +2,12 @@ package nl.fontys.exercisecontrol.exercise.collector;
 
 public class DataEntry {
 
-    private final double time;
+    private final double secondsSinceStart;
     private Vector accelerometer;
     private Vector gyroscope;
 
-    public DataEntry(double time) {
-        this.time = time;
+    public DataEntry(double secondsSinceStart) {
+        this.secondsSinceStart = secondsSinceStart;
         accelerometer = new Vector(0.0, 0.0, 0.0);
         gyroscope = new Vector(0.0, 0.0, 0.0);
     }
@@ -15,14 +15,14 @@ public class DataEntry {
     @Override
     public String toString() {
         return "DataEntry{" +
-                "time=" + time +
+                "secondsSinceStart=" + secondsSinceStart +
                 ", accelerometer=" + accelerometer +
                 ", gyroscope=" + gyroscope +
                 '}';
     }
 
-    public double getTime() {
-        return time;
+    public double getSecondsSinceStart() {
+        return secondsSinceStart;
     }
 
     public Vector getAccelerometer() {

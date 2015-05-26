@@ -5,28 +5,28 @@ import java.util.List;
 
 public class ExerciseData {
 
-    private String name;
+    private String guid;
     private final List<DataEntry> data;
 
-    public ExerciseData(String name) {
-        this.name = name;
+    public ExerciseData(String guid) {
+        this.guid = guid;
         data = new ArrayList<DataEntry>();
     }
 
     @Override
     public String toString() {
         return "ExerciseData{" +
-                "name='" + name + '\'' +
+                "guid='" + guid + '\'' +
                 ", data=" + data.toString() +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    public String getGuid() {
+        return guid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
     public List<DataEntry> getData() {

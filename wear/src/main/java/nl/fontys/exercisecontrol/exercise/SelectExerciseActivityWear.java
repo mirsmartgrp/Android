@@ -10,17 +10,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import nl.fontys.exercisecontrol.exercise.exlist.Exercise;
+import nl.fontys.exercisecontrol.exercise.exlist.ExercisesObject;
+import nl.fontys.exercisecontrol.exercise.exlist.ExercisesObjectParser;
 
 public class SelectExerciseActivityWear extends Activity implements WearableListView.ClickListener  {
 
     private WearableListView mListView;
     public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
+    public final static String EXERCISE_GUID="nl.fontys.exercisecontrol.exercise.ExerciseGUID";
+
+    private  List<Exercise> listItems;
+    private static final String TAG="LOG";
+
+    public SelectExerciseActivityWear() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,54 +48,71 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
                 mListView.setClickListener(SelectExerciseActivityWear.this);
             }
         });
+        InputStream inputStream = getResources().openRawResource(R.raw.exerciseist);
+        listItems=loadExerciseList(inputStream);
+
     }
 
 
-    private static ArrayList<String> listItems;
-    static {
-        listItems = new ArrayList<String>();
-        listItems.add("Exercise I");
-        listItems.add("Exercise II");
-        listItems.add("Run");
-        listItems.add("Jumping Jack");
-        listItems.add("Exercise v");
-    }
+    /**
+     * loading exercise names from json file
+     * @param inputStream stream with the file as input
+     */
+    private List<Exercise> loadExerciseList(InputStream inputStream) {
+        ExercisesObjectParser parser = new ExercisesObjectParser();
 
-    private ArrayList<String> loadExerciseList(String filePath) throws IOException
-{
-   listItems = new ArrayList<String>();
-    File file = new File(filePath);
-    FileReader fr = new FileReader(file);
-    BufferedReader br = new BufferedReader(fr);
-    String line;
-    while((line = br.readLine()) != null){
-       listItems.add(line);
+        List exerciseList =new ArrayList<>();
+        InputStreamReader inputreader = new InputStreamReader(inputStream);
+        BufferedReader buffreader = new BufferedReader(inputreader);
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        try {
+            while (( line = buffreader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            Log.d(TAG, stringBuilder.toString());
+            ExercisesObject obj = parser.parse(stringBuilder.toString());
+            for(Exercise ex:obj.getExercises()) {
+                exerciseList.add(ex);
+            }
+            return exerciseList;
+        } catch (IOException e) {
+            showToast(getString(R.string.errorLoadingList), Toast.LENGTH_SHORT);
+           Log.e(TAG, getString(R.string.errorLoadingList) +e);
+        return exerciseList;
+        }
     }
-    br.close();
-    fr.close();
-    return listItems;
-}
-
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d("WEAR", "selected nr "+viewHolder.getPosition()+1);
-        Log.d("WEAR", " selected " + listItems.get(viewHolder.getPosition()));
-        startMainActivity(listItems.get(viewHolder.getPosition()));
+        Exercise exercise = listItems.get(viewHolder.getPosition());
+        startMainActivity(exercise);
         
     }
 
     /**
      * starts the main activity
-     * @param exerciseName name of the selected exercise
+     * @param exercise selected exercise
      */
-    private void startMainActivity(String exerciseName) {
+    private void startMainActivity(Exercise exercise) {
         Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
-        i.putExtra(EXERCISE_NAME, exerciseName );
+        Bundle bundle = new Bundle();
+        bundle.putString(EXERCISE_NAME, exercise.getName());
+        bundle.putString(EXERCISE_GUID, exercise.getGuid());
+        i.putExtras(bundle);
         startActivity(i);
+    }
+    /**
+     * display a toast message
+     * @param message text to display
+     * @param length time how long the display is show
+     */
+    private void showToast(String message, int length) {
+        Toast toast = Toast.makeText(this, message, length);
+        toast.show();
     }
     @Override
     public void onTopEmptyRegionClick() {
-
+        showToast(getString(R.string.listViewHint),Toast.LENGTH_LONG);
     }
 
     private class MyAdapter extends WearableListView.Adapter {
