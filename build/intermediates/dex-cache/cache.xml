@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-80848ddbde8ea5245509c5ff34bb68daa6fff5c7.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-2d3bbe44ffe9b70afe0d0ee0982e5e1cde18062c.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-bc8f3383ade06227017cdb07623780b531e6a8a8.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-dcc0a79300b48e3ac59c7fb22de371cdcaa3d0e6.jar" />
+    </item>
+    <item
+        jar="/Users/ron/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/gson-2.3.1-e24347b2254c088f81d75aa730cf944e71c63a8c.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/support-annotations-22.0.0-77dd4e6668151bf88437ce1be3b2409e7b147386.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-c8549de17be897385aa075d84ddbcf11059c4eb2.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/libs/sdk-v1.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e2ce3786b6e9519934c4a54aaaaf39525bf4486c">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/sdk-v1.0.0-7ffd64579dbe0e0578a76e880af0a7fe9a9385be.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-17be78153b7d49906536541e586942c7fedb272a.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/1.1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="27f19641b81b1078e653d2f0e5d1ed44d158a785">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/classes-1e4ce1351ae0697ce8eed8a963a27e880be2fe33.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/internal_impl-22.0.0-1042ba46e6e29bdc8e6e6be4116138d180644495.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-fe92c5dde0be767f34f090763466376a94226aa2.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/classes-bbf01d5f76884c6110891de4a01e56c16324ecc5.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1c5a76debf0c2857ccad422c4a80ed785982f8df">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-8d9759b8941a16274a652dde20000c9e61913da6.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/libs/jahmm-0.6.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="783a962cc2fdd948158fd9fae4ce7de42d97bd93">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/jahmm-0.6.1-4615c3bfd6e9b4363ffc524c413679ed111eab57.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-710103d5dbee5d05365efda1623a226ff7fd6ee7.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-e6ddb2f3d999db387fd26ddfa3447164ea22b361.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/classes-00fca76718fe86532f9b7ad1228d7ec37be5965e.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-08a59c5b458aec168dbb84f184a97767a8eac7fb.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-2b98df5e99519ca063a45e52a3ec9b6c1e409256.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-d9884adea9f96c14fe4fbdba1fc4ecac9ffd5eb6.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-ec11f7158b6b478afc640e958cce5474931ce912.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/classes-ea54ac5f21bc6befada58f3e32f579be7bb893fd.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4cd0b093824b3228fffc21ea369b98d0b1db6566">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-8f9fb45a755789a9b8059d82513226400f78ccc5.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-7b1073db0ad60ba94b54c9dc081e0343884553a4.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/libs/accessory-v2.2.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="06839af7be84d673ecd37f10e581350b76dc93fc">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/accessory-v2.2.2-cc52a0b982bdfae0bc07e706f7b6ecd07ab051e6.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-8d8f173dc3140a8b3881fba03a22c01e7d0711d5.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-eedb127276fbe2ba368c317105868fed1351c606.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-42830832e007c67c4d70fe6f2c41dd2bbb5fb86c.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-423080733d0ef9b8bca282d0ac662da1900995c2.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/mobile/build/intermediates/pre-dexed/debug/classes-1631a4cbb08eff97b4f927dc9c68fcfa8b1f2c5b.jar" />
+    </item>
+    <item
+        jar="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2">
+        <dex dex="/Users/ron/Documents/Fontys/mirsmartgrp/ExerciseControlApp/android/wear/build/intermediates/pre-dexed/release/classes-d8d59256fdab1e5a541f8ef1eb6217490536238a.jar" />
+    </item>
+
+</items>
