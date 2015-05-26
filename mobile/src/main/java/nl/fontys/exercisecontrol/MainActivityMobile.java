@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.ExerciseList;
 import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.exercise.R;
 import nl.fontys.exercisecontrol.exercise.analysis.AnalysisError;
@@ -41,6 +42,16 @@ public class MainActivityMobile
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
+
+        try
+        {
+            ExerciseList exerciseList = new ExerciseList(context);
+        }
+        catch (Exception e)
+        {
+            Log.e("INITIALISATION", e.getMessage());
+        }
+
         hmm = new Analysis();
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
