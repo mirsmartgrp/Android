@@ -4,34 +4,32 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.net.Uri;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.R;
+import nl.fontys.exercisecontrol.guiSupport.LearnAdapter;
 
-public class ExerciseDescriptionActivity extends Activity
+public class TrainActivity extends Activity
 {
-
+    private List<Exercise> mockExerciseList = new ArrayList<Exercise>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_description);
-        VideoView vidView = (VideoView)findViewById(R.id.exerciseVideo);
+        setContentView(R.layout.activity_train);
 
-        //Displaying the video, needs an mp4 links afaik.
-        String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
-        Uri vidUri = Uri.parse(vidAddress);
-        vidView.setVideoURI(vidUri);
+        mockExerciseList.add(new Exercise("Exercise 1"));
+        mockExerciseList.add(new Exercise("Exercise 2"));
+        mockExerciseList.add(new Exercise("Exercise 3"));
+        mockExerciseList.add(new Exercise("Exercise 4"));
 
-        //Implementing Video controlls
-        MediaController vidControl = new MediaController(this);
-        vidControl.setAnchorView(vidView);
-        vidView.setMediaController(vidControl);
-
-        vidView.start();
-        //Video autostarts, may only on a seperate button click event.
+        ListView listViewExersie = (ListView) findViewById(R.id.exeListView);
+        LearnAdapter adapter = new LearnAdapter(this, mockExerciseList);
+        listViewExersie.setAdapter(adapter);
     }
 
 
@@ -39,7 +37,7 @@ public class ExerciseDescriptionActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_exercise_description, menu);
+        getMenuInflater().inflate(R.menu.menu_train, menu);
         return true;
     }
 

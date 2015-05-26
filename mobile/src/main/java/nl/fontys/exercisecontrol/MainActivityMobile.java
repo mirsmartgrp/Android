@@ -89,7 +89,7 @@ public class MainActivityMobile
                 new Button.OnClickListener() {
                     public void onClick(View v) {
 
-                        if(learn){
+  /*                      if(learn){
                             learn = false;
                             tizenButton.setText("Test");
                         }else{
@@ -98,7 +98,9 @@ public class MainActivityMobile
                         }
 
                         //connectionHandlerBackend.sendExerciseData("Hallo Welt!");
-
+*/
+                        Intent intent = new Intent(MainActivityMobile.this, TrainActivity.class);
+                        startActivity(intent);
                     }
                 }
 

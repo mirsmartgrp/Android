@@ -32,7 +32,7 @@ public class Exercise
      *
      * @param name the NAME of the exercise
      */
-    Exercise(String name)
+    public Exercise(String name)
     {
         this.NAME = name;
         this.EXERCISE_DATA = new ExerciseData();

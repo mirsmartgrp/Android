@@ -6,4 +6,5 @@
 	<string name="title_activity_select_exercise">SelectExerciseActivity</string>
 	<string name="title_activity_history">HistoryActivity</string>
 	<string name="title_activity_exercise_description">ExerciseDescriptionActivity</string>
+	<string name="title_activity_train">TrainActivity</string>
 </resources>

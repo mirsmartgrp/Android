@@ -151,4 +151,8 @@ public class ConnectionHandlerAndroid
     }
 
 
+    public void disconnect()
+    {
+        mApiClient.disconnect();
+    }
 }
