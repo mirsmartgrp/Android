@@ -11,6 +11,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
@@ -48,7 +50,7 @@ public class MainActivityWear extends Activity {
     }
     private String getExerciseGUID() {
         Intent intent = getIntent();
-        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
+        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_GUID);
     }
 
     /**
@@ -97,7 +99,7 @@ public class MainActivityWear extends Activity {
             setExerciseNameToHeaderLbl();
         }
         else {
-            showToast("could not establish connection to phone", Toast.LENGTH_LONG);
+            showToast(getString(R.string.errorConnectionToPhone), Toast.LENGTH_LONG);
         }
 
     }
@@ -153,11 +155,14 @@ public class MainActivityWear extends Activity {
         @Override
         public void collectionComplete(ExerciseData data) {
             Log.d("log","measurement completed");
-             Log.d(TAG,"guid: "+data.getGuid());
+             Log.d(TAG, "guid: " + data.getGuid());
             for(DataEntry d:data.getData()) {
-                Log.d(TAG,"dataEntry: "+d);
+               // Log.d(TAG,"dataEntry: "+d);
             }
-            //sendMessage(gson.toString());
+            Gson gson = new Gson();
+            gson.toJson(data.getData());
+            Log.d(TAG,gson.toString());
+            sendMessage(gson.toString());
         }
 
         /**
@@ -167,17 +172,17 @@ public class MainActivityWear extends Activity {
         private void sendMessage(String text) {
              if(isConnectedToPhone()) {
                 handler.sendMessage(text);
-                showToast("data send to phone", Toast.LENGTH_LONG);
+                showToast(getString(R.string.messageSendSuccess), Toast.LENGTH_LONG);
             }
             else {
-                    showToast("no connection to phone.", Toast.LENGTH_LONG);
+                 showToast(getString(R.string.messageSendFailed), Toast.LENGTH_LONG);
             }
 
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
             Log.d(TAG, "Measurement failed: " + ex.getMessage());
-            showToast("Measurement failed", Toast.LENGTH_LONG);
+            showToast(getString(R.string.measurementFailed), Toast.LENGTH_LONG);
         }
     }
 }

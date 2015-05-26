@@ -36,6 +36,8 @@ public class MainActivityMobile
 
     private Analysis hmm;
 
+    private ExerciseList exerciseList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,7 +47,7 @@ public class MainActivityMobile
 
         try
         {
-            ExerciseList exerciseList = new ExerciseList(context);
+            exerciseList = new ExerciseList(context);
         }
         catch (Exception e)
         {
@@ -96,7 +98,7 @@ public class MainActivityMobile
                 new Button.OnClickListener() {
                     public void onClick(View v) {
 
-                        if(learn){
+  /*                      if(learn){
                             learn = false;
                             tizenButton.setText("Test");
                         }else{
@@ -105,7 +107,9 @@ public class MainActivityMobile
                         }
 
                         //connectionHandlerBackend.sendExerciseData("Hallo Welt!");
-
+*/
+                        Intent intent = new Intent(MainActivityMobile.this, TrainActivity.class);
+                        startActivity(intent);
                     }
                 }
 
@@ -124,8 +128,9 @@ public class MainActivityMobile
 
                 try {
                     JSONObject json = new JSONObject(data);
-                    Log.d("JSON",json.toString());
-                    Exercise ex = Exercise.parseExercise(json);
+                    Log.d("JSON",
+                          json.toString());
+                    Exercise ex = exerciseList.getExerciseByMovementData(json);
                     if(learn) {
                             hmm.addLearnSequence(ex);
                             Log.d("Learn", "Leanr");

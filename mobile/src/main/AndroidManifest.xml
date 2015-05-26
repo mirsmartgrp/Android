@@ -5,6 +5,7 @@
     <uses-permission android:name="com.samsung.accessory.permission.ACCESSORY_FRAMEWORK" />
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -56,6 +57,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nl.fontys.exercisecontrol.MainActivityMobile" />
+        </activity>
+        <activity
+            android:name="nl.fontys.exercisecontrol.ExerciseDescriptionActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_exercise_description"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="nl.fontys.exercisecontrol.TrainActivity"
+            android:label="@string/title_activity_train" >
         </activity>
     </application>
 

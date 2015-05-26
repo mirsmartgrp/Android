@@ -31,7 +31,6 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
 
     private  List<Exercise> listItems;
     private static final String TAG="LOG";
-    private Exercise selectedExercise=null;
 
     public SelectExerciseActivityWear() {
     }
@@ -78,8 +77,8 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
             }
             return exerciseList;
         } catch (IOException e) {
-            showToast("error loading exercise list. ", Toast.LENGTH_SHORT);
-           Log.e(TAG, "error loading exercise list" +e);
+            showToast(getString(R.string.errorLoadingList), Toast.LENGTH_SHORT);
+           Log.e(TAG, getString(R.string.errorLoadingList) +e);
         return exerciseList;
         }
     }
@@ -113,7 +112,7 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
     }
     @Override
     public void onTopEmptyRegionClick() {
-
+        showToast(getString(R.string.listViewHint),Toast.LENGTH_LONG);
     }
 
     private class MyAdapter extends WearableListView.Adapter {

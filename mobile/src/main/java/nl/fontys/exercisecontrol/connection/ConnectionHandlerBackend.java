@@ -70,4 +70,10 @@ public class ConnectionHandlerBackend
         connectionHandlerAndroid.removeListener(listener);
         ConnectionHandlerTizen.removeListener(listener);
     }
+
+    public void disconnect()
+    {
+        connectionHandlerAndroid.disconnect();
+        ConnectionHandlerTizen.disconnect();
+    }
 }

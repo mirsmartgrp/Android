@@ -2,6 +2,7 @@ package nl.fontys.exercisecontrol.exercise;
 
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 
 import be.ac.ulg.montefiore.run.jahmm.Hmm;

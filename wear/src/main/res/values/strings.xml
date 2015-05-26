@@ -10,4 +10,10 @@
     <string name="chronometer_initial_format">Initial format:<xliff:g id="initial-format">%</xliff:g></string>
     <string name="title_activity_select_exercise_activity_wear">SelectExerciseActivityWear</string>
     <string name="title_activity_message_view">MessageViewActivity</string>
+    <string name="listViewHint">select a exercise from the below</string>
+    <string name="errorLoadingList">error loading exercise list</string>
+    <string name="errorConnectionToPhone">could not establish connection to phone</string>
+    <string name="messageSendSuccess">data send to phone</string>
+    <string name="messageSendFailed">no connection to phone</string>
+    <string name="measurementFailed">measurement failed</string>
 </resources>

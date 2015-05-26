@@ -270,6 +270,11 @@ public class ConnectionHandlerTizen
         }
     }
 
+    public static void disconnect()
+    {
+
+    }
+
     public class LocalBinder
             extends Binder
     {

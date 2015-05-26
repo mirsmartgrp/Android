@@ -43,6 +43,8 @@ public class Analysis {
                 map.put(exercise.getGUID(), kMeanSeq);
             }
             kMeanSeq.add(seq);
+        }else{
+            Log.d("Analsysis","exerciseData exmpty!");
         }
     }
 
