@@ -11,6 +11,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
@@ -155,9 +157,12 @@ public class MainActivityWear extends Activity {
             Log.d("log","measurement completed");
              Log.d(TAG, "guid: " + data.getGuid());
             for(DataEntry d:data.getData()) {
-                Log.d(TAG,"dataEntry: "+d);
+               // Log.d(TAG,"dataEntry: "+d);
             }
-            //sendMessage(gson.toString());
+            Gson gson = new Gson();
+            gson.toJson(data.getData());
+            Log.d(TAG,gson.toString());
+            sendMessage(gson.toString());
         }
 
         /**
