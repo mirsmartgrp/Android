@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 
 import be.ac.ulg.montefiore.run.jahmm.Hmm;
@@ -30,9 +31,9 @@ public class Exercise {
      *
      * @param name the NAME of the exercise
      */
-    Exercise(String name) {
-        this.GUID = "";
-        this.NAME = name;
+    Exercise(String guid) {
+        this.GUID = guid;
+        this.NAME = "name";
         this.DESCRIPTION = "";
         this.EXERCISE_DATA = new ExerciseData();
         this.hmm = null;
@@ -40,7 +41,7 @@ public class Exercise {
     }
 
     public String getGUID() {
-        return getGUID();
+        return this.GUID;
     }
 
 
@@ -69,9 +70,9 @@ public class Exercise {
                 throw new NullPointerException("jsonObject is empty");
             }
 
-            exercise = new Exercise(jsonObject.getString("name"));
+            exercise = new Exercise(jsonObject.getString("guid"));
 
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            JSONArray jsonArray = jsonObject.getJSONArray("sensorData");
             for (int index = 0; index < jsonArray.length(); index++) {
                 JSONObject tmpJsonObject = jsonArray.getJSONObject(index);
                 Double time = tmpJsonObject.getDouble("time");
