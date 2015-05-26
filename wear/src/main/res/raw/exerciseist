@@ -1,16 +1,64 @@
 {
   "exercises": [
     {
-      "guid": "e1951f54ce79472598f4417159f44b1b",
-      "name": "Example exercise 1",
-      "description": "This should be an description of these exercise. Also it should say for which muscles it is.",
-      "video_image": "path"
+      "guid": "e1951f54ce79472598f4417159f44b1b01",
+      "name": "External rotation with shoulder",
+      "description": "This exercise is very good for rehabilitation after injury in the shoulder region and to strengthen the shoulder girdle.",
+      "video_image": "https://www.youtube.com/embed/T3PbNvrhFW4?rel=0&amp;controls=0&amp;showinfo=0"
     },
     {
-      "guid": "4965277eda2d40edba6f140282d88462",
-      "name": "Example exercise 2",
-      "description": "This should be an description of these exercise. Also it should say for which muscles it is.",
-      "video_image": "path"
+      "guid": "e1951f54ce79472598f4417159f44b1b02",
+      "name": "Internal rotation with shoulder",
+      "description": "This exercise is very good for rehabilitation after injury in the shoulder region and to strengthen the shoulder girdle.",
+      "video_image": "https://www.youtube.com/embed/x44CmqKFuMQ?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b03",
+      "name": "Side lateral raise with dumbbell",
+      "description": "Using these exercise will strengthen the shoulder girdle.",
+      "video_image": "https://www.youtube.com/embed/kDqklk1ZESo?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b04",
+      "name": "Front lateral raise with dumbbell",
+      "description": "Using these exercise will strengthen the shoulder girdle.",
+      "video_image": "https://www.youtube.com/embed/D-3JnFrFUOw?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b05",
+      "name": "Shoulder press with dumbbell",
+      "description": "Using these exercise will strengthen the shoulder girdle.",
+      "video_image": "https://www.youtube.com/embed/B-aVuyhvLHU?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b06",
+      "name": "Biceps curl with barbell",
+      "description": "Using these exercise will strengthen the biceps.",
+      "video_image": "https://www.youtube.com/embed/uO_CNYidOw0?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b07",
+      "name": "Biceps curl with dumbbell",
+      "description": "Using these exercise will strengthen the biceps.",
+      "video_image": "https://www.youtube.com/embed/av7-8igSXTs?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b08",
+      "name": "Concentration curl",
+      "description": "Using these exercise will strengthen the biceps.",
+      "video_image": "https://www.youtube.com/embed/dgvKbfP6lTU?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b09",
+      "name": "Triceps extension with dumbbell",
+      "description": "Using these exercise will strengthen the triceps.",
+      "video_image": "https://www.youtube.com/embed/nRiJVZDpdL0?rel=0&amp;controls=0&amp;showinfo=0"
+    },
+    {
+      "guid": "e1951f54ce79472598f4417159f44b1b10",
+      "name": "Triceps kick back with dumbbell",
+      "description": "Using these exercise will strengthen the triceps.",
+      "video_image": "https://www.youtube.com/embed/ZO81bExngMI?rel=0&amp;controls=0&amp;showinfo=0"
     }
   ]
 }

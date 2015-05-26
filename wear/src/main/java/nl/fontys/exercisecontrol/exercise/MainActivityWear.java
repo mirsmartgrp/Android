@@ -97,7 +97,7 @@ public class MainActivityWear extends Activity {
             setExerciseNameToHeaderLbl();
         }
         else {
-            showToast("could not establish connection to phone", Toast.LENGTH_LONG);
+            showToast(getString(R.string.errorConnectionToPhone), Toast.LENGTH_LONG);
         }
 
     }
@@ -153,7 +153,7 @@ public class MainActivityWear extends Activity {
         @Override
         public void collectionComplete(ExerciseData data) {
             Log.d("log","measurement completed");
-             Log.d(TAG,"guid: "+data.getGuid());
+             Log.d(TAG, "guid: " + data.getGuid());
             for(DataEntry d:data.getData()) {
                 Log.d(TAG,"dataEntry: "+d);
             }
@@ -167,17 +167,17 @@ public class MainActivityWear extends Activity {
         private void sendMessage(String text) {
              if(isConnectedToPhone()) {
                 handler.sendMessage(text);
-                showToast("data send to phone", Toast.LENGTH_LONG);
+                showToast(getString(R.string.messageSendSuccess), Toast.LENGTH_LONG);
             }
             else {
-                    showToast("no connection to phone.", Toast.LENGTH_LONG);
+                 showToast(getString(R.string.messageSendFailed), Toast.LENGTH_LONG);
             }
 
         }
         @Override
         public void collectionFailed(MeasurementException ex) {
             Log.d(TAG, "Measurement failed: " + ex.getMessage());
-            showToast("Measurement failed", Toast.LENGTH_LONG);
+            showToast(getString(R.string.measurementFailed), Toast.LENGTH_LONG);
         }
     }
 }
