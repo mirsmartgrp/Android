@@ -26,6 +26,7 @@ public class MainActivityWear extends Activity {
     private Chronometer chronometer;
     private TextView headerLbl;
     private String exerciseName="unknown exercise";
+    private String exerciseGUID ="";
     private final static String TAG="LOG";
 
 
@@ -45,7 +46,10 @@ public class MainActivityWear extends Activity {
         Intent intent = getIntent();
         return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
     }
-
+    private String getExerciseGUID() {
+        Intent intent = getIntent();
+        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
+    }
 
     /**
      * setting the name of the exerccise to the header
@@ -85,9 +89,10 @@ public class MainActivityWear extends Activity {
      */
     public void start(View view) {
         if(isConnectedToPhone()) {
+            exerciseGUID = getExerciseGUID();
             chronometer = (Chronometer) findViewById(R.id.chronometer);
             chronometer.setBase(SystemClock.elapsedRealtime()); //reset to 0
-            recorder.start(exerciseName);
+            recorder.start(exerciseGUID);
             chronometer.start();
             setExerciseNameToHeaderLbl();
         }
@@ -136,7 +141,7 @@ public class MainActivityWear extends Activity {
         @Override
         public void startCollecting(String exerciseName) throws MeasurementException {
             Log.d(TAG, "Started collecting measurements.");
-            super.startCollecting(exerciseName);
+            super.startCollecting(exerciseGUID);
         }
 
         @Override
@@ -148,7 +153,7 @@ public class MainActivityWear extends Activity {
         @Override
         public void collectionComplete(ExerciseData data) {
             Log.d("log","measurement completed");
-             Log.d(TAG,"name: "+data.getName());
+             Log.d(TAG,"guid: "+data.getGuid());
             for(DataEntry d:data.getData()) {
                 Log.d(TAG,"dataEntry: "+d);
             }

@@ -32,4 +32,13 @@ public class Exercise {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * this method is used in the listView of SelectExerciseActivityWear
+     * @return name of exercise
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
 }

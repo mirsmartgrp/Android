@@ -27,8 +27,11 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
 
     private WearableListView mListView;
     public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
-    private  List<String> listItems;
+    public final static String EXERCISE_GUID="nl.fontys.exercisecontrol.exercise.ExerciseGUID";
+
+    private  List<Exercise> listItems;
     private static final String TAG="LOG";
+    private Exercise selectedExercise=null;
 
     public SelectExerciseActivityWear() {
     }
@@ -56,10 +59,10 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
      * loading exercise names from json file
      * @param inputStream stream with the file as input
      */
-    private List<String> loadExerciseList(InputStream inputStream) {
+    private List<Exercise> loadExerciseList(InputStream inputStream) {
         ExercisesObjectParser parser = new ExercisesObjectParser();
 
-        List names =new ArrayList<>();
+        List exerciseList =new ArrayList<>();
         InputStreamReader inputreader = new InputStreamReader(inputStream);
         BufferedReader buffreader = new BufferedReader(inputreader);
         StringBuilder stringBuilder = new StringBuilder();
@@ -71,35 +74,33 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
             Log.d(TAG, stringBuilder.toString());
             ExercisesObject obj = parser.parse(stringBuilder.toString());
             for(Exercise ex:obj.getExercises()) {
-                names.add(ex.getName());
+                exerciseList.add(ex);
             }
-            return names;
+            return exerciseList;
         } catch (IOException e) {
+            showToast("error loading exercise list. ", Toast.LENGTH_SHORT);
            Log.e(TAG, "error loading exercise list" +e);
-        return names;
+        return exerciseList;
         }
     }
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Log.d(TAG, " selected " + listItems.get(viewHolder.getPosition()));
-        startMainActivity(listItems.get(viewHolder.getPosition()));
+        Exercise exercise = listItems.get(viewHolder.getPosition());
+        startMainActivity(exercise);
         
     }
 
     /**
      * starts the main activity
-     * @param exerciseName name of the selected exercise
+     * @param exercise selected exercise
      */
-    private void startMainActivity(String exerciseName) {
+    private void startMainActivity(Exercise exercise) {
         Intent i = new Intent(getApplicationContext(), MainActivityWear.class);
-        if( exerciseName==null || exerciseName.isEmpty() ) {
-            Log.d(TAG, "no exercise collected");
-                showToast("Error in selecting the exercise.\n Please try again", Toast.LENGTH_SHORT);
-        }
-        else {
-            i.putExtra(EXERCISE_NAME, exerciseName);
-            startActivity(i);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(EXERCISE_NAME, exercise.getName());
+        bundle.putString(EXERCISE_GUID, exercise.getGuid());
+        i.putExtras(bundle);
+        startActivity(i);
     }
     /**
      * display a toast message
