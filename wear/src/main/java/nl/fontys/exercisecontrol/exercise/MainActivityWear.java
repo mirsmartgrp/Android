@@ -48,7 +48,7 @@ public class MainActivityWear extends Activity {
     }
     private String getExerciseGUID() {
         Intent intent = getIntent();
-        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
+        return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_GUID);
     }
 
     /**
