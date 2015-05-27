@@ -18,7 +18,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Wed May 27 11:49:35 UTC 2015.<br/>
+Check performed at Wed May 27 11:50:02 UTC 2015.<br/>
 0 errors and 41 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
@@ -284,13 +284,13 @@ The given layout_param is not defined for the given layout, meaning it has no ef
 <div class="id"><a href="#" title="Return to top">HandlerLeak: Handler reference leaks</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java">../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java</a>:52</span>: <span class="message">This Handler class should be static or leaks might occur (new android.os.Handler(){})</span><br /><pre class="errorlines">
-<span class="lineno">  49</span>         return handler;
-<span class="lineno">  50</span>     }
-<span class="lineno">  51</span> 
-<span class="lineno">  52</span>     private Handler handler = new Handler() <span class="errorspan">{</span>
-<span class="lineno">  53</span> 
-<span class="lineno">  54</span>         @Override
+<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java">../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java</a>:30</span>: <span class="message">This Handler class should be static or leaks might occur (new android.os.Handler(){})</span><br /><pre class="errorlines">
+<span class="lineno">  27</span>     private LearnAdapter adapter;
+<span class="lineno">  28</span>     private Context      context;
+<span class="lineno">  29</span>     private Handler handler = new Handler()
+<span class="lineno">  30</span>     <span class="errorspan">{</span>
+<span class="lineno">  31</span> 
+<span class="lineno">  32</span>         @Override
 </pre>
 </div>
 <div class="metadata">Priority: 4 / 10<br/>
@@ -307,13 +307,13 @@ Since this Handler is declared as an inner class, it may prevent the outer class
 <div class="id"><a href="#" title="Return to top">UseValueOf: Should use <code>valueOf</code> instead of <code>new</code></a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/exercise/analysis/AnalysisUtil.java">../../src/main/java/nl/fontys/exercisecontrol/exercise/analysis/AnalysisUtil.java</a>:11</span>: <span class="message">Use <code>Integer.valueOf(j)</code> instead</span><br /><pre class="errorlines">
-<span class="lineno">   8</span> 
-<span class="lineno">   9</span>         ArrayList&lt;Integer> result = new ArrayList&lt;Integer>();
-<span class="lineno">  10</span>         for (int j : seq) {
-<span class="lineno">  11</span>             result.add(<span class="errorspan">new Integer(j));</span>
-<span class="lineno">  12</span>         }
-<span class="lineno">  13</span> 
+<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/exercise/analysis/AnalysisUtil.java">../../src/main/java/nl/fontys/exercisecontrol/exercise/analysis/AnalysisUtil.java</a>:14</span>: <span class="message">Use <code>Integer.valueOf(j)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno">  11</span>         ArrayList&lt;Integer> result = new ArrayList&lt;Integer>();
+<span class="lineno">  12</span>         for (int j : seq)
+<span class="lineno">  13</span>         {
+<span class="lineno">  14</span>             result.add(<span class="errorspan">new Integer(j));</span>
+<span class="lineno">  15</span>         }
+<span class="lineno">  16</span> 
 </pre>
 <span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java">../../src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java</a>:54</span>: <span class="message">Use <code>Long.valueOf(position)</code> instead</span><br /><pre class="errorlines">
 <span class="lineno">  51</span>     @Override
