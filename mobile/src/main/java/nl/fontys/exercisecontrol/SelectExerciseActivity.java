@@ -37,11 +37,12 @@ public class SelectExerciseActivity
     {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
-        ExerciseList exerciseList = ObjectHelper.getInstance(context).getExerciseList();
+        final ExerciseList exerciseList = ObjectHelper.getInstance(context).getExerciseList();
         ExerciseHashMap<String, Exercise> exerciseHashMap = exerciseList.getEXERCISE_HASH_MAP();
         Collection<Exercise> exerciseCollection = exerciseHashMap.valuesSortedByName();
 
-        Exercise[] exercises = exerciseCollection.toArray(new Exercise[exerciseList.getEXERCISE_HASH_MAP().size()]);
+
+        final Exercise[] exercises = exerciseCollection.toArray(new Exercise[exerciseList.getEXERCISE_HASH_MAP().size()]);
 
         ArrayAdapter<Exercise> listAdapter = new ArrayAdapter<>
                 (this,
@@ -61,6 +62,10 @@ public class SelectExerciseActivity
             {
                 Intent exerciseIntent = new Intent(SelectExerciseActivity.this,
                                                    ExerciseDescriptionActivity.class);
+                String GUID = exercises[position].getGUID();
+                Bundle b = new Bundle();
+                b.putString("GUID" , GUID);
+                exerciseIntent.putExtras(b);
                 startActivityForResult(exerciseIntent, position);
             }
         });

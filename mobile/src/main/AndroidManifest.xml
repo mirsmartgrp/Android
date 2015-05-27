@@ -61,8 +61,7 @@
         <activity
             android:name="nl.fontys.exercisecontrol.ExerciseDescriptionActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_exercise_description"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:label="@string/title_activity_exercise_description">
         </activity>
         <activity
             android:name="nl.fontys.exercisecontrol.TrainActivity"
