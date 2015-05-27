@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ public class TrainActivity extends Activity
 {
 
     private LearnAdapter adapter;
+    private Context context;
 
 
     @Override
@@ -29,6 +31,7 @@ public class TrainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train);
+        context = getApplicationContext();
     }
 
 
@@ -76,13 +79,13 @@ public class TrainActivity extends Activity
         super.onStart();
 
         ListView listViewExersie = (ListView) findViewById(R.id.exeListView);
-        Exercise exercise = ObjectHelper.getInstance().getActualExecercise();
-        Analysis analysis = ObjectHelper.getInstance().getAnalysis();
+        Exercise exercise = ObjectHelper.getInstance(context).getActualExecercise();
+        Analysis analysis = ObjectHelper.getInstance(context).getAnalysis();
         List<List<ObservationVector>> list =analysis.getLearnSequences(exercise);
         adapter = new LearnAdapter(this,list,exercise);
         listViewExersie.setAdapter(adapter);
-        ObjectHelper.getInstance().setLearnAdapter(adapter);
-        ObjectHelper.getInstance().setTrainActivity(this);
+        ObjectHelper.getInstance(context).setLearnAdapter(adapter);
+        ObjectHelper.getInstance(context).setTrainActivity(this);
 
 
 
@@ -91,7 +94,7 @@ public class TrainActivity extends Activity
     @Override
     protected void onStop() {
         super.onStop();
-        ObjectHelper.getInstance().setTrainActivity(null);
-        ObjectHelper.getInstance().setLearnAdapter(null);
+        ObjectHelper.getInstance(context).setTrainActivity(null);
+        ObjectHelper.getInstance(context).setLearnAdapter(null);
     }
 }

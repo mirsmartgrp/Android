@@ -35,20 +35,11 @@ public class MainActivityMobile
     private static int historyRequestCode = 1002;
     private static boolean learn = true;
 
-
-    private ExerciseList exerciseList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
-
-        try {
-            exerciseList = new ExerciseList(context);
-        } catch (Exception e) {
-            Log.e("INITIALISATION", e.getMessage());
-        }
 
 
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
@@ -122,18 +113,18 @@ public class MainActivityMobile
                 try {
                     JSONObject json = new JSONObject(data);
                     Log.d("JSON", json.toString());
-                    Exercise ex = exerciseList.getExerciseByMovementData(json);
-                    ObjectHelper.getInstance().setActualExecercise(ex);
+                    Exercise ex = ObjectHelper.getInstance(context).getExerciseList().getExerciseByMovementData(json);
+                    ObjectHelper.getInstance(context).setActualExecercise(ex);
                     if (learn) {
-                        ObjectHelper.getInstance().getAnalysis().addLearnSequence(ex);
-                        LearnAdapter learnAdapter = ObjectHelper.getInstance().getLearnAdapter();
+                        ObjectHelper.getInstance(context).getAnalysis().addLearnSequence(ex);
+                        LearnAdapter learnAdapter = ObjectHelper.getInstance(context).getLearnAdapter();
                         if (learnAdapter != null) {
-                            ObjectHelper.getInstance().getTrainActivity().getHandler().sendMessage(ObjectHelper.getInstance().getTrainActivity().getHandler().obtainMessage());
+                            ObjectHelper.getInstance(context).getTrainActivity().getHandler().sendMessage(ObjectHelper.getInstance(context).getTrainActivity().getHandler().obtainMessage());
                         }
                         Log.d("Learn", "Leanr");
                     } else {
                         try {
-                            ObjectHelper.getInstance().getAnalysis().testExercise(ex);
+                            ObjectHelper.getInstance(context).getAnalysis().testExercise(ex);
                         } catch (AnalysisError analysisError) {
                             analysisError.printStackTrace();
                         }

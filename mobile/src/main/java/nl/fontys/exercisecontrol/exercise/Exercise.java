@@ -131,4 +131,10 @@ public class Exercise
     {
         return EXERCISE_DATA;
     }
+
+    @Override
+    public String toString()
+    {
+        return NAME;
+    }
 }

@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.ExerciseList;
+import nl.fontys.exercisecontrol.exercise.ObjectHelper;
 import nl.fontys.exercisecontrol.exercise.R;
 
 
@@ -21,8 +25,9 @@ public class SelectExerciseActivity extends ListActivity
     ListView listView;
     private int RETURNRESULTLESS = -2;
     private int RETURNERROR = -1;
+    private Context context;
 
-    String[] testExercises = new String[]
+    String[] exercisieArray = new String[]
             {
                     "Exercise I",
                     "Exercise II",
@@ -35,9 +40,12 @@ public class SelectExerciseActivity extends ListActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
+        ExerciseList exeList = ObjectHelper.getInstance(context).getExerciseList();
+        //exeList.getEXERCISE_HASH_MAP().entrySet();
 
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1,testExercises);
+        ArrayAdapter<Exercise> listAdapter = new ArrayAdapter<Exercise>
+                (this, android.R.layout.simple_list_item_1,exeList.getEXERCISE_HASH_MAP().values().toArray(new Exercise[exeList.getEXERCISE_HASH_MAP().size()]));
         setContentView(R.layout.activity_exercise_overview);
         setListAdapter(listAdapter);
         //listView.setAdapter(listAdapter);
