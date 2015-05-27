@@ -8,7 +8,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,12 +23,12 @@ import java.util.Scanner;
  */
 public class ExerciseList
 {
-    private final HashMap<String, Exercise> EXERCISE_HASH_MAP;
+    private final ExerciseHashMap<String, Exercise> EXERCISE_HASH_MAP;
 
     public ExerciseList(Context context)
             throws Exception
     {
-        EXERCISE_HASH_MAP = new HashMap<>();
+        EXERCISE_HASH_MAP = new ExerciseHashMap<String, Exercise>();
 
         if (!fillEXERCISE_HASHMAP(context,
                                   EXERCISE_HASH_MAP))
@@ -78,7 +83,7 @@ public class ExerciseList
         return retVal;
     }
 
-    public HashMap<String, Exercise> getEXERCISE_HASH_MAP()
+    public ExerciseHashMap<String, Exercise> getEXERCISE_HASH_MAP()
     {
         return EXERCISE_HASH_MAP;
     }
