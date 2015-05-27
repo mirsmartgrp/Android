@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol.guiSupport;
 
 import android.content.Context;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import java.util.Date;
 import java.util.List;
 
+import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
 import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.R;
 
@@ -20,20 +22,24 @@ import nl.fontys.exercisecontrol.exercise.R;
 public class LearnAdapter extends BaseAdapter
 {
     private final Context context;
-    private List<Exercise> exeList;
+    private List<List<ObservationVector>> exeList;
+    private Exercise exercise;
     LayoutInflater inflater;
 
-    public LearnAdapter(Context context, List<Exercise> exeList)
+    public LearnAdapter(Context context, List<List<ObservationVector>> exeList,Exercise exercise)
     {
         this.exeList = exeList;
         this.context = context;
+        this.exercise = exercise;
         inflater =  LayoutInflater.from(context);
     }
+
+
 
     @Override
     public int getCount()
     {
-        return exeList.size();
+       return exeList.size();
     }
 
     @Override
@@ -47,6 +53,8 @@ public class LearnAdapter extends BaseAdapter
     {
         return new Long(position);
     }
+
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
@@ -66,7 +74,6 @@ public class LearnAdapter extends BaseAdapter
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Exercise exercise = exeList.get(position);
         holder.exeName.setText(exercise.getNAME() + " " + position + 1);
         holder.delButton.setOnClickListener(new View.OnClickListener()
         {

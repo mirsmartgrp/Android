@@ -16,9 +16,11 @@ import org.json.JSONObject;
 
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.ObjectHelper;
 import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.exercise.R;
 import nl.fontys.exercisecontrol.exercise.analysis.AnalysisError;
+import nl.fontys.exercisecontrol.guiSupport.LearnAdapter;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
@@ -33,7 +35,7 @@ public class MainActivityMobile
     private static int historyRequestCode = 1002;
     private static boolean learn = true;
 
-    private Analysis hmm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,7 +43,7 @@ public class MainActivityMobile
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
-        hmm = new Analysis();
+
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
         helloWorldTextView = (TextView) findViewById(R.id.testTextView);
@@ -117,12 +119,17 @@ public class MainActivityMobile
                     JSONObject json = new JSONObject(data);
                     Log.d("JSON",json.toString());
                     Exercise ex = Exercise.parseExercise(json);
+                    ObjectHelper.getInstance().setActualExecercise(ex);
                     if(learn) {
-                            hmm.addLearnSequence(ex);
+                            ObjectHelper.getInstance().getAnalysis().addLearnSequence(ex);
+                        LearnAdapter learnAdapter = ObjectHelper.getInstance().getLearnAdapter();
+                        if(learnAdapter != null){
+                           ObjectHelper.getInstance().getTrainActivity().getHandler().sendMessage(ObjectHelper.getInstance().getTrainActivity().getHandler().obtainMessage());
+                        }
                             Log.d("Learn", "Leanr");
                         }else{
                         try {
-                            hmm.testExercise(ex);
+                            ObjectHelper.getInstance().getAnalysis().testExercise(ex);
                         } catch (AnalysisError analysisError) {
                             analysisError.printStackTrace();
                         }

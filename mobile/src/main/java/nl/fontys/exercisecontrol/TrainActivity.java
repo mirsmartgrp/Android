@@ -2,6 +2,8 @@ package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -9,28 +11,39 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
 import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.ObjectHelper;
 import nl.fontys.exercisecontrol.exercise.R;
+import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.guiSupport.LearnAdapter;
 
 public class TrainActivity extends Activity
 {
-    private List<Exercise> mockExerciseList = new ArrayList<Exercise>();
+
+    private LearnAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train);
-
-        mockExerciseList.add(new Exercise("Exercise 1"));
-        mockExerciseList.add(new Exercise("Exercise 2"));
-        mockExerciseList.add(new Exercise("Exercise 3"));
-        mockExerciseList.add(new Exercise("Exercise 4"));
-
-        ListView listViewExersie = (ListView) findViewById(R.id.exeListView);
-        LearnAdapter adapter = new LearnAdapter(this, mockExerciseList);
-        listViewExersie.setAdapter(adapter);
     }
+
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            adapter.notifyDataSetChanged();
+        }
+    };
 
 
     @Override
@@ -56,5 +69,29 @@ public class TrainActivity extends Activity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        ListView listViewExersie = (ListView) findViewById(R.id.exeListView);
+        Exercise exercise = ObjectHelper.getInstance().getActualExecercise();
+        Analysis analysis = ObjectHelper.getInstance().getAnalysis();
+        List<List<ObservationVector>> list =analysis.getLearnSequences(exercise);
+        adapter = new LearnAdapter(this,list,exercise);
+        listViewExersie.setAdapter(adapter);
+        ObjectHelper.getInstance().setLearnAdapter(adapter);
+        ObjectHelper.getInstance().setTrainActivity(this);
+
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ObjectHelper.getInstance().setTrainActivity(null);
+        ObjectHelper.getInstance().setLearnAdapter(null);
     }
 }

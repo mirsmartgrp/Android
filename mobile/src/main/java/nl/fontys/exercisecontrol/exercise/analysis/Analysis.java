@@ -34,6 +34,10 @@ public class Analysis {
     }
 
 
+    public List<List<ObservationVector>> getLearnSequences(Exercise exercise){
+        return map.get(exercise.getGUID());
+    }
+
     public void addLearnSequence(Exercise exercise) {
         if (exercise.getEXERCISE_DATA() != null && exercise.getEXERCISE_DATA().getListOfSingleExerciseData() != null) {
             List<ObservationVector> seq = createSequence(exercise.getEXERCISE_DATA().getListOfSingleExerciseData());
