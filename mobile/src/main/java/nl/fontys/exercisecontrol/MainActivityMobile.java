@@ -16,33 +16,40 @@ import org.json.JSONObject;
 
 import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.ExerciseList;
 import nl.fontys.exercisecontrol.exercise.ObjectHelper;
-import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.exercise.R;
+import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.exercise.analysis.AnalysisError;
 import nl.fontys.exercisecontrol.guiSupport.LearnAdapter;
 import nl.fontys.exercisecontrol.listener.Listener;
 
 
 public class MainActivityMobile
-        extends Activity
-{
-    private TextView                 textView;
-    public static Context                  context;
-    private       ConnectionHandlerBackend connectionHandlerBackend;
-    private       TextView                 helloWorldTextView;
+        extends Activity {
+    private TextView textView;
+    public static Context context;
+    private ConnectionHandlerBackend connectionHandlerBackend;
+    private TextView helloWorldTextView;
     private static int exerciseRequestCode = 1001;
     private static int historyRequestCode = 1002;
     private static boolean learn = true;
 
 
+    private ExerciseList exerciseList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         context = getBaseContext();
 
         super.onCreate(savedInstanceState);
+
+        try {
+            exerciseList = new ExerciseList(context);
+        } catch (Exception e) {
+            Log.e("INITIALISATION", e.getMessage());
+        }
+
 
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
         setContentView(R.layout.activity_main);
@@ -56,17 +63,16 @@ public class MainActivityMobile
         androidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // hmm.printHMM();
+                // hmm.printHMM();
             }
         });
 
 
         Intent intent = new Intent(this, SelectExerciseActivity.class);
-        View.OnClickListener listnr=new View.OnClickListener() {
+        View.OnClickListener listnr = new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 StartExerciseActivity();
             }
         };
@@ -74,10 +80,8 @@ public class MainActivityMobile
         exerciseButton.setOnClickListener(listnr);
 
         exerciseButton.setOnClickListener(
-                new Button.OnClickListener()
-                {
-                    public void onClick(View v)
-                    {
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
                         Intent exerciseIntent = new Intent(MainActivityMobile.this, SelectExerciseActivity.class);
                         startActivityForResult(exerciseIntent, exerciseRequestCode);
                     }
@@ -117,17 +121,17 @@ public class MainActivityMobile
 
                 try {
                     JSONObject json = new JSONObject(data);
-                    Log.d("JSON",json.toString());
-                    Exercise ex = Exercise.parseExercise(json);
+                    Log.d("JSON", json.toString());
+                    Exercise ex = exerciseList.getExerciseByMovementData(json);
                     ObjectHelper.getInstance().setActualExecercise(ex);
-                    if(learn) {
-                            ObjectHelper.getInstance().getAnalysis().addLearnSequence(ex);
+                    if (learn) {
+                        ObjectHelper.getInstance().getAnalysis().addLearnSequence(ex);
                         LearnAdapter learnAdapter = ObjectHelper.getInstance().getLearnAdapter();
-                        if(learnAdapter != null){
-                           ObjectHelper.getInstance().getTrainActivity().getHandler().sendMessage(ObjectHelper.getInstance().getTrainActivity().getHandler().obtainMessage());
+                        if (learnAdapter != null) {
+                            ObjectHelper.getInstance().getTrainActivity().getHandler().sendMessage(ObjectHelper.getInstance().getTrainActivity().getHandler().obtainMessage());
                         }
-                            Log.d("Learn", "Leanr");
-                        }else{
+                        Log.d("Learn", "Leanr");
+                    } else {
                         try {
                             ObjectHelper.getInstance().getAnalysis().testExercise(ex);
                         } catch (AnalysisError analysisError) {
@@ -143,53 +147,47 @@ public class MainActivityMobile
         });
     }
 
-    public void updateText(String text)
-    {
+    public void updateText(String text) {
         helloWorldTextView.setText(text);
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main,
-                                  menu);
+                menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
+        if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void StartExerciseActivity()
-    {
+    private void StartExerciseActivity() {
         Intent intent = new Intent(this, SelectExerciseActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
         startActivityForResult(intent, exerciseRequestCode);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        Log.d("RESULTREST", "RequestCode: " +requestCode);
-        Log.d("RESULTREST", "ResultCode: " +resultCode);
-       // Log.d("RESULTREST", "Data: " + data.toString());
+        Log.d("RESULTREST", "RequestCode: " + requestCode);
+        Log.d("RESULTREST", "ResultCode: " + resultCode);
+        // Log.d("RESULTREST", "Data: " + data.toString());
     }
 }
