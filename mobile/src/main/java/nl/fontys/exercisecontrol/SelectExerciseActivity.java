@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.ExerciseHashMap;
@@ -52,7 +51,7 @@ public class SelectExerciseActivity
 
         Exercise[] exercises = exerciseCollection.toArray(new Exercise[exerciseList.getEXERCISE_HASH_MAP().size()]);
 
-        ArrayAdapter<Exercise> listAdapter = new ArrayAdapter<Exercise>
+        ArrayAdapter<Exercise> listAdapter = new ArrayAdapter<>
                 (this,
                  android.R.layout.simple_list_item_1,
                  exercises);
