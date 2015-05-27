@@ -170,6 +170,7 @@ public class MainActivityMobile
         Intent intent = new Intent(this, SelectExerciseActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
         startActivityForResult(intent, exerciseRequestCode);
+
     }
 
     @Override
