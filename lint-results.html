@@ -18,8 +18,8 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Wed May 27 11:48:08 UTC 2015.<br/>
-0 errors and 35 warnings found:<br/><br/>
+Check performed at Wed May 27 11:49:35 UTC 2015.<br/>
+0 errors and 41 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
@@ -38,7 +38,7 @@ Check performed at Wed May 27 11:48:08 UTC 2015.<br/>
 <tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
-<td class="countColumn">8</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">11</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#ObsoleteLayoutParam">ObsoleteLayoutParam: Obsolete layout params</a>
 </td></tr>
 <tr>
@@ -50,17 +50,21 @@ Check performed at Wed May 27 11:48:08 UTC 2015.<br/>
 <a href="#UseValueOf">UseValueOf: Should use <code>valueOf</code> instead of <code>new</code></a>
 </td></tr>
 <tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#InefficientWeight">InefficientWeight: Inefficient layout weight</a>
+</td></tr>
+<tr>
 <td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#UnusedResources">UnusedResources: Unused resources</a>
 </td></tr>
 <tr>
-<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#UselessParent">UselessParent: Useless parent layout</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
 </td></tr>
 <tr>
-<td class="countColumn">12</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">13</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#HardcodedText">HardcodedText: Hardcoded text</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Bi-directional Text">Bi-directional Text</a>
@@ -212,6 +216,8 @@ There <b>are</b> cases where you might need to use <code>dp</code>; typically th
 <span class="lineno">  86</span> 			android:layout_alignParentStart="true"
 <span class="lineno">  87</span> 			android:text="Android"
 </pre>
+<button id="ObsoleteLayoutParamDivLink" onclick="reveal('ObsoleteLayoutParamDiv');" />+ 6 More Occurrences...</button>
+<div id="ObsoleteLayoutParamDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:86</span>: <span class="message">Invalid layout param in a <code>GridLayout</code>: <code>layout_alignParentStart</code></span><br /><pre class="errorlines">
 <span class="lineno">  83</span> 			android:layout_width="wrap_content"
 <span class="lineno">  84</span> 			android:layout_height="wrap_content"
@@ -236,6 +242,31 @@ There <b>are</b> cases where you might need to use <code>dp</code>; typically th
 <span class="lineno">  97</span> 			android:text="Tizen"
 <span class="lineno">  98</span> 			android:layout_row="3"
 </pre>
+<span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:21</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentTop</code></span><br /><pre class="errorlines">
+<span class="lineno">  18</span> 			android:layout_width="wrap_content"
+<span class="lineno">  19</span> 			android:layout_height="458dp"
+<span class="lineno">  20</span> 			android:id="@+id/exeListView"
+<span class="lineno">  21</span> 			<span class="errorspan">android:layout_alignParentTop="true"</span>
+<span class="lineno">  22</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  23</span> 			android:layout_weight="0.97"/>
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:22</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentStart</code></span><br /><pre class="errorlines">
+<span class="lineno">  19</span> 			android:layout_height="458dp"
+<span class="lineno">  20</span> 			android:id="@+id/exeListView"
+<span class="lineno">  21</span> 			android:layout_alignParentTop="true"
+<span class="lineno">  22</span> 			<span class="errorspan">android:layout_alignParentStart="true"</span>
+<span class="lineno">  23</span> 			android:layout_weight="0.97"/>
+<span class="lineno">  24</span> 
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:30</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_centerHorizontal</code></span><br /><pre class="errorlines">
+<span class="lineno">  27</span> 			android:layout_height="wrap_content"
+<span class="lineno">  28</span> 			android:text="Learn"
+<span class="lineno">  29</span> 			android:id="@+id/learnExercise"
+<span class="lineno">  30</span> 			<span class="errorspan">android:layout_centerHorizontal="true"</span>
+<span class="lineno">  31</span> 			android:layout_gravity="center_vertical"
+<span class="lineno">  32</span> 			/>
+</pre>
+</div>
 </div>
 <div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
 <br>
@@ -253,13 +284,13 @@ The given layout_param is not defined for the given layout, meaning it has no ef
 <div class="id"><a href="#" title="Return to top">HandlerLeak: Handler reference leaks</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java">../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java</a>:42</span>: <span class="message">This Handler class should be static or leaks might occur (new android.os.Handler(){})</span><br /><pre class="errorlines">
-<span class="lineno">  39</span>         return handler;
-<span class="lineno">  40</span>     }
-<span class="lineno">  41</span> 
-<span class="lineno">  42</span>     private Handler handler = new Handler() <span class="errorspan">{</span>
-<span class="lineno">  43</span> 
-<span class="lineno">  44</span>         @Override
+<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java">../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java</a>:52</span>: <span class="message">This Handler class should be static or leaks might occur (new android.os.Handler(){})</span><br /><pre class="errorlines">
+<span class="lineno">  49</span>         return handler;
+<span class="lineno">  50</span>     }
+<span class="lineno">  51</span> 
+<span class="lineno">  52</span>     private Handler handler = new Handler() <span class="errorspan">{</span>
+<span class="lineno">  53</span> 
+<span class="lineno">  54</span>         @Override
 </pre>
 </div>
 <div class="metadata">Priority: 4 / 10<br/>
@@ -304,6 +335,31 @@ You should not call the constructor for wrapper classes directly, such as`new In
 </div>
 <br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UseValueOf" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 </div>
+<a name="InefficientWeight"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InefficientWeight: Inefficient layout weight</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:19</span>: <span class="message">Use a <code>layout_height</code> of <code>0dp</code> instead of <code>458dp</code> for better performance</span><br /><pre class="errorlines">
+<span class="lineno">  16</span> 
+<span class="lineno">  17</span> 		&lt;ListView
+<span class="lineno">  18</span> 			android:layout_width="wrap_content"
+<span class="lineno">  19</span> 			<span class="errorspan">android:layout_height="458dp"</span>
+<span class="lineno">  20</span> 			android:id="@+id/exeListView"
+<span class="lineno">  21</span> 			android:layout_alignParentTop="true"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Inefficient layout weight.</div>
+<div class="explanation">
+When only a single widget in a LinearLayout defines a weight, it is more efficient to assign a width/height of <code>0dp</code> to it since it will absorb all the remaining space anyway. With a declared width/height of <code>0dp</code> it does not have to measure its own size first.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "InefficientWeight" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
 <a name="UnusedResources"></a>
 <div class="issue">
 <div class="id"><a href="#" title="Return to top">UnusedResources: Unused resources</a><div class="issueSeparator"></div>
@@ -337,6 +393,14 @@ Unused resources make applications larger and slow down builds.
 <span class="location"><a href="../../src/main/res/layout/activity_exercise_overview.xml">../../src/main/res/layout/activity_exercise_overview.xml</a>:11</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>RelativeLayout</code> parent is possibly useless</span><br /><pre class="errorlines">
 <span class="lineno">   8</span> 				android:paddingBottom="@dimen/activity_vertical_margin"
 <span class="lineno">   9</span> 				tools:context="nl.fontys.exercisecontrol.exercisecontrol.exercise.SelectExerciseActivity">
+<span class="lineno">  10</span> 
+<span class="lineno">  11</span> 	<span class="errorspan">&lt;LinearLayout</span>
+<span class="lineno">  12</span> 		android:orientation="vertical"
+<span class="lineno">  13</span> 		android:layout_width="fill_parent"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:11</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>RelativeLayout</code> parent is useless</span><br /><pre class="errorlines">
+<span class="lineno">   8</span> 				android:paddingBottom="@dimen/activity_vertical_margin"
+<span class="lineno">   9</span> 				tools:context="nl.fontys.exercisecontrol.TrainActivity">
 <span class="lineno">  10</span> 
 <span class="lineno">  11</span> 	<span class="errorspan">&lt;LinearLayout</span>
 <span class="lineno">  12</span> 		android:orientation="vertical"
@@ -411,7 +475,7 @@ A layout with children that has no siblings, is not a scrollview or a root layou
 <span class="lineno">  20</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
 <span class="lineno">  21</span> 		android:textSize="50dp"/>
 </pre>
-<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 7 More Occurrences...</button>
+<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 8 More Occurrences...</button>
 <div id="HardcodedTextDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:28</span>: <span class="message">[I18N] Hardcoded string "exercise overview", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  25</span> 		android:layout_width="wrap_content"
@@ -452,6 +516,14 @@ A layout with children that has no siblings, is not a scrollview or a root layou
 <span class="lineno">  97</span> 			<span class="errorspan">android:text="Tizen"</span>
 <span class="lineno">  98</span> 			android:layout_row="3"
 <span class="lineno">  99</span> 			android:layout_column="1"/>
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:28</span>: <span class="message">[I18N] Hardcoded string "Learn", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  25</span> 		&lt;Button
+<span class="lineno">  26</span> 			android:layout_width="match_parent"
+<span class="lineno">  27</span> 			android:layout_height="wrap_content"
+<span class="lineno">  28</span> 			<span class="errorspan">android:text="Learn"</span>
+<span class="lineno">  29</span> 			android:id="@+id/learnExercise"
+<span class="lineno">  30</span> 			android:layout_centerHorizontal="true"
 </pre>
 <span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:18</span>: <span class="message">[I18N] Hardcoded string "cdxfhcfjhxchxvhvckvxcv", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  15</span> 			android:layout_width="wrap_content"

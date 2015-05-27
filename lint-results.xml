@@ -217,6 +217,57 @@ There *are* cases where you might need to use `dp`; typically this happens when 
     </issue>
 
     <issue
+        id="ObsoleteLayoutParam"
+        severity="Warning"
+        message="Invalid layout param in a `LinearLayout`: `layout_alignParentTop`"
+        category="Performance"
+        priority="6"
+        summary="Obsolete layout params"
+        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
+        errorLine1="   android:layout_alignParentTop=&quot;true&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
+            line="21"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        severity="Warning"
+        message="Invalid layout param in a `LinearLayout`: `layout_alignParentStart`"
+        category="Performance"
+        priority="6"
+        summary="Obsolete layout params"
+        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
+        errorLine1="   android:layout_alignParentStart=&quot;true&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
+            line="22"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
+        severity="Warning"
+        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
+        category="Performance"
+        priority="6"
+        summary="Obsolete layout params"
+        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
+        errorLine1="   android:layout_centerHorizontal=&quot;true&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
+            line="30"
+            column="4"/>
+    </issue>
+
+    <issue
         id="HandlerLeak"
         severity="Warning"
         message="This Handler class should be static or leaks might occur (new android.os.Handler(){})"
@@ -228,7 +279,7 @@ There *are* cases where you might need to use `dp`; typically this happens when 
         errorLine2="                                            ^">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/TrainActivity.java"
-            line="42"
+            line="52"
             column="45"/>
     </issue>
 
@@ -264,6 +315,23 @@ There *are* cases where you might need to use `dp`; typically this happens when 
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java"
             line="54"
             column="16"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        severity="Warning"
+        message="Use a `layout_height` of `0dp` instead of `458dp` for better performance"
+        category="Performance"
+        priority="3"
+        summary="Inefficient layout weight"
+        explanation="When only a single widget in a LinearLayout defines a weight, it is more efficient to assign a width/height of `0dp` to it since it will absorb all the remaining space anyway. With a declared width/height of `0dp` it does not have to measure its own size first."
+        errorLine1="   android:layout_height=&quot;458dp&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
+            line="19"
+            column="4"/>
     </issue>
 
     <issue
@@ -319,6 +387,23 @@ There *are* cases where you might need to use `dp`; typically this happens when 
         quickfix="adt">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_overview.xml"
+            line="11"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        severity="Warning"
+        message="This `LinearLayout` layout or its `RelativeLayout` parent is useless"
+        category="Performance"
+        priority="2"
+        summary="Useless parent layout"
+        explanation="A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy."
+        errorLine1=" &lt;LinearLayout"
+        errorLine2=" ^"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
             line="11"
             column="2"/>
     </issue>
@@ -567,6 +652,29 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
             line="97"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="[I18N] Hardcoded string &quot;Learn&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
+
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
+
+* The application cannot be translated to other languages by just adding new translations for existing string resources.
+
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="   android:text=&quot;Learn&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
+            line="28"
             column="4"/>
     </issue>
 
