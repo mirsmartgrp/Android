@@ -1,8 +1,5 @@
 package nl.fontys.exercisecontrol.exercise;
 
-import org.json.JSONObject;
-
-import java.util.Date;
 import java.util.List;
 
 import be.ac.ulg.montefiore.run.jahmm.Hmm;
@@ -46,52 +43,6 @@ public class Exercise
         this.sequences = null;
     }
 
-//    public static Exercise parseExercise(JSONObject jsonObject)
-//    {
-//        Exercise exercise = null;
-//
-//        try
-//        {
-//            if (jsonObject.length() <= 0)
-//            {
-//                throw new NullPointerException("jsonObject is empty");
-//            }
-//
-//            exercise = new Exercise(jsonObject.getString("name"));
-//
-//            JSONArray jsonArray = jsonObject.getJSONArray("data");
-//            for (int index = 0; index < jsonArray.length(); index++)
-//            {
-//                JSONObject tmpJsonObject = jsonArray.getJSONObject(index);
-//                Double time = tmpJsonObject.getDouble("time");
-//                JSONObject accelerometer = tmpJsonObject.getJSONObject("accelerometer");
-//                JSONObject gyroscope = tmpJsonObject.getJSONObject("gyroscope");
-//                Double[][] coordinates = new Double[][]{
-//                        {
-//                                Double.parseDouble(accelerometer.get("x").toString()),
-//                                Double.parseDouble(accelerometer.get("y").toString()),
-//                                Double.parseDouble(accelerometer.get("z").toString())
-//                        },
-//                        {
-//                                Double.parseDouble(gyroscope.get("x").toString()),
-//                                Double.parseDouble(gyroscope.get("y").toString()),
-//                                Double.parseDouble(gyroscope.get("z").toString())
-//                        }
-//                };
-//
-//                exercise.getEXERCISE_DATA().addSingleExerciseData(time,
-//                                                                  coordinates);
-//            }
-//        }
-//        catch (JSONException e)
-//        {
-//            Log.e("parseExercise",
-//                  e.getMessage());
-//        }
-//
-//        return exercise;
-//    }
-
     public String getGUID()
     {
         return GUID;
@@ -125,6 +76,11 @@ public class Exercise
     public String getDESCRIPTION()
     {
         return DESCRIPTION;
+    }
+
+    public String getVIDEO_IMAGE()
+    {
+        return VIDEO_IMAGE;
     }
 
     public ExerciseData getEXERCISE_DATA()
