@@ -18,8 +18,8 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Wed May 27 11:09:23 UTC 2015.<br/>
-0 errors and 33 warnings found:<br/><br/>
+Check performed at Wed May 27 11:19:24 UTC 2015.<br/>
+0 errors and 35 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
@@ -54,13 +54,13 @@ Check performed at Wed May 27 11:09:23 UTC 2015.<br/>
 <a href="#UnusedResources">UnusedResources: Unused resources</a>
 </td></tr>
 <tr>
-<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#UselessParent">UselessParent: Useless parent layout</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
 </td></tr>
 <tr>
-<td class="countColumn">11</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">12</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#HardcodedText">HardcodedText: Hardcoded text</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Bi-directional Text">Bi-directional Text</a>
@@ -334,6 +334,14 @@ Unused resources make applications larger and slow down builds.
 <div class="id"><a href="#" title="Return to top">UselessParent: Useless parent layout</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_overview.xml">../../src/main/res/layout/activity_exercise_overview.xml</a>:11</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>RelativeLayout</code> parent is possibly useless</span><br /><pre class="errorlines">
+<span class="lineno">   8</span> 				android:paddingBottom="@dimen/activity_vertical_margin"
+<span class="lineno">   9</span> 				tools:context="nl.fontys.exercisecontrol.exercisecontrol.exercise.SelectExerciseActivity">
+<span class="lineno">  10</span> 
+<span class="lineno">  11</span> 	<span class="errorspan">&lt;LinearLayout</span>
+<span class="lineno">  12</span> 		android:orientation="vertical"
+<span class="lineno">  13</span> 		android:layout_width="fill_parent"
+</pre>
 <span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:9</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>LinearLayout</code> parent is useless</span><br /><pre class="errorlines">
 <span class="lineno">   6</span> 			  android:orientation="horizontal"
 <span class="lineno">   7</span> 			  android:id="@+id/topLayout">
@@ -363,21 +371,29 @@ A layout with children that has no siblings, is not a scrollview or a root layou
 <div class="id"><a href="#" title="Return to top">HardcodedText: Hardcoded text</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/activity_exercise_overview.xml">../../src/main/res/layout/activity_exercise_overview.xml</a>:14</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  11</span> 	&lt;Button
-<span class="lineno">  12</span> 		android:layout_width="wrap_content"
-<span class="lineno">  13</span> 		android:layout_height="wrap_content"
-<span class="lineno">  14</span> 		<span class="errorspan">android:text="Return"</span>
-<span class="lineno">  15</span> 		android:id="@+id/returnButton"
-<span class="lineno">  16</span> 		android:layout_alignParentBottom="true"
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:25</span>: <span class="message">[I18N] Hardcoded string "Exercise Name", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  22</span> 		android:layout_width="wrap_content"
+<span class="lineno">  23</span> 		android:layout_height="wrap_content"
+<span class="lineno">  24</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
+<span class="lineno">  25</span> 		<span class="errorspan">android:text="Exercise Name"</span>
+<span class="lineno">  26</span> 		android:id="@+id/nameTextView"
+<span class="lineno">  27</span> 		android:layout_alignParentTop="true"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_exercise_overview.xml">../../src/main/res/layout/activity_exercise_overview.xml</a>:23</span>: <span class="message">[I18N] Hardcoded string "Use Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  20</span> 	&lt;Button
-<span class="lineno">  21</span> 		android:layout_width="wrap_content"
-<span class="lineno">  22</span> 		android:layout_height="wrap_content"
-<span class="lineno">  23</span> 		<span class="errorspan">android:text="Use Exercise"</span>
-<span class="lineno">  24</span> 		android:id="@+id/okayButtonExer"
-<span class="lineno">  25</span> 		android:layout_alignTop="@+id/returnButton"
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:34</span>: <span class="message">[I18N] Hardcoded string "Description", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  31</span> 		android:layout_width="wrap_content"
+<span class="lineno">  32</span> 		android:layout_height="wrap_content"
+<span class="lineno">  33</span> 		android:textAppearance="?android:attr/textAppearanceMedium"
+<span class="lineno">  34</span> 		<span class="errorspan">android:text="Description"</span>
+<span class="lineno">  35</span> 		android:id="@+id/descriptionTextView"
+<span class="lineno">  36</span> 		android:layout_below="@+id/nameTextView"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:42</span>: <span class="message">[I18N] Hardcoded string "Start Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  39</span> 	&lt;Button
+<span class="lineno">  40</span> 		android:layout_width="wrap_content"
+<span class="lineno">  41</span> 		android:layout_height="wrap_content"
+<span class="lineno">  42</span> 		<span class="errorspan">android:text="Start Exercise"</span>
+<span class="lineno">  43</span> 		android:id="@+id/startButton"
+<span class="lineno">  44</span> 		android:layout_alignParentBottom="true"
 </pre>
 <span class="location"><a href="../../src/main/res/layout/activity_history.xml">../../src/main/res/layout/activity_history.xml</a>:14</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  11</span> 	&lt;Button
@@ -395,6 +411,8 @@ A layout with children that has no siblings, is not a scrollview or a root layou
 <span class="lineno">  20</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
 <span class="lineno">  21</span> 		android:textSize="50dp"/>
 </pre>
+<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 7 More Occurrences...</button>
+<div id="HardcodedTextDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:28</span>: <span class="message">[I18N] Hardcoded string "exercise overview", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  25</span> 		android:layout_width="wrap_content"
 <span class="lineno">  26</span> 		android:layout_height="wrap_content"
@@ -403,8 +421,6 @@ A layout with children that has no siblings, is not a scrollview or a root layou
 <span class="lineno">  29</span> 		android:layout_below="@+id/welcomeText"
 <span class="lineno">  30</span> 		android:layout_marginTop="25dp"
 </pre>
-<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 6 More Occurrences...</button>
-<div id="HardcodedTextDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:45</span>: <span class="message">[I18N] Hardcoded string "History", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  42</span> 		android:layout_width="wrap_content"
 <span class="lineno">  43</span> 		android:layout_height="wrap_content"
