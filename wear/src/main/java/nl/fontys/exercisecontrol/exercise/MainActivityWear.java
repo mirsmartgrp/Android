@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import nl.fontys.exercisecontrol.exercise.collector.DataEntry;
 import nl.fontys.exercisecontrol.exercise.collector.ExerciseData;
 import nl.fontys.exercisecontrol.exercise.collector.JsonMeasurementCollector;
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementCollector;
@@ -158,7 +157,8 @@ public class MainActivityWear extends Activity {
             Log.d("log","measurement completed");
 
             Gson gson = new Gson();
-            String result = gson.toJson(data.getData());
+            Log.d(TAG,"guid is " +data.getGuid());
+            String result = gson.toJson(data);
             Log.d(TAG, result);
             sendMessage(result);
         }
