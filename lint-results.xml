@@ -217,6 +217,22 @@ There *are* cases where you might need to use `dp`; typically this happens when 
     </issue>
 
     <issue
+        id="HandlerLeak"
+        severity="Warning"
+        message="This Handler class should be static or leaks might occur (new android.os.Handler(){})"
+        category="Performance"
+        priority="4"
+        summary="Handler reference leaks"
+        explanation="Since this Handler is declared as an inner class, it may prevent the outer class from being garbage collected. If the Handler is using a Looper or MessageQueue for a thread other than the main thread, then there is no issue. If the Handler is using the Looper or MessageQueue of the main thread, you need to fix your Handler declaration, as follows: Declare the Handler as a static class; In the outer class, instantiate a WeakReference to the outer class and pass this object to your Handler when you instantiate the Handler; Make all references to members of the outer class using the WeakReference object."
+        errorLine1="    private Handler handler = new Handler() {"
+        errorLine2="                                            ^">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/TrainActivity.java"
+            line="39"
+            column="45"/>
+    </issue>
+
+    <issue
         id="UseValueOf"
         severity="Warning"
         message="Use `Integer.valueOf(j)` instead"
@@ -231,6 +247,35 @@ There *are* cases where you might need to use `dp`; typically this happens when 
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/exercise/analysis/AnalysisUtil.java"
             line="11"
             column="24"/>
+    </issue>
+
+    <issue
+        id="UseValueOf"
+        severity="Warning"
+        message="Use `Long.valueOf(position)` instead"
+        category="Performance"
+        priority="4"
+        summary="Should use `valueOf` instead of `new`"
+        explanation="You should not call the constructor for wrapper classes directly, such as`new Integer(42)`. Instead, call the `valueOf` factory method, such as `Integer.valueOf(42)`. This will typically use less memory because common integers such as 0 and 1 will share a single instance."
+        errorLine1="        return new Long(position);"
+        errorLine2="               ~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java"
+            line="54"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.raw.exercise_list` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/raw/exercise_list.json"/>
     </issue>
 
     <issue
@@ -259,6 +304,23 @@ There *are* cases where you might need to use `dp`; typically this happens when 
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/xml/tizen.xml"
             line="30"
             column="15"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        severity="Warning"
+        message="This `LinearLayout` layout or its `LinearLayout` parent is useless"
+        category="Performance"
+        priority="2"
+        summary="Useless parent layout"
+        explanation="A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy."
+        errorLine1=" &lt;LinearLayout"
+        errorLine2=" ^"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            line="9"
+            column="2"/>
     </issue>
 
     <issue
@@ -469,6 +531,52 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
     </issue>
 
     <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="[I18N] Hardcoded string &quot;cdxfhcfjhxchxvhvckvxcv&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
+
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
+
+* The application cannot be translated to other languages by just adding new translations for existing string resources.
+
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="   android:text=&quot;cdxfhcfjhxchxvhvckvxcv&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            line="18"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="[I18N] Hardcoded string &quot;X&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
+
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
+
+* The application cannot be translated to other languages by just adding new translations for existing string resources.
+
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="   android:text=&quot;X&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            line="26"
+            column="4"/>
+    </issue>
+
+    <issue
         id="RtlHardcoded"
         severity="Warning"
         message="Redundant attribute `layout_alignParentLeft`; already defining `layout_alignParentStart` with `targetSdkVersion` 21"
@@ -484,6 +592,42 @@ For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStar
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
             line="34"
             column="3"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Use &quot;`start`&quot; instead of &quot;`left`&quot; to ensure correct behavior in right-to-left locales"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="   android:layout_gravity=&quot;left&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            line="20"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="   android:layout_gravity=&quot;right&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            line="28"
+            column="4"/>
     </issue>
 
 </issues>

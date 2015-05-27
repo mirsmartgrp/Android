@@ -18,8 +18,8 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Tue May 26 10:45:04 UTC 2015.<br/>
-0 errors and 25 warnings found:<br/><br/>
+Check performed at Wed May 27 09:20:42 UTC 2015.<br/>
+0 errors and 33 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
@@ -43,22 +43,30 @@ Check performed at Tue May 26 10:45:04 UTC 2015.<br/>
 </td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
-<a href="#UseValueOf">UseValueOf: Should use <code>valueOf</code> instead of <code>new</code></a>
+<a href="#HandlerLeak">HandlerLeak: Handler reference leaks</a>
 </td></tr>
 <tr>
 <td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#UseValueOf">UseValueOf: Should use <code>valueOf</code> instead of <code>new</code></a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#UnusedResources">UnusedResources: Unused resources</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#UselessParent">UselessParent: Useless parent layout</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
 </td></tr>
 <tr>
-<td class="countColumn">9</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">11</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#HardcodedText">HardcodedText: Hardcoded text</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Bi-directional Text">Bi-directional Text</a>
 </td></tr>
 <tr>
-<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#RtlHardcoded">RtlHardcoded: Using left/right instead of start/end attributes</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (11)</a>
@@ -240,6 +248,29 @@ The given layout_param is not defined for the given layout, meaning it has no ef
 </div>
 <br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ObsoleteLayoutParam" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 </div>
+<a name="HandlerLeak"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">HandlerLeak: Handler reference leaks</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java">../../src/main/java/nl/fontys/exercisecontrol/TrainActivity.java</a>:39</span>: <span class="message">This Handler class should be static or leaks might occur (new android.os.Handler(){})</span><br /><pre class="errorlines">
+<span class="lineno">  36</span>         return handler;
+<span class="lineno">  37</span>     }
+<span class="lineno">  38</span> 
+<span class="lineno">  39</span>     private Handler handler = new Handler() <span class="errorspan">{</span>
+<span class="lineno">  40</span> 
+<span class="lineno">  41</span>         @Override
+</pre>
+</div>
+<div class="metadata">Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Handler reference leaks.</div>
+<div class="explanation">
+Since this Handler is declared as an inner class, it may prevent the outer class from being garbage collected. If the Handler is using a Looper or MessageQueue for a thread other than the main thread, then there is no issue. If the Handler is using the Looper or MessageQueue of the main thread, you need to fix your Handler declaration, as follows: Declare the Handler as a static class; In the outer class, instantiate a WeakReference to the outer class and pass this object to your Handler when you instantiate the Handler; Make all references to members of the outer class using the WeakReference object.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "HandlerLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
 <a name="UseValueOf"></a>
 <div class="issue">
 <div class="id"><a href="#" title="Return to top">UseValueOf: Should use <code>valueOf</code> instead of <code>new</code></a><div class="issueSeparator"></div>
@@ -252,6 +283,14 @@ The given layout_param is not defined for the given layout, meaning it has no ef
 <span class="lineno">  11</span>             result.add(<span class="errorspan">new Integer(j));</span>
 <span class="lineno">  12</span>         }
 <span class="lineno">  13</span> 
+</pre>
+<span class="location"><a href="../../src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java">../../src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java</a>:54</span>: <span class="message">Use <code>Long.valueOf(position)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno">  51</span>     @Override
+<span class="lineno">  52</span>     public long getItemId(int position)
+<span class="lineno">  53</span>     {
+<span class="lineno">  54</span>         return <span class="errorspan">new Long(position);</span>
+<span class="lineno">  55</span>     }
+<span class="lineno">  56</span> 
 </pre>
 </div>
 <div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
@@ -270,6 +309,7 @@ You should not call the constructor for wrapper classes directly, such as`new In
 <div class="id"><a href="#" title="Return to top">UnusedResources: Unused resources</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
+<span class="location"><a href="../../src/main/res/raw/exercise_list.json">../../src/main/res/raw/exercise_list.json</a></span>: <span class="message">The resource <code>R.raw.exercise_list</code> appears to be unused</span><br />
 <span class="location"><a href="../../src/main/res/xml/tizen.xml">../../src/main/res/xml/tizen.xml</a></span>: <span class="message">The resource <code>R.xml.tizen</code> appears to be unused</span><br />
 <span class="location"><a href="../../src/main/res/xml/tizen.xml">../../src/main/res/xml/tizen.xml</a>:30</span>: <span class="message">The resource <code>R.application.ConnectionHandlerTizen</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno">  27</span> 	]>
@@ -288,6 +328,31 @@ Explanation: Unused resources.</div>
 Unused resources make applications larger and slow down builds.
 </div>
 <br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UselessParent"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UselessParent: Useless parent layout</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:9</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>LinearLayout</code> parent is useless</span><br /><pre class="errorlines">
+<span class="lineno">   6</span> 			  android:orientation="horizontal"
+<span class="lineno">   7</span> 			  android:id="@+id/topLayout">
+<span class="lineno">   8</span> 
+<span class="lineno">   9</span> 	<span class="errorspan">&lt;LinearLayout</span>
+<span class="lineno">  10</span> 		android:orientation="vertical"
+<span class="lineno">  11</span> 		android:layout_width="match_parent"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 2 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Useless parent layout.</div>
+<div class="explanation">
+A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UselessParent" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 </div>
 
 <a name="Internationalization"></a>
@@ -338,7 +403,7 @@ Unused resources make applications larger and slow down builds.
 <span class="lineno">  29</span> 		android:layout_below="@+id/welcomeText"
 <span class="lineno">  30</span> 		android:layout_marginTop="25dp"
 </pre>
-<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 4 More Occurrences...</button>
+<button id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 6 More Occurrences...</button>
 <div id="HardcodedTextDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:45</span>: <span class="message">[I18N] Hardcoded string "History", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  42</span> 		android:layout_width="wrap_content"
@@ -371,6 +436,22 @@ Unused resources make applications larger and slow down builds.
 <span class="lineno">  97</span> 			<span class="errorspan">android:text="Tizen"</span>
 <span class="lineno">  98</span> 			android:layout_row="3"
 <span class="lineno">  99</span> 			android:layout_column="1"/>
+</pre>
+<span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:18</span>: <span class="message">[I18N] Hardcoded string "cdxfhcfjhxchxvhvckvxcv", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  15</span> 			android:layout_width="wrap_content"
+<span class="lineno">  16</span> 			android:layout_height="wrap_content"
+<span class="lineno">  17</span> 			android:textAppearance="?android:attr/textAppearanceMedium"
+<span class="lineno">  18</span> 			<span class="errorspan">android:text="cdxfhcfjhxchxvhvckvxcv"</span>
+<span class="lineno">  19</span> 			android:id="@+id/sequence_textView"
+<span class="lineno">  20</span> 			android:layout_gravity="left"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:26</span>: <span class="message">[I18N] Hardcoded string "X", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  23</span> 		&lt;Button
+<span class="lineno">  24</span> 			android:layout_width="match_parent"
+<span class="lineno">  25</span> 			android:layout_height="wrap_content"
+<span class="lineno">  26</span> 			<span class="errorspan">android:text="X"</span>
+<span class="lineno">  27</span> 			android:id="@+id/deleteSeq_Button"
+<span class="lineno">  28</span> 			android:layout_gravity="right"
 </pre>
 </div>
 </div>
@@ -407,6 +488,22 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
 <span class="lineno">  34</span> 		<span class="errorspan">android:layout_alignParentLeft="false"</span>
 <span class="lineno">  35</span> 		android:enabled="true"
 <span class="lineno">  36</span> 		android:elegantTextHeight="false"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:20</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  17</span> 			android:textAppearance="?android:attr/textAppearanceMedium"
+<span class="lineno">  18</span> 			android:text="cdxfhcfjhxchxvhvckvxcv"
+<span class="lineno">  19</span> 			android:id="@+id/sequence_textView"
+<span class="lineno">  20</span> 			<span class="errorspan">android:layout_gravity="left"</span>
+<span class="lineno">  21</span> 			android:layout_marginTop="15dp"/>
+<span class="lineno">  22</span> 
+</pre>
+<span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:28</span>: <span class="message">Use "<code>end</code>" instead of "<code>right</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
+<span class="lineno">  25</span> 			android:layout_height="wrap_content"
+<span class="lineno">  26</span> 			android:text="X"
+<span class="lineno">  27</span> 			android:id="@+id/deleteSeq_Button"
+<span class="lineno">  28</span> 			<span class="errorspan">android:layout_gravity="right"</span>
+<span class="lineno">  29</span> 			android:layout_marginTop="10dp"/>
+<span class="lineno">  30</span> 	&lt;/LinearLayout>
 </pre>
 </div>
 <div class="metadata">Priority: 5 / 10<br/>
