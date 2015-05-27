@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
@@ -21,12 +20,22 @@ import nl.fontys.exercisecontrol.exercise.R;
 import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.guiSupport.LearnAdapter;
 
-public class TrainActivity extends Activity
+public class TrainActivity
+        extends Activity
 {
 
     private LearnAdapter adapter;
-    private Context context;
+    private Context      context;
+    private Handler handler = new Handler()
+    {
 
+        @Override
+        public void handleMessage(Message msg)
+        {
+
+            adapter.notifyDataSetChanged();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,34 +45,27 @@ public class TrainActivity extends Activity
         context = getApplicationContext();
         Button androidButton = (Button) findViewById(R.id.learnExercise);
 
-        androidButton.setOnClickListener(new View.OnClickListener() {
+        androidButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 ObjectHelper.getInstance(context).getAnalysis().learnHMM(ObjectHelper.getInstance(context).getActualExecercise());
             }
         });
     }
 
-
-    public Handler getHandler() {
+    public Handler getHandler()
+    {
         return handler;
     }
-
-    private Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-
-            adapter.notifyDataSetChanged();
-        }
-    };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_train, menu);
+        getMenuInflater().inflate(R.menu.menu_train,
+                                  menu);
         return true;
     }
 
@@ -85,24 +87,27 @@ public class TrainActivity extends Activity
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
 
         ListView listViewExersie = (ListView) findViewById(R.id.exeListView);
         Exercise exercise = ObjectHelper.getInstance(context).getActualExecercise();
         Analysis analysis = ObjectHelper.getInstance(context).getAnalysis();
-        List<List<ObservationVector>> list =analysis.getLearnSequences(exercise);
-        adapter = new LearnAdapter(this,list,exercise);
+        List<List<ObservationVector>> list = analysis.getLearnSequences(exercise);
+        adapter = new LearnAdapter(this,
+                                   list,
+                                   exercise);
         listViewExersie.setAdapter(adapter);
         ObjectHelper.getInstance(context).setLearnAdapter(adapter);
         ObjectHelper.getInstance(context).setTrainActivity(this);
 
 
-
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
         ObjectHelper.getInstance(context).setTrainActivity(null);
         ObjectHelper.getInstance(context).setLearnAdapter(null);

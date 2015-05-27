@@ -58,7 +58,6 @@ public class ConnectionHandlerBackend
     }
 
 
-
     public void addListener(Listener listener)
     {
         connectionHandlerAndroid.addListener(listener);

@@ -1,7 +1,5 @@
 package nl.fontys.exercisecontrol.exercise;
 
-import java.util.Date;
-
 /**
  * Created by root on 08.04.15.
  * <p/>
@@ -9,7 +7,7 @@ import java.util.Date;
  */
 public class SingleExerciseData
 {
-    private Double                timeStamp;
+    private Double              timeStamp;
     private PartialExerciseData acceleratorData;
     private PartialExerciseData gyroscopeData;
 

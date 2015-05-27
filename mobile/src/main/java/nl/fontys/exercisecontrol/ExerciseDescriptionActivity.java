@@ -2,21 +2,20 @@ package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.net.Uri;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
-
-import org.w3c.dom.Text;
 
 import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.ObjectHelper;
 import nl.fontys.exercisecontrol.exercise.R;
 
-public class ExerciseDescriptionActivity extends Activity
+public class ExerciseDescriptionActivity
+        extends Activity
 {
     private Context context;
 
@@ -38,7 +37,7 @@ public class ExerciseDescriptionActivity extends Activity
         //Add the exercise description and title to the activity
         //Implement OK button with returnvalue equal to the id in the list.
 
-        VideoView vidView = (VideoView)findViewById(R.id.exerciseVideo);
+        VideoView vidView = (VideoView) findViewById(R.id.exerciseVideo);
 
         //Displaying the video, needs an mp4 links afaik.
         String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
@@ -59,7 +58,8 @@ public class ExerciseDescriptionActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_exercise_description, menu);
+        getMenuInflater().inflate(R.menu.menu_exercise_description,
+                                  menu);
         return true;
     }
 
