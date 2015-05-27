@@ -1,23 +1,43 @@
 package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.net.Uri;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
+import org.w3c.dom.Text;
+
+import nl.fontys.exercisecontrol.exercise.Exercise;
+import nl.fontys.exercisecontrol.exercise.ObjectHelper;
 import nl.fontys.exercisecontrol.exercise.R;
 
 public class ExerciseDescriptionActivity extends Activity
 {
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_description);
+        Bundle b = getIntent().getExtras();
+        String GUID = b.getString("GUID");
+        context = getApplicationContext();
+        Exercise exercise = ObjectHelper.getInstance(context).getExerciseList().getEXERCISE_HASH_MAP().get(GUID);
+
+        TextView titleText = (TextView) findViewById(R.id.nameTextView);
+        titleText.setText(exercise.getNAME());
+
+        TextView descText = (TextView) findViewById(R.id.descriptionTextView);
+        descText.setText(exercise.getDESCRIPTION());
+        //Add the exercise description and title to the activity
+        //Implement OK button with returnvalue equal to the id in the list.
+
         VideoView vidView = (VideoView)findViewById(R.id.exerciseVideo);
 
         //Displaying the video, needs an mp4 links afaik.
