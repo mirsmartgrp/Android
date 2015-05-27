@@ -124,6 +124,7 @@ public class Analysis {
             exercise.setHmm(hmm);
             exercise.setSequences(sequences);
         }
+        Log.d("Learn","Hmm created");
     }
 
 

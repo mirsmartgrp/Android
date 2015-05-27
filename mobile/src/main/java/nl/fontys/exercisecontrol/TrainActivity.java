@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -32,6 +34,14 @@ public class TrainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train);
         context = getApplicationContext();
+        Button androidButton = (Button) findViewById(R.id.learnExercise);
+
+        androidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectHelper.getInstance(context).getAnalysis().learnHMM(ObjectHelper.getInstance(context).getActualExecercise());
+            }
+        });
     }
 
 
