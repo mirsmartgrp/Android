@@ -91,6 +91,6 @@ public class Exercise
     @Override
     public String toString()
     {
-        return GUID;
+        return NAME;
     }
 }

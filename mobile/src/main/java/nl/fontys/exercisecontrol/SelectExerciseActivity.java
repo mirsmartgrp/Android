@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,15 +32,6 @@ public class SelectExerciseActivity
     private int RETURNERROR      = -1;
     private Context context;
 
-    String[] exercisieArray = new String[]
-            {
-                    "Exercise I",
-                    "Exercise II",
-                    "Run",
-                    "Jumping Jack",
-                    "Exercsie V",
-            };
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,7 +49,6 @@ public class SelectExerciseActivity
                  exercises);
         setContentView(R.layout.activity_exercise_overview);
         setListAdapter(listAdapter);
-        //listView.setAdapter(listAdapter);
         listView = getListView();
 
         listView.setOnItemClickListener(new OnItemClickListener()
@@ -68,23 +59,11 @@ public class SelectExerciseActivity
                                     int position,
                                     long id)
             {
-                //FinishActivityWithClick(parent, view, position, id);
                 Intent exerciseIntent = new Intent(SelectExerciseActivity.this,
                                                    ExerciseDescriptionActivity.class);
-                startActivity(exerciseIntent);
+                startActivityForResult(exerciseIntent, position);
             }
         });
-        Button returnButton = (Button) findViewById(R.id.returnButton);
-        View.OnClickListener listnr = new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                setResult(RETURNRESULTLESS);
-                finish();
-            }
-        };
-        returnButton.setOnClickListener(listnr);
     }
 
 
@@ -114,12 +93,11 @@ public class SelectExerciseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void FinishActivityWithClick(AdapterView<?> parent,
-                                         View view,
-                                         int position,
-                                         long id)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        setResult(position);
+        super.onActivityResult(requestCode, resultCode, data);
+        setResult(resultCode);
         finish();
     }
 }

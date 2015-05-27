@@ -8,23 +8,6 @@
 				android:paddingBottom="@dimen/activity_vertical_margin"
 				tools:context="nl.fontys.exercisecontrol.exercisecontrol.exercise.SelectExerciseActivity">
 
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Return"
-		android:id="@+id/returnButton"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentStart="true"
-		/>
-
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Use Exercise"
-		android:id="@+id/okayButtonExer"
-		android:layout_alignTop="@+id/returnButton"
-		android:layout_centerHorizontal="true"/>
-
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
