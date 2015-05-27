@@ -81,6 +81,44 @@ There *are* cases where you might need to use `dp`; typically this happens when 
     </issue>
 
     <issue
+        id="PxUsage"
+        severity="Warning"
+        message="Avoid using &quot;`px`&quot; as units; use &quot;`dp`&quot; instead"
+        category="Correctness"
+        priority="2"
+        summary="Using &apos;px&apos; dimension"
+        explanation="For performance reasons and to keep the code simpler, the Android system uses pixels as the standard unit for expressing dimension or coordinate values. That means that the dimensions of a view are always expressed in the code using pixels, but always based on the current screen density. For instance, if `myView.getWidth()` returns 10, the view is 10 pixels wide on the current screen, but on a device with a higher density screen, the value returned might be 15. If you use pixel values in your application code to work with bitmaps that are not pre-scaled for the current screen density, you might need to scale the pixel values that you use in your code to match the un-scaled bitmap source."
+        url="http://developer.android.com/guide/practices/screens_support.html#screen-independence"
+        urls="http://developer.android.com/guide/practices/screens_support.html#screen-independence"
+        errorLine1="  android:layout_marginTop=&quot;50px&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
+            line="22"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="PxUsage"
+        severity="Warning"
+        message="Avoid using &quot;`px`&quot; as units; use &quot;`dp`&quot; instead"
+        category="Correctness"
+        priority="2"
+        summary="Using &apos;px&apos; dimension"
+        explanation="For performance reasons and to keep the code simpler, the Android system uses pixels as the standard unit for expressing dimension or coordinate values. That means that the dimensions of a view are always expressed in the code using pixels, but always based on the current screen density. For instance, if `myView.getWidth()` returns 10, the view is 10 pixels wide on the current screen, but on a device with a higher density screen, the value returned might be 15. If you use pixel values in your application code to work with bitmaps that are not pre-scaled for the current screen density, you might need to scale the pixel values that you use in your code to match the un-scaled bitmap source."
+        url="http://developer.android.com/guide/practices/screens_support.html#screen-independence"
+        urls="http://developer.android.com/guide/practices/screens_support.html#screen-independence"
+        errorLine1="  android:layout_marginBottom=&quot;50px&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio,adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
+            line="23"
+            column="3"/>
+    </issue>
+
+    <issue
         id="ObsoleteLayoutParam"
         severity="Warning"
         message="Invalid layout param in a `GridLayout`: `layout_above`"
@@ -386,7 +424,7 @@ There *are* cases where you might need to use `dp`; typically this happens when 
         errorLine2=" ^"
         quickfix="adt">
         <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_overview.xml"
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_list.xml"
             line="11"
             column="2"/>
     </issue>
@@ -444,7 +482,7 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         quickfix="adt">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
-            line="25"
+            line="32"
             column="3"/>
     </issue>
 
@@ -467,7 +505,7 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         quickfix="adt">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
-            line="34"
+            line="41"
             column="3"/>
     </issue>
 
@@ -490,7 +528,7 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         quickfix="adt">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
-            line="42"
+            line="49"
             column="3"/>
     </issue>
 
@@ -722,6 +760,78 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
             line="26"
             column="4"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider replacing `android:layout_alignParentLeft` with `android:layout_alignParentStart=&quot;false&quot;` to better support right-to-left layouts"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="  android:layout_alignParentLeft=&quot;false&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
+            line="25"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Redundant attribute `layout_alignParentRight`; already defining `layout_alignParentEnd` with `targetSdkVersion` 21"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="  android:layout_alignParentRight=&quot;false&quot;/>"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
+            line="26"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Redundant attribute `layout_alignParentLeft`; already defining `layout_alignParentStart` with `targetSdkVersion` 21"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="  android:layout_alignParentLeft=&quot;true&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
+            line="54"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        severity="Warning"
+        message="Consider replacing `android:layout_alignParentRight` with `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts"
+        category="Bi-directional Text"
+        priority="5"
+        summary="Using left/right instead of start/end attributes"
+        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
+For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
+(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
+        errorLine1="  android:layout_alignParentRight=&quot;true&quot;/>"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_exercise_description.xml"
+            line="55"
+            column="3"/>
     </issue>
 
     <issue

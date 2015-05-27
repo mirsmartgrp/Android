@@ -18,8 +18,8 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Wed May 27 11:50:02 UTC 2015.<br/>
-0 errors and 41 warnings found:<br/><br/>
+Check performed at Wed May 27 11:59:00 UTC 2015.<br/>
+0 errors and 47 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
@@ -34,6 +34,10 @@ Check performed at Wed May 27 11:50:02 UTC 2015.<br/>
 <tr>
 <td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#SpUsage">SpUsage: Using <code>dp</code> instead of <code>sp</code> for text sizes</a>
+</td></tr>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<a href="#PxUsage">PxUsage: Using 'px' dimension</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
@@ -70,7 +74,7 @@ Check performed at Wed May 27 11:50:02 UTC 2015.<br/>
 <tr><td></td><td class="categoryColumn"><a href="#Bi-directional Text">Bi-directional Text</a>
 </td></tr>
 <tr>
-<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">7</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#RtlHardcoded">RtlHardcoded: Using left/right instead of start/end attributes</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (11)</a>
@@ -166,6 +170,40 @@ There <b>are</b> cases where you might need to use <code>dp</code>; typically th
 </div>
 <br/><div class="moreinfo">More info: <a href="http://developer.android.com/training/multiscreen/screendensities.html">http://developer.android.com/training/multiscreen/screendensities.html</a>
 </div><br/>To suppress this error, use the issue id "SpUsage" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="PxUsage"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">PxUsage: Using 'px' dimension</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:22</span>: <span class="message">Avoid using "<code>px</code>" as units; use "<code>dp</code>" instead</span><br /><pre class="errorlines">
+<span class="lineno">  19</span> 		android:layout_below="@+id/descriptionTextView"
+<span class="lineno">  20</span> 		android:layout_alignParentBottom="false"
+<span class="lineno">  21</span> 		android:layout_alignWithParentIfMissing="false"
+<span class="lineno">  22</span> 		<span class="errorspan">android:layout_marginTop="50px"</span>
+<span class="lineno">  23</span> 		android:layout_marginBottom="50px"
+<span class="lineno">  24</span> 		android:layout_alignParentEnd="false"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:23</span>: <span class="message">Avoid using "<code>px</code>" as units; use "<code>dp</code>" instead</span><br /><pre class="errorlines">
+<span class="lineno">  20</span> 		android:layout_alignParentBottom="false"
+<span class="lineno">  21</span> 		android:layout_alignWithParentIfMissing="false"
+<span class="lineno">  22</span> 		android:layout_marginTop="50px"
+<span class="lineno">  23</span> 		<span class="errorspan">android:layout_marginBottom="50px"</span>
+<span class="lineno">  24</span> 		android:layout_alignParentEnd="false"
+<span class="lineno">  25</span> 		android:layout_alignParentLeft="false"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
+<br>
+Priority: 2 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using 'px' dimension.</div>
+<div class="explanation">
+For performance reasons and to keep the code simpler, the Android system uses pixels as the standard unit for expressing dimension or coordinate values. That means that the dimensions of a view are always expressed in the code using pixels, but always based on the current screen density. For instance, if <code>myView.getWidth()</code> returns 10, the view is 10 pixels wide on the current screen, but on a device with a higher density screen, the value returned might be 15. If you use pixel values in your application code to work with bitmaps that are not pre-scaled for the current screen density, you might need to scale the pixel values that you use in your code to match the un-scaled bitmap source.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html#screen-independence">http://developer.android.com/guide/practices/screens_support.html#screen-independence</a>
+</div><br/>To suppress this error, use the issue id "PxUsage" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 </div>
 
 <a name="Performance"></a>
@@ -390,7 +428,7 @@ Unused resources make applications larger and slow down builds.
 <div class="id"><a href="#" title="Return to top">UselessParent: Useless parent layout</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/activity_exercise_overview.xml">../../src/main/res/layout/activity_exercise_overview.xml</a>:11</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>RelativeLayout</code> parent is possibly useless</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_list.xml">../../src/main/res/layout/activity_exercise_list.xml</a>:11</span>: <span class="message">This <code>LinearLayout</code> layout or its <code>RelativeLayout</code> parent is possibly useless</span><br /><pre class="errorlines">
 <span class="lineno">   8</span> 				android:paddingBottom="@dimen/activity_vertical_margin"
 <span class="lineno">   9</span> 				tools:context="nl.fontys.exercisecontrol.exercisecontrol.exercise.SelectExerciseActivity">
 <span class="lineno">  10</span> 
@@ -435,29 +473,29 @@ A layout with children that has no siblings, is not a scrollview or a root layou
 <div class="id"><a href="#" title="Return to top">HardcodedText: Hardcoded text</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:25</span>: <span class="message">[I18N] Hardcoded string "Exercise Name", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  22</span> 		android:layout_width="wrap_content"
-<span class="lineno">  23</span> 		android:layout_height="wrap_content"
-<span class="lineno">  24</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
-<span class="lineno">  25</span> 		<span class="errorspan">android:text="Exercise Name"</span>
-<span class="lineno">  26</span> 		android:id="@+id/nameTextView"
-<span class="lineno">  27</span> 		android:layout_alignParentTop="true"
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:32</span>: <span class="message">[I18N] Hardcoded string "Exercise Name", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  29</span> 		android:layout_width="wrap_content"
+<span class="lineno">  30</span> 		android:layout_height="wrap_content"
+<span class="lineno">  31</span> 		android:textAppearance="?android:attr/textAppearanceLarge"
+<span class="lineno">  32</span> 		<span class="errorspan">android:text="Exercise Name"</span>
+<span class="lineno">  33</span> 		android:id="@+id/nameTextView"
+<span class="lineno">  34</span> 		android:layout_alignParentTop="true"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:34</span>: <span class="message">[I18N] Hardcoded string "Description", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  31</span> 		android:layout_width="wrap_content"
-<span class="lineno">  32</span> 		android:layout_height="wrap_content"
-<span class="lineno">  33</span> 		android:textAppearance="?android:attr/textAppearanceMedium"
-<span class="lineno">  34</span> 		<span class="errorspan">android:text="Description"</span>
-<span class="lineno">  35</span> 		android:id="@+id/descriptionTextView"
-<span class="lineno">  36</span> 		android:layout_below="@+id/nameTextView"
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:41</span>: <span class="message">[I18N] Hardcoded string "Description", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  38</span> 		android:layout_width="wrap_content"
+<span class="lineno">  39</span> 		android:layout_height="wrap_content"
+<span class="lineno">  40</span> 		android:textAppearance="?android:attr/textAppearanceMedium"
+<span class="lineno">  41</span> 		<span class="errorspan">android:text="Description"</span>
+<span class="lineno">  42</span> 		android:id="@+id/descriptionTextView"
+<span class="lineno">  43</span> 		android:layout_below="@+id/nameTextView"
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:42</span>: <span class="message">[I18N] Hardcoded string "Start Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
-<span class="lineno">  39</span> 	&lt;Button
-<span class="lineno">  40</span> 		android:layout_width="wrap_content"
-<span class="lineno">  41</span> 		android:layout_height="wrap_content"
-<span class="lineno">  42</span> 		<span class="errorspan">android:text="Start Exercise"</span>
-<span class="lineno">  43</span> 		android:id="@+id/startButton"
-<span class="lineno">  44</span> 		android:layout_alignParentBottom="true"
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:49</span>: <span class="message">[I18N] Hardcoded string "Start Exercise", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  46</span> 	&lt;Button
+<span class="lineno">  47</span> 		android:layout_width="wrap_content"
+<span class="lineno">  48</span> 		android:layout_height="wrap_content"
+<span class="lineno">  49</span> 		<span class="errorspan">android:text="Start Exercise"</span>
+<span class="lineno">  50</span> 		android:id="@+id/startButton"
+<span class="lineno">  51</span> 		android:layout_alignParentBottom="true"
 </pre>
 <span class="location"><a href="../../src/main/res/layout/activity_history.xml">../../src/main/res/layout/activity_history.xml</a>:14</span>: <span class="message">[I18N] Hardcoded string "Return", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  11</span> 	&lt;Button
@@ -569,6 +607,38 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
 <div class="id"><a href="#" title="Return to top">RtlHardcoded: Using left/right instead of start/end attributes</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:25</span>: <span class="message">Consider replacing <code>android:layout_alignParentLeft</code> with <code>android:layout_alignParentStart="false"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  22</span> 		android:layout_marginTop="50px"
+<span class="lineno">  23</span> 		android:layout_marginBottom="50px"
+<span class="lineno">  24</span> 		android:layout_alignParentEnd="false"
+<span class="lineno">  25</span> 		<span class="errorspan">android:layout_alignParentLeft="false"</span>
+<span class="lineno">  26</span> 		android:layout_alignParentRight="false"/>
+<span class="lineno">  27</span> 
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:26</span>: <span class="message">Redundant attribute <code>layout_alignParentRight</code>; already defining <code>layout_alignParentEnd</code> with <code>targetSdkVersion</code> 21</span><br /><pre class="errorlines">
+<span class="lineno">  23</span> 		android:layout_marginBottom="50px"
+<span class="lineno">  24</span> 		android:layout_alignParentEnd="false"
+<span class="lineno">  25</span> 		android:layout_alignParentLeft="false"
+<span class="lineno">  26</span> 		<span class="errorspan">android:layout_alignParentRight="false"/></span>
+<span class="lineno">  27</span> 
+<span class="lineno">  28</span> 	&lt;TextView
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:54</span>: <span class="message">Redundant attribute <code>layout_alignParentLeft</code>; already defining <code>layout_alignParentStart</code> with <code>targetSdkVersion</code> 21</span><br /><pre class="errorlines">
+<span class="lineno">  51</span> 		android:layout_alignParentBottom="true"
+<span class="lineno">  52</span> 		android:layout_alignParentStart="true"
+<span class="lineno">  53</span> 		android:layout_alignEnd="@+id/nameTextView"
+<span class="lineno">  54</span> 		<span class="errorspan">android:layout_alignParentLeft="true"</span>
+<span class="lineno">  55</span> 		android:layout_alignParentRight="true"/>
+<span class="lineno">  56</span> &lt;/RelativeLayout>
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_exercise_description.xml">../../src/main/res/layout/activity_exercise_description.xml</a>:55</span>: <span class="message">Consider replacing <code>android:layout_alignParentRight</code> with <code>android:layout_alignParentEnd="true"</code> to better support right-to-left layouts</span><br /><pre class="errorlines">
+<span class="lineno">  52</span> 		android:layout_alignParentStart="true"
+<span class="lineno">  53</span> 		android:layout_alignEnd="@+id/nameTextView"
+<span class="lineno">  54</span> 		android:layout_alignParentLeft="true"
+<span class="lineno">  55</span> 		<span class="errorspan">android:layout_alignParentRight="true"/></span>
+<span class="lineno">  56</span> &lt;/RelativeLayout>
+<span class="lineno">  57</span> 
+</pre>
 <span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:34</span>: <span class="message">Redundant attribute <code>layout_alignParentLeft</code>; already defining <code>layout_alignParentStart</code> with <code>targetSdkVersion</code> 21</span><br /><pre class="errorlines">
 <span class="lineno">  31</span> 		android:layout_alignParentEnd="true"
 <span class="lineno">  32</span> 		android:layout_centerHorizontal="true"
