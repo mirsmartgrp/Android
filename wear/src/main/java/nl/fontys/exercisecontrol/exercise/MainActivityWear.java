@@ -138,6 +138,7 @@ public class MainActivityWear extends Activity {
         Toast toast = Toast.makeText(this, message, length);
         toast.show();
     }
+
     private class JsonMeasurementCollectorImpl extends JsonMeasurementCollector {
 
         @Override
@@ -155,14 +156,11 @@ public class MainActivityWear extends Activity {
         @Override
         public void collectionComplete(ExerciseData data) {
             Log.d("log","measurement completed");
-             Log.d(TAG, "guid: " + data.getGuid());
-            for(DataEntry d:data.getData()) {
-               // Log.d(TAG,"dataEntry: "+d);
-            }
+
             Gson gson = new Gson();
-            gson.toJson(data.getData());
-            Log.d(TAG,gson.toString());
-            sendMessage(gson.toString());
+            String result = gson.toJson(data.getData());
+            Log.d(TAG, result);
+            sendMessage(result);
         }
 
         /**
