@@ -1,7 +1,6 @@
 package nl.fontys.exercisecontrol.guiSupport;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +65,7 @@ public class LearnAdapter
         {
 
             holder = new ViewHolder();
-            convertView = this.inflater.inflate(R.layout.learn_list_layout,
+            convertView = this.inflater.inflate(R.layout.activity_learn_list,
                                                 parent,
                                                 false);
 
