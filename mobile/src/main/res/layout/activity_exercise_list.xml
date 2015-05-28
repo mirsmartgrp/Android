@@ -15,13 +15,8 @@
 		android:id="@+id/exerciseLinearLayout">
 
 		<ListView
-<<<<<<< HEAD:mobile/src/main/res/layout/activity_exercise_overview.xml
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-=======
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
->>>>>>> f8d1afe103e25874f850c6a4b8fa993658c4cc78:mobile/src/main/res/layout/activity_exercise_list.xml
 			android:id="@android:id/list"/>
 	</LinearLayout>
 </RelativeLayout>
