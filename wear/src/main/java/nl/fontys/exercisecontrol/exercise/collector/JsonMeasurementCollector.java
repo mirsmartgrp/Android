@@ -32,7 +32,7 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
         DataEntry dataEntry = null;
 
-        ListIterator<DataEntry> iter = exerciseData.getData().listIterator(exerciseData.getData().size());
+        ListIterator<DataEntry> iter = exerciseData.getSensorData().listIterator(exerciseData.getSensorData().size());
         while (iter.hasPrevious()) {
             DataEntry entry = iter.previous();
             if (entry.getSecondsSinceStart() >= time - interval) {
@@ -59,7 +59,7 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
             dataEntry.setAccelerometer(accelerometer);
         if (gyroscope != null)
             dataEntry.setGyroscope(gyroscope);
-        exerciseData.getData().add(dataEntry);
+        exerciseData.getSensorData().add(dataEntry);
     }
 
     public abstract void collectionComplete(ExerciseData data);
