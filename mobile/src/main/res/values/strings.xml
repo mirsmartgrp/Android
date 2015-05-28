@@ -1,10 +1,24 @@
 <resources>
-	<string name="app_name">ExerciseControl</string>
+	<string name="app_name">Exercise Control App</string>
 
-	<string name="hello_world">Hello world!</string>
 	<string name="action_settings">Settings</string>
-	<string name="title_activity_select_exercise">SelectExerciseActivity</string>
-	<string name="title_activity_history">HistoryActivity</string>
-	<string name="title_activity_exercise_description">ExerciseDescriptionActivity</string>
-	<string name="title_activity_train">TrainActivity</string>
+
+	<string name="activityMainWelcomeText">Welcome!</string>
+	<string name="activityMainExerciseButton">exercise list</string>
+	<string name="activityMainHistoryButton">History</string>
+	<string name="activityMainDebugDebugTextView">Debug Options</string>
+	<string name="activityMainDebugAndroidButton">Android</string>
+	<string name="activityMainDebugTizenButton">Tizen</string>
+
+	<string name="activityHistoryTitle">HistoryActivity</string>
+	<string name="activityTrainTitle">TrainActivity</string>
+
+	<!--Exercise list activity-->
+	<string name="activitySelectExerciseTitle">Select exercise</string>
+
+	<!--Exercise description activity-->
+	<string name="activityExerciseDescriptionTitle">Exercise description</string>
+	<string name="activityExerciseDescriptionExerciseNameTextView">Exercise Name</string>
+	<string name="activityExerciseDescriptionExerciseDescriptionTextView">Description</string>
+	<string name="activityExerciseDescriptionStartButton">Start Exercise</string>
 </resources>
