@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,8 @@ public class MainActivityWear extends Activity {
     private String exerciseName="unknown exercise";
     private String exerciseGUID ="";
     private final static String TAG="LOG";
+    private Button startBtn;
+    private Button stopBtn;
 
 
     @Override
@@ -41,8 +44,21 @@ public class MainActivityWear extends Activity {
         recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
         recorder.initialize();
 
+
     }
 
+    private void toogleButtons() {
+        startBtn = (Button) findViewById(R.id.startBtn);
+        stopBtn = (Button) findViewById(R.id.stopBtn);
+        if(startBtn.isEnabled()) {
+            startBtn.setEnabled(false);
+            stopBtn.setEnabled(true);
+        }
+        else {
+            startBtn.setEnabled(true);
+            stopBtn.setEnabled(false);
+        }
+    }
     private String getExerciseName() {
         Intent intent = getIntent();
         return intent.getStringExtra(SelectExerciseActivityWear.EXERCISE_NAME);
@@ -96,6 +112,7 @@ public class MainActivityWear extends Activity {
             recorder.start(exerciseGUID);
             chronometer.start();
             setExerciseNameToHeaderLbl();
+            toogleButtons();
         }
         else {
             showToast(getString(R.string.errorConnectionToPhone), Toast.LENGTH_LONG);
@@ -126,6 +143,7 @@ public class MainActivityWear extends Activity {
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.stop();
         recorder.stop();
+        toogleButtons();
     }
 
     /**

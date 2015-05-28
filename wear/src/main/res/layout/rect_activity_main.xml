@@ -29,6 +29,7 @@
     <Button android:id="@+id/stopBtn" android:layout_width="95dp"
         android:layout_height="150dp" android:text="@string/stop"
         android:onClick="stop"
+        android:enabled="false"
        />
 </LinearLayout>
 </LinearLayout>
