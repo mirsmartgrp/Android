@@ -18,8 +18,8 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Thu May 28 10:30:26 UTC 2015.<br/>
-0 errors and 41 warnings found:<br/><br/>
+Check performed at Thu May 28 10:32:44 UTC 2015.<br/>
+0 errors and 42 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
@@ -50,7 +50,7 @@ Check performed at Thu May 28 10:30:26 UTC 2015.<br/>
 <a href="#InefficientWeight">InefficientWeight: Inefficient layout weight</a>
 </td></tr>
 <tr>
-<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">4</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#UnusedResources">UnusedResources: Unused resources</a>
 </td></tr>
 <tr>
@@ -390,6 +390,14 @@ When only a single widget in a LinearLayout defines a weight, it is more efficie
 </div>
 <div class="warningslist">
 <span class="location"><a href="../../src/main/res/raw/exercise_list.json">../../src/main/res/raw/exercise_list.json</a></span>: <span class="message">The resource <code>R.raw.exercise_list</code> appears to be unused</span><br />
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:4</span>: <span class="message">The resource <code>R.string.action_settings</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;resources>
+<span class="lineno">   2</span> 	&lt;string name="app_name">Exercise Control App&lt;/string>
+<span class="lineno">   3</span> 
+<span class="lineno">   4</span> 	&lt;string <span class="errorspan">name="action_settings">Settings&lt;/string></span>
+<span class="lineno">   5</span> 
+<span class="lineno">   6</span> 	&lt;string name="activityMainWelcomeText">Welcome!&lt;/string>
+</pre>
 <span class="location"><a href="../../src/main/res/xml/tizen.xml">../../src/main/res/xml/tizen.xml</a></span>: <span class="message">The resource <code>R.xml.tizen</code> appears to be unused</span><br />
 <span class="location"><a href="../../src/main/res/xml/tizen.xml">../../src/main/res/xml/tizen.xml</a>:30</span>: <span class="message">The resource <code>R.application.ConnectionHandlerTizen</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno">  27</span> 	]>

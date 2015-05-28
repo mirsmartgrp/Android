@@ -443,6 +443,22 @@ Note: This check does not only apply to attributes. For example, some tags can b
     <issue
         id="UnusedResources"
         severity="Warning"
+        message="The resource `R.string.action_settings` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1=" &lt;string name=&quot;action_settings&quot;>Settings&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/values/strings.xml"
+            line="4"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
         message="The resource `R.xml.tizen` appears to be unused"
         category="Performance"
         priority="3"
