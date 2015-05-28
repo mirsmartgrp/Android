@@ -4,14 +4,12 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.Collection;
@@ -48,7 +46,7 @@ public class SelectExerciseActivity
                 (this,
                  android.R.layout.simple_list_item_1,
                  exercises);
-        setContentView(R.layout.activity_exercise_overview);
+        setContentView(R.layout.activity_exercise_list);
         setListAdapter(listAdapter);
         listView = getListView();
 
@@ -64,9 +62,11 @@ public class SelectExerciseActivity
                                                    ExerciseDescriptionActivity.class);
                 String GUID = exercises[position].getGUID();
                 Bundle b = new Bundle();
-                b.putString("GUID" , GUID);
+                b.putString("GUID",
+                            GUID);
                 exerciseIntent.putExtras(b);
-                startActivityForResult(exerciseIntent, position);
+                startActivityForResult(exerciseIntent,
+                                       position);
             }
         });
     }
@@ -99,9 +99,13 @@ public class SelectExerciseActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data)
     {
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode,
+                               resultCode,
+                               data);
         setResult(resultCode);
         finish();
     }

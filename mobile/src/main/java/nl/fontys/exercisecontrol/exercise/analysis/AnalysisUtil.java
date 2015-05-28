@@ -2,35 +2,45 @@ package nl.fontys.exercisecontrol.exercise.analysis;
 
 import java.util.ArrayList;
 
-public class AnalysisUtil {
+public class AnalysisUtil
+{
 
-    static int[] FILTER_SEQUENCES(int[] seq) {
+    static int[] FILTER_SEQUENCES(int[] seq)
+    {
 
         ArrayList<Integer> result = new ArrayList<Integer>();
-        for (int j : seq) {
+        for (int j : seq)
+        {
             result.add(new Integer(j));
         }
 
         int aktValue = seq[0];
         int removeCount = 0;
-        for (int i = 1; i < seq.length; i++) {
-            if (seq[i] == aktValue) {
+        for (int i = 1; i < seq.length; i++)
+        {
+            if (seq[i] == aktValue)
+            {
                 result.remove(i - removeCount);
                 removeCount++;
-            } else {
+            }
+            else
+            {
                 aktValue = seq[i];
             }
         }
 
         int[] values = new int[result.size()];
-        for (int j = 0; j < result.size(); j++) {
+        for (int j = 0; j < result.size(); j++)
+        {
             values[j] = result.get(j).intValue();
         }
 
         return values;
     }
 
-   static int CALCULATE_LEVENSHTEIN_DISTANCE(String s0, String s1) {
+    static int CALCULATE_LEVENSHTEIN_DISTANCE(String s0,
+                                              String s1)
+    {
         int len0 = s0.length() + 1;
         int len1 = s1.length() + 1;
 
@@ -39,19 +49,26 @@ public class AnalysisUtil {
         int[] newcost = new int[len0];
 
         // initial cost of skipping prefix in String s0
-        for (int i = 0; i < len0; i++) cost[i] = i;
+        for (int i = 0; i < len0; i++)
+        {
+            cost[i] = i;
+        }
 
         // dynamically computing the array of distances
 
         // transformation cost for each letter in s1
-        for (int j = 1; j < len1; j++) {
+        for (int j = 1; j < len1; j++)
+        {
             // initial cost of skipping prefix in String s1
             newcost[0] = j;
 
             // transformation cost for each letter in s0
-            for (int i = 1; i < len0; i++) {
+            for (int i = 1; i < len0; i++)
+            {
                 // matching current letters in both strings
-                int match = (s0.charAt(i - 1) == s1.charAt(j - 1)) ? 0 : 1;
+                int match = (s0.charAt(i - 1) == s1.charAt(j - 1)) ?
+                            0 :
+                            1;
 
                 // computing cost for each transformation
                 int cost_replace = cost[i - 1] + match;
@@ -59,7 +76,9 @@ public class AnalysisUtil {
                 int cost_delete = newcost[i - 1] + 1;
 
                 // keep minimum cost
-                newcost[i] = Math.min(Math.min(cost_insert, cost_delete), cost_replace);
+                newcost[i] = Math.min(Math.min(cost_insert,
+                                               cost_delete),
+                                      cost_replace);
             }
 
             // swap cost/newcost arrays

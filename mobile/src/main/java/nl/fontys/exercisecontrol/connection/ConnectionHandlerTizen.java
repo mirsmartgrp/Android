@@ -34,19 +34,19 @@ import nl.fontys.exercisecontrol.listener.Listener;
 public class ConnectionHandlerTizen
         extends SAAgent
 {
-    public static final int                                 SERVICE_CONNECTION_RESULT_OK = 0;
-    public static final int                                 HELLOACCESSORY_CHANNEL_ID    = 104;
-    public static final String                              TAG                          = "BackendSenderTizen";
-    private static      int                                 connectionID                 = -1;
-    private static      boolean                             isConnected                  = false;
+    public static final int     SERVICE_CONNECTION_RESULT_OK = 0;
+    public static final int     HELLOACCESSORY_CHANNEL_ID    = 104;
+    public static final String  TAG                          = "BackendSenderTizen";
+    private static      int     connectionID                 = -1;
+    private static      boolean isConnected                  = false;
     //
 
-    private static Map<Integer, ConnectionSocketTizen> mConnectionsMap = new HashMap<>();
-    private static List<Listener> listeners = new ArrayList<Listener>();
-    private final       IBinder                             mBinder                      = new LocalBinder();
-    public              Boolean                             isAuthentication             = false;
-    public              Context                             mContext                     = null;
-    private             int                                 authCount                    = 1;
+    private static Map<Integer, ConnectionSocketTizen> mConnectionsMap  = new HashMap<>();
+    private static List<Listener>                      listeners        = new ArrayList<Listener>();
+    private final  IBinder                             mBinder          = new LocalBinder();
+    public         Boolean                             isAuthentication = false;
+    public         Context                             mContext         = null;
+    private        int                                 authCount        = 1;
 
     public ConnectionHandlerTizen()
     {
@@ -122,6 +122,25 @@ public class ConnectionHandlerTizen
               "Send Message " + text);
     }
 
+    public static void disconnect()
+    {
+
+    }
+
+    public static List<Listener> getListenerList()
+    {
+        return listeners;
+    }
+
+    public static void addListener(Listener listener)
+    {
+        listeners.add(listener);
+    }
+
+    public static void removeListener(Listener listener)
+    {
+        listeners.remove(listener);
+    }
 
     /**
      * Is called when the BackendSender is Created
@@ -270,11 +289,6 @@ public class ConnectionHandlerTizen
         }
     }
 
-    public static void disconnect()
-    {
-
-    }
-
     public class LocalBinder
             extends Binder
     {
@@ -282,19 +296,5 @@ public class ConnectionHandlerTizen
         {
             return ConnectionHandlerTizen.this;
         }
-    }
-
-
-
-    public static List<Listener> getListenerList(){
-        return listeners;
-    }
-
-    public static void addListener(Listener listener){
-        listeners.add(listener);
-    }
-
-    public static void removeListener(Listener listener){
-        listeners.remove(listener);
     }
 }

@@ -1,6 +1,5 @@
 package nl.fontys.exercisecontrol;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +12,11 @@ import android.widget.ListView;
 
 import nl.fontys.exercisecontrol.exercise.R;
 
-public class HistoryActivity extends ListActivity
+public class HistoryActivity
+        extends ListActivity
 {
 
     ListView listView;
-    private int RETURNRESULTLESS = -2;
-    private int RETURNERROR = -1;
-
     String[] testHistory = new String[]
             {
                     "Exercise 12.5 12:22",
@@ -34,6 +31,8 @@ public class HistoryActivity extends ListActivity
                     "...---...",
                     "Out of ideads"
             };
+    private int RETURNRESULTLESS = -2;
+    private int RETURNERROR      = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,21 +40,30 @@ public class HistoryActivity extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1,testHistory);
+                (this,
+                 android.R.layout.simple_list_item_1,
+                 testHistory);
 
         setListAdapter(listAdapter);
 
-        listView.setOnItemClickListener( new AdapterView.OnItemClickListener()
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            public void onItemClick(AdapterView<?> parent,
+                                    View view,
+                                    int position,
+                                    long id)
             {
-                FinishActivityWithClick(parent, view, position, id);
+                FinishActivityWithClick(parent,
+                                        view,
+                                        position,
+                                        id);
             }
         });
 
-        Button returnButton =(Button) findViewById(R.id.returnButton);
-        View.OnClickListener listnr=new View.OnClickListener() {
+        Button returnButton = (Button) findViewById(R.id.returnButton);
+        View.OnClickListener listnr = new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -71,7 +79,8 @@ public class HistoryActivity extends ListActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_history, menu);
+        getMenuInflater().inflate(R.menu.menu_history,
+                                  menu);
         return true;
     }
 
@@ -92,7 +101,10 @@ public class HistoryActivity extends ListActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void FinishActivityWithClick(AdapterView<?> parent, View view, int position, long id)
+    private void FinishActivityWithClick(AdapterView<?> parent,
+                                         View view,
+                                         int position,
+                                         long id)
     {
         setResult(position);
         finish();

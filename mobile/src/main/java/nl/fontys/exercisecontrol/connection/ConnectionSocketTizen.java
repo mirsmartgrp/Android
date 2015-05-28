@@ -51,7 +51,8 @@ public class ConnectionSocketTizen
                           byte[] data)
     {
         String dataStr = new String(data);
-        Log.d("TEST", "TEST");
+        Log.d("TEST",
+              "TEST");
         for (Listener l : ConnectionHandlerTizen.getListenerList())
         {
             l.onNotify(dataStr);
