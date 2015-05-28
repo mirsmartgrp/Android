@@ -67,6 +67,10 @@
             android:name="nl.fontys.exercisecontrol.TrainActivity"
             android:label="@string/title_activity_train" >
         </activity>
+		<activity
+			android:name="nl.fontys.exercisecontrol.SelectLearnActivity"
+			android:label="@string/title_activity_select_exercise" >
+		</activity>
     </application>
 
 </manifest>
