@@ -107,9 +107,9 @@ public class MainActivityMobile
 
                         //connectionHandlerBackend.sendExerciseData("Hallo Welt!");
 */
-                        Intent intent = new Intent(MainActivityMobile.this,
-                                                   TrainActivity.class);
-                        startActivity(intent);
+                        Intent learnIntent = new Intent(MainActivityMobile.this, SelectLearnActivity.class);
+                        startActivity(learnIntent);
+
                     }
                 }
 
