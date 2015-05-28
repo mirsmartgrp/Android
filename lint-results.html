@@ -18,8 +18,8 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Thu May 28 10:22:28 UTC 2015.<br/>
-0 errors and 25 warnings found:<br/><br/>
+Check performed at Thu May 28 10:30:26 UTC 2015.<br/>
+0 errors and 41 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
@@ -34,7 +34,7 @@ Check performed at Thu May 28 10:22:28 UTC 2015.<br/>
 <tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
-<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">18</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#ObsoleteLayoutParam">ObsoleteLayoutParam: Obsolete layout params</a>
 </td></tr>
 <tr>
@@ -46,7 +46,7 @@ Check performed at Thu May 28 10:22:28 UTC 2015.<br/>
 <a href="#UseValueOf">UseValueOf: Should use <code>valueOf</code> instead of <code>new</code></a>
 </td></tr>
 <tr>
-<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
+<td class="countColumn">2</td><td class="issueColumn"><img border="0" align="top" src="lint-results_files/lint-warning.png" alt="Warning" />
 <a href="#InefficientWeight">InefficientWeight: Inefficient layout weight</a>
 </td></tr>
 <tr>
@@ -80,13 +80,13 @@ Check performed at Thu May 28 10:22:28 UTC 2015.<br/>
 <div class="id"><a href="#" title="Return to top">UnusedAttribute: Attribute unused on older versions</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:36</span>: <span class="message">Attribute <code>elegantTextHeight</code> is only used in API level 21 and higher (current min is 19)</span><br /><pre class="errorlines">
-<span class="lineno">  33</span> 		android:layout_alignParentTop="false"
-<span class="lineno">  34</span> 		android:layout_alignParentLeft="false"
-<span class="lineno">  35</span> 		android:enabled="true"
-<span class="lineno">  36</span> 		<span class="errorspan">android:elegantTextHeight="false"</span>
-<span class="lineno">  37</span> 		android:clickable="true"
-<span class="lineno">  38</span> 		android:minHeight="125dp"/>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:43</span>: <span class="message">Attribute <code>elegantTextHeight</code> is only used in API level 21 and higher (current min is 19)</span><br /><pre class="errorlines">
+<span class="lineno">  40</span> 			android:layout_alignParentTop="false"
+<span class="lineno">  41</span> 			android:layout_alignParentLeft="false"
+<span class="lineno">  42</span> 			android:enabled="true"
+<span class="lineno">  43</span> 			<span class="errorspan">android:elegantTextHeight="false"</span>
+<span class="lineno">  44</span> 			android:clickable="true"
+<span class="lineno">  45</span> 			android:minHeight="125dp"/>
 </pre>
 </div>
 <div class="metadata">Priority: 6 / 10<br/>
@@ -136,6 +136,128 @@ This detector looks for usages of libraries where the version you are using is n
 <div class="id"><a href="#" title="Return to top">ObsoleteLayoutParam: Obsolete layout params</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:34</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentStart</code></span><br /><pre class="errorlines">
+<span class="lineno">  31</span> 			android:id="@+id/exerciseButton"
+<span class="lineno">  32</span> 			android:layout_width="match_parent"
+<span class="lineno">  33</span> 			android:layout_height="wrap_content"
+<span class="lineno">  34</span> 			<span class="errorspan">android:layout_alignParentStart="true"</span>
+<span class="lineno">  35</span> 			android:text="@string/activityMainExerciseButton"
+<span class="lineno">  36</span> 			android:layout_below="@+id/welcomeText"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:36</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_below</code></span><br /><pre class="errorlines">
+<span class="lineno">  33</span> 			android:layout_height="wrap_content"
+<span class="lineno">  34</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  35</span> 			android:text="@string/activityMainExerciseButton"
+<span class="lineno">  36</span> 			<span class="errorspan">android:layout_below="@+id/welcomeText"</span>
+<span class="lineno">  37</span> 			android:layout_marginTop="25dp"
+<span class="lineno">  38</span> 			android:layout_alignParentEnd="true"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:38</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentEnd</code></span><br /><pre class="errorlines">
+<span class="lineno">  35</span> 			android:text="@string/activityMainExerciseButton"
+<span class="lineno">  36</span> 			android:layout_below="@+id/welcomeText"
+<span class="lineno">  37</span> 			android:layout_marginTop="25dp"
+<span class="lineno">  38</span> 			<span class="errorspan">android:layout_alignParentEnd="true"</span>
+<span class="lineno">  39</span> 			android:layout_centerHorizontal="true"
+<span class="lineno">  40</span> 			android:layout_alignParentTop="false"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:39</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_centerHorizontal</code></span><br /><pre class="errorlines">
+<span class="lineno">  36</span> 			android:layout_below="@+id/welcomeText"
+<span class="lineno">  37</span> 			android:layout_marginTop="25dp"
+<span class="lineno">  38</span> 			android:layout_alignParentEnd="true"
+<span class="lineno">  39</span> 			<span class="errorspan">android:layout_centerHorizontal="true"</span>
+<span class="lineno">  40</span> 			android:layout_alignParentTop="false"
+<span class="lineno">  41</span> 			android:layout_alignParentLeft="false"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:40</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentTop</code></span><br /><pre class="errorlines">
+<span class="lineno">  37</span> 			android:layout_marginTop="25dp"
+<span class="lineno">  38</span> 			android:layout_alignParentEnd="true"
+<span class="lineno">  39</span> 			android:layout_centerHorizontal="true"
+<span class="lineno">  40</span> 			<span class="errorspan">android:layout_alignParentTop="false"</span>
+<span class="lineno">  41</span> 			android:layout_alignParentLeft="false"
+<span class="lineno">  42</span> 			android:enabled="true"
+</pre>
+<button id="ObsoleteLayoutParamDivLink" onclick="reveal('ObsoleteLayoutParamDiv');" />+ 13 More Occurrences...</button>
+<div id="ObsoleteLayoutParamDiv" style="display: none">
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:41</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentLeft</code></span><br /><pre class="errorlines">
+<span class="lineno">  38</span> 			android:layout_alignParentEnd="true"
+<span class="lineno">  39</span> 			android:layout_centerHorizontal="true"
+<span class="lineno">  40</span> 			android:layout_alignParentTop="false"
+<span class="lineno">  41</span> 			<span class="errorspan">android:layout_alignParentLeft="false"</span>
+<span class="lineno">  42</span> 			android:enabled="true"
+<span class="lineno">  43</span> 			android:elegantTextHeight="false"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:51</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentEnd</code></span><br /><pre class="errorlines">
+<span class="lineno">  48</span> 			android:id="@+id/historyButton"
+<span class="lineno">  49</span> 			android:layout_width="match_parent"
+<span class="lineno">  50</span> 			android:layout_height="wrap_content"
+<span class="lineno">  51</span> 			<span class="errorspan">android:layout_alignParentEnd="true"</span>
+<span class="lineno">  52</span> 			android:text="@string/activityMainHistoryButton"
+<span class="lineno">  53</span> 			android:layout_below="@+id/exerciseButton"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:53</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_below</code></span><br /><pre class="errorlines">
+<span class="lineno">  50</span> 			android:layout_height="wrap_content"
+<span class="lineno">  51</span> 			android:layout_alignParentEnd="true"
+<span class="lineno">  52</span> 			android:text="@string/activityMainHistoryButton"
+<span class="lineno">  53</span> 			<span class="errorspan">android:layout_below="@+id/exerciseButton"</span>
+<span class="lineno">  54</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  55</span> 			android:minHeight="125dp"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:54</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentStart</code></span><br /><pre class="errorlines">
+<span class="lineno">  51</span> 			android:layout_alignParentEnd="true"
+<span class="lineno">  52</span> 			android:text="@string/activityMainHistoryButton"
+<span class="lineno">  53</span> 			android:layout_below="@+id/exerciseButton"
+<span class="lineno">  54</span> 			<span class="errorspan">android:layout_alignParentStart="true"</span>
+<span class="lineno">  55</span> 			android:minHeight="125dp"
+<span class="lineno">  56</span> 			android:visibility="visible"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:64</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_row</code></span><br /><pre class="errorlines">
+<span class="lineno">  61</span> 			android:layout_width="match_parent"
+<span class="lineno">  62</span> 			android:layout_height="wrap_content"
+<span class="lineno">  63</span> 			android:text="@string/activityMainDebugTizenButton"
+<span class="lineno">  64</span> 			<span class="errorspan">android:layout_row="3"</span>
+<span class="lineno">  65</span> 			android:layout_column="1"
+<span class="lineno">  66</span> 			android:layout_alignParentStart="true"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:65</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_column</code></span><br /><pre class="errorlines">
+<span class="lineno">  62</span> 			android:layout_height="wrap_content"
+<span class="lineno">  63</span> 			android:text="@string/activityMainDebugTizenButton"
+<span class="lineno">  64</span> 			android:layout_row="3"
+<span class="lineno">  65</span> 			<span class="errorspan">android:layout_column="1"</span>
+<span class="lineno">  66</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  67</span> 			android:layout_alignBottom="@+id/historyButton"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:66</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentStart</code></span><br /><pre class="errorlines">
+<span class="lineno">  63</span> 			android:text="@string/activityMainDebugTizenButton"
+<span class="lineno">  64</span> 			android:layout_row="3"
+<span class="lineno">  65</span> 			android:layout_column="1"
+<span class="lineno">  66</span> 			<span class="errorspan">android:layout_alignParentStart="true"</span>
+<span class="lineno">  67</span> 			android:layout_alignBottom="@+id/historyButton"
+<span class="lineno">  68</span> 			android:layout_alignEnd="@+id/historyButton"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:67</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignBottom</code></span><br /><pre class="errorlines">
+<span class="lineno">  64</span> 			android:layout_row="3"
+<span class="lineno">  65</span> 			android:layout_column="1"
+<span class="lineno">  66</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  67</span> 			<span class="errorspan">android:layout_alignBottom="@+id/historyButton"</span>
+<span class="lineno">  68</span> 			android:layout_alignEnd="@+id/historyButton"
+<span class="lineno">  69</span> 			android:layout_below="@+id/exerciseButton"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:68</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignEnd</code></span><br /><pre class="errorlines">
+<span class="lineno">  65</span> 			android:layout_column="1"
+<span class="lineno">  66</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  67</span> 			android:layout_alignBottom="@+id/historyButton"
+<span class="lineno">  68</span> 			<span class="errorspan">android:layout_alignEnd="@+id/historyButton"</span>
+<span class="lineno">  69</span> 			android:layout_below="@+id/exerciseButton"
+<span class="lineno">  70</span> 			android:layout_weight="0.61"/>
+</pre>
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:69</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_below</code></span><br /><pre class="errorlines">
+<span class="lineno">  66</span> 			android:layout_alignParentStart="true"
+<span class="lineno">  67</span> 			android:layout_alignBottom="@+id/historyButton"
+<span class="lineno">  68</span> 			android:layout_alignEnd="@+id/historyButton"
+<span class="lineno">  69</span> 			<span class="errorspan">android:layout_below="@+id/exerciseButton"</span>
+<span class="lineno">  70</span> 			android:layout_weight="0.61"/>
+<span class="lineno">  71</span> 	&lt;/LinearLayout>
+</pre>
 <span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:21</span>: <span class="message">Invalid layout param in a <code>LinearLayout</code>: <code>layout_alignParentTop</code></span><br /><pre class="errorlines">
 <span class="lineno">  18</span> 			android:layout_width="wrap_content"
 <span class="lineno">  19</span> 			android:layout_height="458dp"
@@ -160,6 +282,7 @@ This detector looks for usages of libraries where the version you are using is n
 <span class="lineno">  31</span> 			android:layout_gravity="center_vertical"
 <span class="lineno">  32</span> 			/>
 </pre>
+</div>
 </div>
 <div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT & Android Studio/IntelliJ&nbsp;<img alt="Fix" border="0" align="top" src="lint-results_files/lint-run.png" />
 <br>
@@ -233,6 +356,14 @@ You should not call the constructor for wrapper classes directly, such as`new In
 <div class="id"><a href="#" title="Return to top">InefficientWeight: Inefficient layout weight</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:62</span>: <span class="message">Use a <code>layout_height</code> of <code>0dp</code> instead of <code>wrap_content</code> for better performance</span><br /><pre class="errorlines">
+<span class="lineno">  59</span> 		&lt;Button
+<span class="lineno">  60</span> 			android:id="@+id/tizenButton"
+<span class="lineno">  61</span> 			android:layout_width="match_parent"
+<span class="lineno">  62</span> 			<span class="errorspan">android:layout_height="wrap_content"</span>
+<span class="lineno">  63</span> 			android:text="@string/activityMainDebugTizenButton"
+<span class="lineno">  64</span> 			android:layout_row="3"
+</pre>
 <span class="location"><a href="../../src/main/res/layout/activity_train.xml">../../src/main/res/layout/activity_train.xml</a>:19</span>: <span class="message">Use a <code>layout_height</code> of <code>0dp</code> instead of <code>458dp</code> for better performance</span><br /><pre class="errorlines">
 <span class="lineno">  16</span> 
 <span class="lineno">  17</span> 		&lt;ListView
@@ -411,13 +542,13 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
 <span class="lineno">  54</span> &lt;/RelativeLayout>
 <span class="lineno">  55</span> 
 </pre>
-<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:34</span>: <span class="message">Redundant attribute <code>layout_alignParentLeft</code>; already defining <code>layout_alignParentStart</code> with <code>targetSdkVersion</code> 21</span><br /><pre class="errorlines">
-<span class="lineno">  31</span> 		android:layout_alignParentEnd="true"
-<span class="lineno">  32</span> 		android:layout_centerHorizontal="true"
-<span class="lineno">  33</span> 		android:layout_alignParentTop="false"
-<span class="lineno">  34</span> 		<span class="errorspan">android:layout_alignParentLeft="false"</span>
-<span class="lineno">  35</span> 		android:enabled="true"
-<span class="lineno">  36</span> 		android:elegantTextHeight="false"
+<span class="location"><a href="../../src/main/res/layout/activity_main.xml">../../src/main/res/layout/activity_main.xml</a>:41</span>: <span class="message">Redundant attribute <code>layout_alignParentLeft</code>; already defining <code>layout_alignParentStart</code> with <code>targetSdkVersion</code> 21</span><br /><pre class="errorlines">
+<span class="lineno">  38</span> 			android:layout_alignParentEnd="true"
+<span class="lineno">  39</span> 			android:layout_centerHorizontal="true"
+<span class="lineno">  40</span> 			android:layout_alignParentTop="false"
+<span class="lineno">  41</span> 			<span class="errorspan">android:layout_alignParentLeft="false"</span>
+<span class="lineno">  42</span> 			android:enabled="true"
+<span class="lineno">  43</span> 			android:elegantTextHeight="false"
 </pre>
 <span class="location"><a href="../../src/main/res/layout/learn_list_layout.xml">../../src/main/res/layout/learn_list_layout.xml</a>:20</span>: <span class="message">Use "<code>start</code>" instead of "<code>left</code>" to ensure correct behavior in right-to-left locales</span><br /><pre class="errorlines">
 <span class="lineno">  17</span> 			android:textAppearance="?android:attr/textAppearanceMedium"
