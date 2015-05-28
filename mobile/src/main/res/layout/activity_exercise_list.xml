@@ -6,17 +6,11 @@
 				android:paddingRight="@dimen/activity_horizontal_margin"
 				android:paddingTop="@dimen/activity_vertical_margin"
 				android:paddingBottom="@dimen/activity_vertical_margin"
-				tools:context="nl.fontys.exercisecontrol.exercisecontrol.exercise.SelectExerciseActivity">
+				tools:context="nl.fontys.exercisecontrol.exercisecontrol.exercise.SelectExerciseActivity"
+	>
 
-	<LinearLayout
-		android:orientation="vertical"
+	<ListView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:id="@+id/exerciseLinearLayout">
-
-		<ListView
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:id="@android:id/list"/>
-	</LinearLayout>
+		android:id="@android:id/list"/>
 </RelativeLayout>
