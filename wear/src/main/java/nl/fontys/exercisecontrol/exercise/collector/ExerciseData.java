@@ -6,18 +6,18 @@ import java.util.List;
 public class ExerciseData {
 
     private String guid;
-    private final List<DataEntry> data;
+    private final List<DataEntry> sensorData;
 
     public ExerciseData(String guid) {
         this.guid = guid;
-        data = new ArrayList<DataEntry>();
+        sensorData = new ArrayList<DataEntry>();
     }
 
     @Override
     public String toString() {
         return "ExerciseData{" +
                 "guid='" + guid + '\'' +
-                ", data=" + data.toString() +
+                ", sensorData=" + sensorData.toString() +
                 '}';
     }
 
@@ -29,7 +29,7 @@ public class ExerciseData {
         this.guid = guid;
     }
 
-    public List<DataEntry> getData() {
-        return data;
+    public List<DataEntry> getSensorData() {
+        return sensorData;
     }
 }
