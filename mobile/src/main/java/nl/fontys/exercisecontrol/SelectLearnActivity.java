@@ -43,7 +43,7 @@ public class SelectLearnActivity extends ListActivity
                 (this,
                         android.R.layout.simple_list_item_1,
                         exercises);
-        setContentView(R.layout.activity_exercise_list);
+        setContentView(R.layout.activity_select_exercise);
         setListAdapter(listAdapter);
         listView = getListView();
 

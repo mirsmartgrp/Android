@@ -23,33 +23,33 @@ public class ExerciseDescriptionActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_exercise_description);
+
         Bundle b = getIntent().getExtras();
-        String GUID = b.getString("GUID");
+        String guid = b.getString("guid");
         context = getApplicationContext();
-        Exercise exercise = ObjectHelper.getInstance(context).getExerciseList().getEXERCISE_HASH_MAP().get(GUID);
+        Exercise exercise = ObjectHelper.getInstance(context).getExerciseList().getEXERCISE_HASH_MAP().get(guid);
 
-        TextView titleText = (TextView) findViewById(R.id.nameTextView);
-        titleText.setText(exercise.getNAME());
+        TextView exerciseNameTextView = (TextView) findViewById(R.id.ExerciseNameTextView);
+        exerciseNameTextView.setText(exercise.getNAME());
 
-        TextView descText = (TextView) findViewById(R.id.descriptionTextView);
-        descText.setText(exercise.getDESCRIPTION());
-        //Add the exercise description and title to the activity
-        //Implement OK button with returnvalue equal to the id in the list.
+        TextView exerciseDescriptionTextView = (TextView) findViewById(R.id.ExerciseDescriptionTextView);
+        exerciseDescriptionTextView.setText(exercise.getDESCRIPTION());
 
-        VideoView vidView = (VideoView) findViewById(R.id.exerciseVideo);
+        VideoView exerciseVideoView = (VideoView) findViewById(R.id.exerciseVideoView);
 
         //Displaying the video, needs an mp4 links afaik.
         String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
         Uri vidUri = Uri.parse(vidAddress);
-        vidView.setVideoURI(vidUri);
+        exerciseVideoView.setVideoURI(vidUri);
 
         //Implementing Video controlls
         MediaController vidControl = new MediaController(this);
-        vidControl.setAnchorView(vidView);
-        vidView.setMediaController(vidControl);
+        vidControl.setAnchorView(exerciseVideoView);
+        exerciseVideoView.setMediaController(vidControl);
 
-        vidView.start();
+        exerciseVideoView.start();
         //Video autostarts, may only on a seperate button click event.
     }
 

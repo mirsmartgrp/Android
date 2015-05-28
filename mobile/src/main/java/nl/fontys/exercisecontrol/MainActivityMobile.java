@@ -32,7 +32,6 @@ public class MainActivityMobile
     private static int     exerciseRequestCode = 1001;
     private static int     historyRequestCode  = 1002;
     public static boolean learn               = true;
-    private       TextView                 textView;
     private       ConnectionHandlerBackend connectionHandlerBackend;
     private       TextView                 helloWorldTextView;
 
@@ -41,13 +40,13 @@ public class MainActivityMobile
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        context = getBaseContext();
-
         super.onCreate(savedInstanceState);
 
+        context = getBaseContext();
+
+        setContentView(R.layout.activity_main);
 
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
-        setContentView(R.layout.activity_main);
         helloWorldTextView = (TextView) findViewById(R.id.testTextView);
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
@@ -64,9 +63,6 @@ public class MainActivityMobile
             }
         });
 
-
-        Intent intent = new Intent(this,
-                                   SelectExerciseActivity.class);
         View.OnClickListener listnr = new View.OnClickListener()
         {
 

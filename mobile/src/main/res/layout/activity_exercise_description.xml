@@ -8,29 +8,12 @@
 				android:paddingBottom="@dimen/activity_vertical_margin"
 				tools:context="nl.fontys.exercisecontrol.ExerciseDescriptionActivity">
 
-
-
-	<VideoView
-		android:layout_width="fill_parent"
-		android:layout_height="match_parent"
-		android:id="@+id/exerciseVideo"
-		android:layout_gravity="center"
-		android:layout_above="@+id/startButton"
-		android:layout_below="@+id/descriptionTextView"
-		android:layout_alignParentBottom="false"
-		android:layout_alignWithParentIfMissing="false"
-		android:layout_marginTop="50px"
-		android:layout_marginBottom="50px"
-		android:layout_alignParentEnd="false"
-		android:layout_alignParentLeft="false"
-		android:layout_alignParentRight="false"/>
-
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:text="Exercise Name"
-		android:id="@+id/nameTextView"
+		android:text="@string/activityExerciseDescriptionExerciseNameTextView"
+		android:id="@+id/ExerciseNameTextView"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentStart="true"/>
 
@@ -38,19 +21,34 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:text="Description"
-		android:id="@+id/descriptionTextView"
-		android:layout_below="@+id/nameTextView"
+		android:text="@string/activityExerciseDescriptionExerciseDescriptionTextView"
+		android:id="@+id/ExerciseDescriptionTextView"
+		android:layout_below="@+id/ExerciseNameTextView"
 		android:layout_alignParentStart="true"/>
+
+	<VideoView
+		android:layout_width="fill_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/exerciseVideoView"
+		android:layout_gravity="center"
+		android:layout_above="@+id/startButton"
+		android:layout_below="@+id/ExerciseDescriptionTextView"
+		android:layout_alignParentBottom="false"
+		android:layout_alignWithParentIfMissing="false"
+		android:layout_marginTop="50dp"
+		android:layout_marginBottom="50dp"
+		android:layout_alignParentEnd="false"
+		android:layout_alignParentLeft="false"
+		android:layout_alignParentRight="false"/>
 
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Start Exercise"
+		android:text="@string/activityExerciseDescriptionStartButton"
 		android:id="@+id/startButton"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentStart="true"
-		android:layout_alignEnd="@+id/nameTextView"
+		android:layout_alignEnd="@+id/ExerciseNameTextView"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"/>
 </RelativeLayout>
