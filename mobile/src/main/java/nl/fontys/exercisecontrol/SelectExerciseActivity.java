@@ -34,20 +34,21 @@ public class SelectExerciseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         context = getApplicationContext();
+
+        setTitle("Select exercise");
+        setContentView(R.layout.activity_exercise_list);
+
         final ExerciseList exerciseList = ObjectHelper.getInstance(context).getExerciseList();
-        ExerciseHashMap<String, Exercise> exerciseHashMap = exerciseList.getEXERCISE_HASH_MAP();
-        Collection<Exercise> exerciseCollection = exerciseHashMap.valuesSortedByName();
-
-
+        Collection<Exercise> exerciseCollection = exerciseList.getEXERCISE_HASH_MAP().valuesSortedByName();
         final Exercise[] exercises = exerciseCollection.toArray(new Exercise[exerciseList.getEXERCISE_HASH_MAP().size()]);
-
         ArrayAdapter<Exercise> listAdapter = new ArrayAdapter<>
                 (this,
                  android.R.layout.simple_list_item_1,
                  exercises);
-        setContentView(R.layout.activity_exercise_list);
         setListAdapter(listAdapter);
+
         listView = getListView();
 
         listView.setOnItemClickListener(new OnItemClickListener()
@@ -60,11 +61,12 @@ public class SelectExerciseActivity
             {
                 Intent exerciseIntent = new Intent(SelectExerciseActivity.this,
                                                    ExerciseDescriptionActivity.class);
-                String GUID = exercises[position].getGUID();
+                String guid = exercises[position].getGUID();
                 Bundle b = new Bundle();
-                b.putString("GUID",
-                            GUID);
+                b.putString("guid",
+                            guid);
                 exerciseIntent.putExtras(b);
+
                 startActivityForResult(exerciseIntent,
                                        position);
             }
