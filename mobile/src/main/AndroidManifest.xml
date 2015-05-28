@@ -68,11 +68,19 @@
         </activity>
         <activity
             android:name="nl.fontys.exercisecontrol.TrainActivity"
-            android:label="@string/activityTrainTitle" >
+            android:label="@string/activityTrainTitle"
+            android:parentActivityName="nl.fontys.exercisecontrol.SelectLearnActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.fontys.exercisecontrol.SelectLearnActivity" />
         </activity>
 		<activity
 			android:name="nl.fontys.exercisecontrol.SelectLearnActivity"
-			android:label="@string/activitySelectExerciseTitle" >
+			android:label="@string/activitySelectExerciseTitle"
+            android:parentActivityName="nl.fontys.exercisecontrol.MainActivityMobile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.fontys.exercisecontrol.MainActivityMobile" />
 		</activity>
     </application>
 

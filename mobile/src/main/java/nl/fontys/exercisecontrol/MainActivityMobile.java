@@ -31,7 +31,7 @@ public class MainActivityMobile
     public static Context                  context;
     private static int     exerciseRequestCode = 1001;
     private static int     historyRequestCode  = 1002;
-    public static boolean learn               = true;
+    public static boolean learn               = false;
     private       ConnectionHandlerBackend connectionHandlerBackend;
     private       TextView                 helloWorldTextView;
 
@@ -50,18 +50,7 @@ public class MainActivityMobile
         helloWorldTextView = (TextView) findViewById(R.id.testTextView);
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
-        Button androidButton = (Button) findViewById(R.id.androidButton);
-        final Button tizenButton = (Button) findViewById(R.id.tizenButton);
-        tizenButton.setText("Learn");
-
-        androidButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // hmm.printHMM();
-            }
-        });
+        Button learnButton = (Button) findViewById(R.id.learnButton);
 
         View.OnClickListener listnr = new View.OnClickListener()
         {
@@ -87,7 +76,7 @@ public class MainActivityMobile
                     }
                 });
 
-        tizenButton.setOnClickListener(
+        learnButton.setOnClickListener(
                 new Button.OnClickListener()
                 {
                     public void onClick(View v)
@@ -95,15 +84,16 @@ public class MainActivityMobile
 
   /*                      if(learn){
                             learn = false;
-                            tizenButton.setText("Test");
+                            learnButton.setText("Test");
                         }else{
                             learn = true;
-                            tizenButton.setText("Learn");
+                            learnButton.setText("Learn");
                         }
 
                         //connectionHandlerBackend.sendExerciseData("Hallo Welt!");
 */
-                        Intent learnIntent = new Intent(MainActivityMobile.this, SelectLearnActivity.class);
+                        Intent learnIntent = new Intent(MainActivityMobile.this,
+                                                        SelectLearnActivity.class);
                         startActivity(learnIntent);
 
                     }

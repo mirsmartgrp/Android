@@ -6,12 +6,12 @@
 	<string name="activityMainWelcomeText">Welcome!</string>
 	<string name="activityMainExerciseButton">exercise list</string>
 	<string name="activityMainHistoryButton">History</string>
-	<string name="activityMainDebugDebugTextView">Debug Options</string>
-	<string name="activityMainDebugAndroidButton">Android</string>
-	<string name="activityMainDebugTizenButton">Tizen</string>
+	<string name="activityMainDebugLearnButton">Learn</string>
 
-	<string name="activityHistoryTitle">HistoryActivity</string>
-	<string name="activityTrainTitle">TrainActivity</string>
+	<string name="activityMainDebugDebugTextView">Debug Options</string>
+
+	<string name="activityHistoryTitle">History</string>
+	<string name="activityTrainTitle">Train exercise</string>
 
 	<!--Exercise list activity-->
 	<string name="activitySelectExerciseTitle">Select exercise</string>
