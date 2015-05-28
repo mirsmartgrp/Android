@@ -17,7 +17,7 @@ Note: This check does not only apply to attributes. For example, some tags can b
         errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="43"
+            line="38"
             column="4"/>
     </issue>
 
@@ -36,261 +36,6 @@ Note: This check does not only apply to attributes. For example, some tags can b
             file="/home/travis/build/mirsmartgrp/android/mobile/build.gradle"
             line="31"
             column="2"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentStart`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentStart=&quot;true&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="34"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_below`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_below=&quot;@+id/welcomeText&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="36"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentEnd`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentEnd=&quot;true&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="38"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_centerHorizontal`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_centerHorizontal=&quot;true&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="39"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentTop`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentTop=&quot;false&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="40"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentLeft`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentLeft=&quot;false&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="41"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentEnd`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentEnd=&quot;true&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="51"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_below`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_below=&quot;@+id/exerciseButton&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="53"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentStart`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentStart=&quot;true&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="54"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_row`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_row=&quot;3&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="64"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_column`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_column=&quot;1&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="65"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignParentStart`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignParentStart=&quot;true&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="66"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignBottom`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignBottom=&quot;@+id/historyButton&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="67"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_alignEnd`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_alignEnd=&quot;@+id/historyButton&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="68"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLayoutParam"
-        severity="Warning"
-        message="Invalid layout param in a `LinearLayout`: `layout_below`"
-        category="Performance"
-        priority="6"
-        summary="Obsolete layout params"
-        explanation="The given layout_param is not defined for the given layout, meaning it has no effect. This usually happens when you change the parent layout or move view code around without updating the layout params. This will cause useless attribute processing at runtime, and is misleading for others reading the layout so the parameter should be removed."
-        errorLine1="   android:layout_below=&quot;@+id/exerciseButton&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="69"
-            column="4"/>
     </issue>
 
     <issue
@@ -390,25 +135,8 @@ Note: This check does not only apply to attributes. For example, some tags can b
         quickfix="studio">
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/java/nl/fontys/exercisecontrol/guiSupport/LearnAdapter.java"
-            line="55"
+            line="54"
             column="16"/>
-    </issue>
-
-    <issue
-        id="InefficientWeight"
-        severity="Warning"
-        message="Use a `layout_height` of `0dp` instead of `wrap_content` for better performance"
-        category="Performance"
-        priority="3"
-        summary="Inefficient layout weight"
-        explanation="When only a single widget in a LinearLayout defines a weight, it is more efficient to assign a width/height of `0dp` to it since it will absorb all the remaining space anyway. With a declared width/height of `0dp` it does not have to measure its own size first."
-        errorLine1="   android:layout_height=&quot;wrap_content&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio,adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="62"
-            column="4"/>
     </issue>
 
     <issue
@@ -487,6 +215,23 @@ Note: This check does not only apply to attributes. For example, some tags can b
     <issue
         id="UselessParent"
         severity="Warning"
+        message="This `LinearLayout` layout or its `LinearLayout` parent is useless"
+        category="Performance"
+        priority="2"
+        summary="Useless parent layout"
+        explanation="A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy."
+        errorLine1=" &lt;LinearLayout"
+        errorLine2=" ^"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_learn_list.xml"
+            line="9"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        severity="Warning"
         message="This `LinearLayout` layout or its `RelativeLayout` parent is useless"
         category="Performance"
         priority="2"
@@ -498,23 +243,6 @@ Note: This check does not only apply to attributes. For example, some tags can b
         <location
             file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
             line="11"
-            column="2"/>
-    </issue>
-
-    <issue
-        id="UselessParent"
-        severity="Warning"
-        message="This `LinearLayout` layout or its `LinearLayout` parent is useless"
-        category="Performance"
-        priority="2"
-        summary="Useless parent layout"
-        explanation="A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy."
-        errorLine1=" &lt;LinearLayout"
-        errorLine2=" ^"
-        quickfix="adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
-            line="9"
             column="2"/>
     </issue>
 
@@ -544,29 +272,6 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
     <issue
         id="HardcodedText"
         severity="Warning"
-        message="[I18N] Hardcoded string &quot;Learn&quot;, should use `@string` resource"
-        category="Internationalization"
-        priority="5"
-        summary="Hardcoded text"
-        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
-
-* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
-
-* The application cannot be translated to other languages by just adding new translations for existing string resources.
-
-In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
-        errorLine1="   android:text=&quot;Learn&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~"
-        quickfix="adt">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
-            line="28"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="HardcodedText"
-        severity="Warning"
         message="[I18N] Hardcoded string &quot;cdxfhcfjhxchxvhvckvxcv&quot;, should use `@string` resource"
         category="Internationalization"
         priority="5"
@@ -582,7 +287,7 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         quickfix="adt">
         <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_learn_list.xml"
             line="18"
             column="4"/>
     </issue>
@@ -605,8 +310,31 @@ In Android Studio and Eclipse there are quickfixes to automatically extract this
         errorLine2="   ~~~~~~~~~~~~~~~~"
         quickfix="adt">
         <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_learn_list.xml"
             line="26"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="[I18N] Hardcoded string &quot;Learn&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:
+
+* When creating configuration variations (for example for landscape or portrait)you have to repeat the actual text (and keep it up to date when making changes)
+
+* The application cannot be translated to other languages by just adding new translations for existing string resources.
+
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="   android:text=&quot;Learn&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~"
+        quickfix="adt">
+        <location
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_train.xml"
+            line="28"
             column="4"/>
     </issue>
 
@@ -685,24 +413,6 @@ For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStar
     <issue
         id="RtlHardcoded"
         severity="Warning"
-        message="Redundant attribute `layout_alignParentLeft`; already defining `layout_alignParentStart` with `targetSdkVersion` 21"
-        category="Bi-directional Text"
-        priority="5"
-        summary="Using left/right instead of start/end attributes"
-        explanation="Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is rendered in locales where text flows from right to left. Use `Gravity#START` and `Gravity#END` instead. Similarly, in XML `gravity` and `layout_gravity` attributes, use `start` rather than `left`.
-For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should add *both* the older left/right attributes *as well as* the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.
-(Note: For `Gravity#LEFT` and `Gravity#START`, you can use these constants even when targeting older platforms, because the `start` bitmask is a superset of the `left` bitmask. Therefore, you can use `gravity=&quot;start&quot;` rather than `gravity=&quot;left|start&quot;`.)"
-        errorLine1="   android:layout_alignParentLeft=&quot;false&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_main.xml"
-            line="41"
-            column="4"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        severity="Warning"
         message="Use &quot;`start`&quot; instead of &quot;`left`&quot; to ensure correct behavior in right-to-left locales"
         category="Bi-directional Text"
         priority="5"
@@ -713,7 +423,7 @@ For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStar
         errorLine1="   android:layout_gravity=&quot;left&quot;"
         errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_learn_list.xml"
             line="20"
             column="4"/>
     </issue>
@@ -731,7 +441,7 @@ For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStar
         errorLine1="   android:layout_gravity=&quot;right&quot;"
         errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/learn_list_layout.xml"
+            file="/home/travis/build/mirsmartgrp/android/mobile/src/main/res/layout/activity_learn_list.xml"
             line="28"
             column="4"/>
     </issue>

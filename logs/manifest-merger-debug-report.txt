@@ -228,14 +228,18 @@ activity#nl.fontys.exercisecontrol.TrainActivity
 ADDED from AndroidManifest.xml:69:9
 	android:label
 		ADDED from AndroidManifest.xml:71:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:72:13
 	android:name
 		ADDED from AndroidManifest.xml:70:13
 activity#nl.fontys.exercisecontrol.SelectLearnActivity
-ADDED from AndroidManifest.xml:73:3
+ADDED from AndroidManifest.xml:77:3
 	android:label
-		ADDED from AndroidManifest.xml:75:4
+		ADDED from AndroidManifest.xml:79:4
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:80:13
 	android:name
-		ADDED from AndroidManifest.xml:74:4
+		ADDED from AndroidManifest.xml:78:4
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.google.android.gms:play-services:7.0.0:18:5
