@@ -31,7 +31,7 @@ public class MainActivityMobile
     public static Context                  context;
     private static int     exerciseRequestCode = 1001;
     private static int     historyRequestCode  = 1002;
-    private static boolean learn               = true;
+    public static boolean learn               = true;
     private       TextView                 textView;
     private       ConnectionHandlerBackend connectionHandlerBackend;
     private       TextView                 helloWorldTextView;
@@ -150,10 +150,26 @@ public class MainActivityMobile
                     {
                         try
                         {
-                            ObjectHelper.getInstance(context).getAnalysis().testExercise(ex);
+                           boolean result =  ObjectHelper.getInstance(context).getAnalysis().testExercise(ex);
+                            CharSequence text;
+                            if(result){
+                                text = "Exercise done right!";
+
+                           }else{
+                                text = "Exercise done wrong!";
+                           }
+                            int duration = Toast.LENGTH_LONG;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
                         }
                         catch (AnalysisError analysisError)
                         {
+                            CharSequence text = "Exercise not trained!";
+                            Toast toast = Toast.makeText(context,text,Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
                             analysisError.printStackTrace();
                         }
                     }

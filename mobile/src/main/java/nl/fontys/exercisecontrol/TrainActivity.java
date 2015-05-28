@@ -33,6 +33,10 @@ public class TrainActivity
         public void handleMessage(Message msg) {
 
             adapter.notifyDataSetChanged();
+            ListView listViewExersie = (ListView) findViewById(R.id.exeListView);
+            listViewExersie.smoothScrollToPosition(adapter.getCount() - 1);
+
+
         }
     };
 
@@ -102,6 +106,7 @@ public class TrainActivity
         Exercise exercise = ObjectHelper.getInstance(context).getActualExecercise();
         Analysis analysis = ObjectHelper.getInstance(context).getAnalysis();
         List<List<ObservationVector>> list = analysis.getLearnSequences(exercise);
+        MainActivityMobile.learn = true;
         adapter = new LearnAdapter(this,
                 list,
                 exercise);
@@ -117,5 +122,6 @@ public class TrainActivity
         super.onStop();
         ObjectHelper.getInstance(context).setTrainActivity(null);
         ObjectHelper.getInstance(context).setLearnAdapter(null);
+        MainActivityMobile.learn = false;
     }
 }
