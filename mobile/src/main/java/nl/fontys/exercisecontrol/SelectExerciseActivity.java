@@ -106,7 +106,7 @@ public class SelectExerciseActivity
         super.onActivityResult(requestCode,
                                resultCode,
                                data);
-        setResult(resultCode);
-        finish();
+//        setResult(resultCode);
+//        finish();
     }
 }

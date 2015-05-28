@@ -4,7 +4,7 @@
 	<string name="action_settings">Settings</string>
 
 	<string name="activityMainWelcomeText">Welcome!</string>
-	<string name="activityMainExerciseButton">exercise overview</string>
+	<string name="activityMainExerciseButton">exercise list</string>
 	<string name="activityMainHistoryButton">History</string>
 	<string name="activityMainDebugDebugTextView">Debug Options</string>
 	<string name="activityMainDebugAndroidButton">Android</string>

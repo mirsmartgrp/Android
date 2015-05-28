@@ -60,8 +60,11 @@
         </activity>
         <activity
             android:name="nl.fontys.exercisecontrol.ExerciseDescriptionActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/activityExerciseDescriptionTitle">
+            android:label="@string/activityExerciseDescriptionTitle"
+            android:parentActivityName="nl.fontys.exercisecontrol.SelectExerciseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.fontys.exercisecontrol.SelectExerciseActivity" />
         </activity>
         <activity
             android:name="nl.fontys.exercisecontrol.TrainActivity"
