@@ -24,7 +24,6 @@ public class ExerciseDescriptionActivity
     {
         super.onCreate(savedInstanceState);
 
-        setTitle("Exercise description");
         setContentView(R.layout.activity_exercise_description);
 
         Bundle b = getIntent().getExtras();

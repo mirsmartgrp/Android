@@ -16,16 +16,16 @@
 		android:layout_alignParentEnd="true"
 		android:layout_alignParentStart="true"
 		android:layout_alignParentTop="true"
-		android:text="Welcome!"
+		android:text="@string/activityMainWelcomeText"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textSize="50dp"/>
+		android:textSize="50sp"/>
 
 	<Button
 		android:id="@+id/exerciseButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentStart="true"
-		android:text="exercise overview"
+		android:text="@string/activityMainExerciseButton"
 		android:layout_below="@+id/welcomeText"
 		android:layout_marginTop="25dp"
 		android:layout_alignParentEnd="true"
@@ -42,7 +42,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
-		android:text="History"
+		android:text="@string/activityMainHistoryButton"
 		android:layout_below="@+id/exerciseButton"
 		android:layout_alignParentStart="true"
 		android:minHeight="125dp"/>
@@ -61,11 +61,8 @@
 			android:id="@+id/debugTextView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_above="@+id/testTextView"
-			android:layout_alignParentEnd="true"
-			android:layout_alignParentStart="true"
-			android:text="Debug Options"
-			android:textSize="25dp"
+			android:text="@string/activityMainDebugDebugTextView"
+			android:textSize="25sp"
 			android:layout_row="0"
 			android:layout_column="0"/>
 
@@ -73,8 +70,6 @@
 			android:id="@+id/testTextView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_above="@+id/androidButton"
-			android:text="@string/hello_world"
 			android:layout_row="2"
 			android:layout_column="0"/>
 
@@ -82,9 +77,7 @@
 			android:id="@+id/androidButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentStart="true"
-			android:text="Android"
+			android:text="@string/activityMainDebugAndroidButton"
 			android:layout_row="3"
 			android:layout_column="0"/>
 
@@ -92,9 +85,7 @@
 			android:id="@+id/tizenButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:layout_toEndOf="@+id/androidButton"
-			android:text="Tizen"
+			android:text="@string/activityMainDebugTizenButton"
 			android:layout_row="3"
 			android:layout_column="1"/>
 	</GridLayout>

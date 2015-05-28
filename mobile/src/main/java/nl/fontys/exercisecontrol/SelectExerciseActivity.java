@@ -15,7 +15,6 @@ import android.widget.ListView;
 import java.util.Collection;
 
 import nl.fontys.exercisecontrol.exercise.Exercise;
-import nl.fontys.exercisecontrol.exercise.ExerciseHashMap;
 import nl.fontys.exercisecontrol.exercise.ExerciseList;
 import nl.fontys.exercisecontrol.exercise.ObjectHelper;
 import nl.fontys.exercisecontrol.exercise.R;
@@ -37,8 +36,7 @@ public class SelectExerciseActivity
 
         context = getApplicationContext();
 
-        setTitle("Select exercise");
-        setContentView(R.layout.activity_exercise_list);
+        setContentView(R.layout.activity_select_exercise);
 
         final ExerciseList exerciseList = ObjectHelper.getInstance(context).getExerciseList();
         Collection<Exercise> exerciseCollection = exerciseList.getEXERCISE_HASH_MAP().valuesSortedByName();

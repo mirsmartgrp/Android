@@ -40,7 +40,6 @@ public class MainActivityMobile
 
         context = getBaseContext();
 
-        setTitle("Exercise Control App");
         setContentView(R.layout.activity_main);
 
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
