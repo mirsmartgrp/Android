@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol.guiSupport;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,7 @@ public class LearnAdapter
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.exeName.setText(exercise.getNAME() + " " + position + 1);
+        holder.exeName.setText(exercise.getNAME() + " " + (position+1));
         holder.delButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
