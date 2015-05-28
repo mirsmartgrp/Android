@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,9 +31,11 @@ public class MainActivityMobile
     public static Context                  context;
     private static int     exerciseRequestCode = 1001;
     private static int     historyRequestCode  = 1002;
-    private static boolean learn               = true;
+    public static boolean learn               = true;
     private       ConnectionHandlerBackend connectionHandlerBackend;
     private       TextView                 helloWorldTextView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +44,6 @@ public class MainActivityMobile
 
         context = getBaseContext();
 
-        setTitle("Exercise Control App");
         setContentView(R.layout.activity_main);
 
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
@@ -143,10 +146,26 @@ public class MainActivityMobile
                     {
                         try
                         {
-                            ObjectHelper.getInstance(context).getAnalysis().testExercise(ex);
+                           boolean result =  ObjectHelper.getInstance(context).getAnalysis().testExercise(ex);
+                            CharSequence text;
+                            if(result){
+                                text = "Exercise done right!";
+
+                           }else{
+                                text = "Exercise done wrong!";
+                           }
+                            int duration = Toast.LENGTH_LONG;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
                         }
                         catch (AnalysisError analysisError)
                         {
+                            CharSequence text = "Exercise not trained!";
+                            Toast toast = Toast.makeText(context,text,Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
                             analysisError.printStackTrace();
                         }
                     }
@@ -185,10 +204,10 @@ public class MainActivityMobile
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
+//        if (id == R.id.action_settings)
+//        {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

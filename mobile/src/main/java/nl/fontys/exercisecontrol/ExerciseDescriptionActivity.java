@@ -24,7 +24,6 @@ public class ExerciseDescriptionActivity
     {
         super.onCreate(savedInstanceState);
 
-        setTitle("Exercise description");
         setContentView(R.layout.activity_exercise_description);
 
         Bundle b = getIntent().getExtras();
@@ -73,10 +72,10 @@ public class ExerciseDescriptionActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
+//        if (id == R.id.action_settings)
+//        {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
