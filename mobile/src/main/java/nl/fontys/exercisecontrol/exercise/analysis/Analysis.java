@@ -26,7 +26,7 @@ import nl.fontys.exercisecontrol.exercise.SingleExerciseData;
 public class Analysis {
 
 
-    private static final int FAILURE_TOLERANCE = 4;
+    private static final int FAILURE_TOLERANCE = 6;
     private Map<String, List<List<ObservationVector>>> map = new HashMap<String, List<List<ObservationVector>>>();
 
 
@@ -83,6 +83,7 @@ public class Analysis {
                     min = distance;
                 }
             }
+            Log.d("Min","Min:" +min);
             return min <= FAILURE_TOLERANCE;
         } else {
             throw new AnalysisError("Exercise Data is empty!");
