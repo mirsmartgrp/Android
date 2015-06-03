@@ -40,9 +40,14 @@ public class ExerciseDescriptionActivity
         VideoView exerciseVideoView = (VideoView) findViewById(R.id.exerciseVideoView);
 
         //Displaying the video, needs an mp4 links afaik.
-        String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
-        Uri vidUri = Uri.parse(vidAddress);
-        exerciseVideoView.setVideoURI(vidUri);
+     //   String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
+        String vidAddress = exercise.getVIDEO_IMAGE();
+        if(vidAddress.startsWith("https")) {
+            Uri vidUri = Uri.parse(vidAddress);
+            exerciseVideoView.setVideoURI(vidUri);
+        }else{
+            exerciseVideoView.setVideoPath(vidAddress);
+        }
 
         //Implementing Video controlls
         MediaController vidControl = new MediaController(this);
