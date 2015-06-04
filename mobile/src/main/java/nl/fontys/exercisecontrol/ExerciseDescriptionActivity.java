@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import java.io.File;
 
 import nl.fontys.exercisecontrol.exercise.Exercise;
 import nl.fontys.exercisecontrol.exercise.ObjectHelper;
@@ -46,7 +49,11 @@ public class ExerciseDescriptionActivity
             Uri vidUri = Uri.parse(vidAddress);
             exerciseVideoView.setVideoURI(vidUri);
         }else{
-            exerciseVideoView.setVideoPath(vidAddress);
+           File movie = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),
+                    vidAddress);
+
+           exerciseVideoView.setVideoPath(movie.getAbsolutePath());
+
         }
 
         //Implementing Video controlls
