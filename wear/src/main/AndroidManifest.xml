@@ -35,6 +35,15 @@
             android:name=".MessageViewActivity"
             android:label="@string/title_activity_message_view" >
         </activity>
+        <activity
+            android:name=".TrainingActivity"
+            android:label="@string/title_activity_training" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

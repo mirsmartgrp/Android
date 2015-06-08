@@ -16,4 +16,5 @@
     <string name="messageSendSuccess">data send to phone</string>
     <string name="messageSendFailed">no connection to phone</string>
     <string name="measurementFailed">measurement failed</string>
+    <string name="title_activity_training">TrainingActivity</string>
 </resources>
