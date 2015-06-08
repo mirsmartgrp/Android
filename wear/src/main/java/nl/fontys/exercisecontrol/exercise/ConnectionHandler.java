@@ -13,12 +13,21 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+
+import nl.fontys.exercisecontrol.exercise.exlist.Exercise;
+import nl.fontys.exercisecontrol.exercise.exlist.ExerciseList;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by max on 16.04.15.
@@ -42,8 +51,11 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
         mApiClient = new GoogleApiClient.Builder(context)
                 .addApi( Wearable.API ).build();
         mApiClient.registerConnectionCallbacks(this);
-
-            connectGogleClient();
+            if(mApiClient.isConnected()){
+                onConnected(null);
+            }else {
+                connectGogleClient();
+            }
             Log.d(this.getClass().getName(), Boolean.toString(mApiClient.isConnectionCallbacksRegistered(this)));
     }
     @Override
@@ -52,23 +64,60 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
         Wearable.MessageApi.addListener(mApiClient, new MessageApi.MessageListener() {
             @Override
             public void onMessageReceived(MessageEvent messageEvent) {
-                Log.d(this.getClass().getName(), "message received " + messageEvent.getData().toString());
-                if (isFeedback(messageEvent)) {
-                    handleFeedback(messageEvent);
-                } else if (isDownload(messageEvent)) {
-                    handleDownload(messageEvent);
-                } else {
-                    Log.d(this.getClass().getName(), "unknown message " + messageEvent);
+                String data = new String(messageEvent.getData());
+                Log.d(this.getClass().getName(), "message received " + data);
+                if (isFeedback(data)) {
+                    handleFeedback(data);
+                } else if (isDownload(data)) {
+                    handleDownload(data);
+                } else if(isSelect(data)) {
+                    handleSelect(data);
+                }else{
+                    Log.d(this.getClass().getName(), "unknown message " + messageEvent.getData());
                 }
             }
         });
     }
 
+    private void handleSelect(String data){
+
+        try {
+            JSONObject json = new JSONObject(data);
+            String guid = (String) json.get("selected");
+            List<Exercise> exerciseList = SelectExerciseActivityWear.getExerciseList();
+            if(exerciseList != null){
+
+                Exercise exercise = null;
+                for(Exercise ex : exerciseList){
+                    if(ex.getGuid().equals(guid)){
+                        exercise = ex;
+                        break;
+                    }
+                }
+                if(exercise != null){
+                    Intent i = new Intent(context, MainActivityWear.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(SelectExerciseActivityWear.EXERCISE_NAME, exercise.getName());
+                    bundle.putString(SelectExerciseActivityWear.EXERCISE_GUID, exercise.getGuid());
+                    i.putExtras(bundle);
+                    context.startActivity(i);
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     /**
      * Download exercise list
      * or just copy string ?
      */
-    private void handleDownload(MessageEvent event) {
+    private void handleDownload(String jsonData) {
             BufferedInputStream in = null;
             FileOutputStream fout = null;
             String urlString="";
@@ -110,31 +159,36 @@ public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks {
 
     /**
      * show feedback message
-     * @param messageEvent
+     *
      */
-    private void handleFeedback(MessageEvent messageEvent) {
+    private void handleFeedback(String data) {
         //TODO impl
         Intent i=new Intent(context,MessageViewActivity.class);
-        i.putExtra(FEEDBACK, messageEvent.getData() );
+        i.putExtra(FEEDBACK, data);
         context.startActivity(i);
     }
 
     /**
      * TODO: determine how to check if feedback
-     * @param messageEvent message received
+     *
      * @return true if message indicates to download exercises
      */
-    private boolean isDownload(MessageEvent messageEvent) {
-        return messageEvent.getData().toString().contains("feedback");
+    private boolean isDownload(String data) {
+        return data.contains("exercise");
 
     }
 
+    private boolean isSelect(String data){
+        return data.contains("selected");
+    }
+
+
     /**
-     * @param messageEvent messsage received
+     *
      * @return true if messae contains feedback for exercises
      */
-    private boolean isFeedback(MessageEvent messageEvent) {
-        return messageEvent.getData().toString().contains("exercise");
+    private boolean isFeedback(String data) {
+        return data.contains("feedback");
     }
 
 

@@ -29,11 +29,16 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
     public final static String EXERCISE_NAME="nl.fontys.exercisecontrol.exercise.ExerciseName";
     public final static String EXERCISE_GUID="nl.fontys.exercisecontrol.exercise.ExerciseGUID";
 
-    private  List<Exercise> listItems;
+    private static  List<Exercise> listItems;
     private static final String TAG="LOG";
 
     public SelectExerciseActivityWear() {
     }
+
+    public static List<Exercise> getExerciseList(){
+        return  listItems;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class SelectExerciseActivityWear extends Activity implements WearableList
         });
         InputStream inputStream = getResources().openRawResource(R.raw.exerciseist);
         listItems=loadExerciseList(inputStream);
+        ObjectHelper.getInstance(getApplicationContext());
 
     }
 

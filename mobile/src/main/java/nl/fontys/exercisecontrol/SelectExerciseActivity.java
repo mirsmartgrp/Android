@@ -64,6 +64,7 @@ public class SelectExerciseActivity
                 b.putString("guid",
                             guid);
                 exerciseIntent.putExtras(b);
+                ObjectHelper.getInstance(context).setActualExecercise(exercises[position]);
 
                 startActivityForResult(exerciseIntent,
                                        position);

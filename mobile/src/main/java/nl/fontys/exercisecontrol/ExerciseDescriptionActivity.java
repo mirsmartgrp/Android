@@ -7,9 +7,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -43,7 +48,7 @@ public class ExerciseDescriptionActivity
         VideoView exerciseVideoView = (VideoView) findViewById(R.id.exerciseVideoView);
 
         //Displaying the video, needs an mp4 links afaik.
-     //   String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
+        //   String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
         String vidAddress = exercise.getVIDEO_IMAGE();
         if(vidAddress.startsWith("https")) {
             Uri vidUri = Uri.parse(vidAddress);
@@ -55,6 +60,24 @@ public class ExerciseDescriptionActivity
            exerciseVideoView.setVideoPath(movie.getAbsolutePath());
 
         }
+
+        Button start = (Button) findViewById(R.id.startButton);
+
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                Exercise ex = ObjectHelper.getInstance(context).getActualExecercise();
+                JSONObject json = new JSONObject();
+                json.put("selected",ex.getGUID());
+                String s = json.toString();
+                ObjectHelper.getInstance(context).getConnectionHandler().sendExerciseData(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         //Implementing Video controlls
         MediaController vidControl = new MediaController(this);
