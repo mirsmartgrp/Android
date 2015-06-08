@@ -3,6 +3,7 @@ package nl.fontys.exercisecontrol.exercise;
 import android.content.Context;
 
 import nl.fontys.exercisecontrol.TrainActivity;
+import nl.fontys.exercisecontrol.connection.ConnectionHandlerBackend;
 import nl.fontys.exercisecontrol.exercise.analysis.Analysis;
 import nl.fontys.exercisecontrol.guiSupport.LearnAdapter;
 
@@ -20,6 +21,7 @@ public class ObjectHelper
     private TrainActivity trainActivity;
     private ExerciseList  exerciseList;
     private Context       context;
+    private ConnectionHandlerBackend connectionHandler;
 
     private ObjectHelper(Context context)
     {
@@ -83,5 +85,13 @@ public class ObjectHelper
     public void setTrainActivity(TrainActivity trainActivity)
     {
         this.trainActivity = trainActivity;
+    }
+
+    public void setConnectionHandler(ConnectionHandlerBackend connectionHandler) {
+        this.connectionHandler = connectionHandler;
+    }
+
+    public ConnectionHandlerBackend getConnectionHandler() {
+        return connectionHandler;
     }
 }

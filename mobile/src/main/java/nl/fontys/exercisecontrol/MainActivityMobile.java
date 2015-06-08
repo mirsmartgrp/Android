@@ -47,6 +47,7 @@ public class MainActivityMobile
         setContentView(R.layout.activity_main);
 
         connectionHandlerBackend = new ConnectionHandlerBackend(this);
+        ObjectHelper.getInstance(context).setConnectionHandler(connectionHandlerBackend);
         helloWorldTextView = (TextView) findViewById(R.id.testTextView);
         Button exerciseButton = (Button) findViewById(R.id.exerciseButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
