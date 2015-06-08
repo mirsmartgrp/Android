@@ -2,9 +2,15 @@ package nl.fontys.exercisecontrol;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +52,9 @@ public class ExerciseDescriptionActivity
         exerciseDescriptionTextView.setText(exercise.getDESCRIPTION());
 
         VideoView exerciseVideoView = (VideoView) findViewById(R.id.exerciseVideoView);
-
+        MediaController vidControl = new MediaController(this);
+        vidControl.setAnchorView(exerciseVideoView);
+        exerciseVideoView.setMediaController(vidControl);
         //Displaying the video, needs an mp4 links afaik.
         //   String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
         String vidAddress = exercise.getVIDEO_IMAGE();
@@ -60,6 +68,8 @@ public class ExerciseDescriptionActivity
            exerciseVideoView.setVideoPath(movie.getAbsolutePath());
 
         }
+
+
 
         Button start = (Button) findViewById(R.id.startButton);
 
@@ -79,13 +89,6 @@ public class ExerciseDescriptionActivity
         });
 
 
-        //Implementing Video controlls
-        MediaController vidControl = new MediaController(this);
-        vidControl.setAnchorView(exerciseVideoView);
-        exerciseVideoView.setMediaController(vidControl);
-
-        exerciseVideoView.start();
-        //Video autostarts, may only on a seperate button click event.
     }
 
 
