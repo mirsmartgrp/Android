@@ -16,6 +16,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementCollector;
@@ -35,7 +37,7 @@ public class TrainingActivity extends Activity implements SensorEventListener {
     private Button stopBtn;
     private SensorManager sensorManager;
     private long startTime;
-    private JSONObject mainObj=new JSONObject();
+    private JSONArray mainObj=new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class TrainingActivity extends Activity implements SensorEventListener {
             chronometer = (Chronometer) findViewById(R.id.chronometer);
             chronometer.setBase(SystemClock.elapsedRealtime()); //reset to 0
             registerSensors();
+
             startTime = System.nanoTime();
             chronometer.start();
             setExerciseNameToHeaderLbl();
@@ -158,20 +161,44 @@ public class TrainingActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         Log.d(TAG, "sensor changed");
+        JSONObject sensorObj = new JSONObject();
+
+
+
         if(event.sensor.getType()==Sensor.TYPE_GYROSCOPE) {
+            try {
+                sensorObj.put("secondsSinceStart", (event.timestamp-startTime)/1000);
+                sensorObj.put("x", event.values[0]);
+                sensorObj.put("y", event.values[1]);
+                sensorObj.put("z", event.values[2]);
+                Log.d(TAG, "gyroscope sensor data added");
 
+            } catch (JSONException e) {
+                Log.d(TAG,"cant add gyroscope data");
+                e.printStackTrace();
+            }
         }
-        else if(event.sensor.getType()==Sensor.TYPE_GYROSCOPE) {
+        else if(event.sensor.getType()==Sensor.TYPE_LINEAR_ACCELERATION) {
+            try {
+                sensorObj.put("secondsSinceStart", (event.timestamp-startTime)/1000);
+                sensorObj.put("x", event.values[0]);
+                sensorObj.put("y", event.values[1]);
+                sensorObj.put("z", event.values[2]);
+                Log.d(TAG, "acceleration sensor data added");
 
+            } catch (JSONException e) {
+                Log.d(TAG,"cant set acceleration data");
+                e.printStackTrace();
+            }
         }
-        else {
-            //nothing
-        }
+
+
+        mainObj.put(sensorObj);
 
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+        Log.d(TAG,"accuracy changed");
     }
 }
