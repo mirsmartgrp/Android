@@ -70,7 +70,8 @@ public class ExerciseDescriptionActivity
                 Exercise ex = ObjectHelper.getInstance(context).getActualExecercise();
                 JSONObject json = new JSONObject();
                 json.put("selected",ex.getGUID());
-                ObjectHelper.getInstance(context).getConnectionHandler().sendExerciseData(json.toString());
+                String s = json.toString();
+                ObjectHelper.getInstance(context).getConnectionHandler().sendExerciseData(s);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

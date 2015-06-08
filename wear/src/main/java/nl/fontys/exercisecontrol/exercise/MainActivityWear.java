@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
@@ -31,11 +32,25 @@ public class MainActivityWear extends Activity {
     private final static String TAG="LOG";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        handler = new ConnectionHandler(this);
+        handler = ObjectHelper.getInstance(getApplicationContext()).getConnectionHandler();
+
+
+        final WatchViewStub stub = (WatchViewStub)findViewById(R.id.watch_view_stub);
+        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
+            @Override
+            public void onLayoutInflated(WatchViewStub watchViewStub) {
+                TextView textView = (TextView) findViewById(R.id.headerLbl);
+                Bundle bundle = getIntent().getExtras();
+                String name = bundle.getString(SelectExerciseActivityWear.EXERCISE_NAME);
+                textView.setText(name);
+
+            }
+        });
 
         collector = new JsonMeasurementCollectorImpl();
         recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
@@ -77,7 +92,8 @@ public class MainActivityWear extends Activity {
     @Override
     public void onDestroy() {
     super.onDestroy();
-    handler.disconnectGoogleClient();
+    //handler.disconnectGoogleClient();
+
     recorder.stop();
     recorder.terminate();
     }
