@@ -1,6 +1,7 @@
 package nl.fontys.exercisecontrol.exercise.collector;
 
 import android.hardware.Sensor;
+import android.util.Log;
 
 import java.util.ListIterator;
 
@@ -32,17 +33,6 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
         DataEntry dataEntry = null;
 
-        ListIterator<DataEntry> iter = exerciseData.getSensorData().listIterator(exerciseData.getSensorData().size());
-        while (iter.hasPrevious()) {
-            DataEntry entry = iter.previous();
-            if (entry.getSecondsSinceStart() >= time - interval) {
-                dataEntry = entry;
-                break;
-            }
-        }
-        if (dataEntry == null)
-            dataEntry = new DataEntry(time);
-
         // assign data to entry object
         switch (sensor.getType()) {
             case Sensor.TYPE_LINEAR_ACCELERATION:
@@ -55,11 +45,24 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
                 throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
 
+        ListIterator<DataEntry> iter = exerciseData.getSensorData().listIterator(exerciseData.getSensorData().size());
+        while (iter.hasPrevious()) {
+            DataEntry entry = iter.previous();
+            if (entry.getSecondsSinceStart() >= time - interval) {
+                dataEntry = entry;
+                break;
+            }
+        }
+
+        if (dataEntry == null) {
+            dataEntry = new DataEntry(time);
+            exerciseData.getSensorData().add(dataEntry);
+        }
+
         if (accelerometer != null)
             dataEntry.setAccelerometer(accelerometer);
         if (gyroscope != null)
             dataEntry.setGyroscope(gyroscope);
-        exerciseData.getSensorData().add(dataEntry);
     }
 
     public abstract void collectionComplete(ExerciseData data);
