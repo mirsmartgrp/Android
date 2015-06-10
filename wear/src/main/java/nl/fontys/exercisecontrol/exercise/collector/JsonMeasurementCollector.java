@@ -1,8 +1,7 @@
 package nl.fontys.exercisecontrol.exercise.collector;
 
 import android.hardware.Sensor;
-import android.util.Log;
-
+import java.util.List;
 import java.util.ListIterator;
 
 import nl.fontys.exercisecontrol.exercise.recorder.MeasurementCollector;
@@ -11,6 +10,7 @@ import nl.fontys.exercisecontrol.exercise.recorder.MeasurementException;
 public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
     private ExerciseData exerciseData = null;
+    private List<DataEntry> sensorData = null;
     private DataEntry.Vector accelerometer = null;
     private DataEntry.Vector gyroscope = null;
 
@@ -19,6 +19,7 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
         accelerometer = null;
         gyroscope = null;
         exerciseData = new ExerciseData(guid);
+        sensorData = exerciseData.getSensorData();
     }
 
     @Override
@@ -31,8 +32,6 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
 
     @Override
     public void collectMeasurement(Sensor sensor, double time, float[] values, int accuracy, double interval) throws MeasurementException {
-        DataEntry dataEntry = null;
-
         // assign data to entry object
         switch (sensor.getType()) {
             case Sensor.TYPE_LINEAR_ACCELERATION:
@@ -45,24 +44,17 @@ public abstract class JsonMeasurementCollector implements MeasurementCollector {
                 throw new MeasurementException(String.format("Sensor %s not implemented.", sensor.getName()));
         }
 
-        ListIterator<DataEntry> iter = exerciseData.getSensorData().listIterator(exerciseData.getSensorData().size());
-        while (iter.hasPrevious()) {
-            DataEntry entry = iter.previous();
-            if (entry.getSecondsSinceStart() >= time - interval) {
-                dataEntry = entry;
-                break;
-            }
-        }
-
-        if (dataEntry == null) {
-            dataEntry = new DataEntry(time);
-            exerciseData.getSensorData().add(dataEntry);
+        DataEntry entry;
+        if ((sensorData.size() == 0) || ((entry = sensorData.get(sensorData.size() - 1)) == null) ||
+            (entry.getSecondsSinceStart() < time - interval)) {
+            entry = new DataEntry(time);
+            exerciseData.getSensorData().add(entry);
         }
 
         if (accelerometer != null)
-            dataEntry.setAccelerometer(accelerometer);
+            entry.setAccelerometer(accelerometer);
         if (gyroscope != null)
-            dataEntry.setGyroscope(gyroscope);
+            entry.setGyroscope(gyroscope);
     }
 
     public abstract void collectionComplete(ExerciseData data);

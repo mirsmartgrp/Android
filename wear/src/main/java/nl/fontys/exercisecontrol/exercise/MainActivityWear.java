@@ -56,7 +56,7 @@ public class MainActivityWear extends Activity {
         });
 
         collector = new JsonMeasurementCollectorImpl();
-        recorder = new MeasurementRecorder(this,initSensors(), 1, collector);
+        recorder = new MeasurementRecorder(this,initSensors(), 10, collector);
         recorder.initialize();
 
 

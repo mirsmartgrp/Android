@@ -1,7 +1,6 @@
 package nl.fontys.exercisecontrol.exercise.recorder;
 
 import android.hardware.SensorEvent;
-import android.util.Log;
 
 /**
  * Adaptor between SensorEventListener and MeasurementCollector
@@ -19,7 +18,7 @@ public class MeasurementAdaptor {
         this.sensorData = sensorData;
         this.collector = collector;
         this.startTime = startTime;
-        samplingDelayUs = 1000000 / sensorData.getSamplingRate();
+        samplingDelayUs = 1000000000 / sensorData.getSamplingRate();
         samplingInterval = 1.0 / (double)sensorData.getSamplingRate();
     }
 
